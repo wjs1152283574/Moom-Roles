@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package api.roles.service.v1;
+
+option go_package = "github.com/it-moom/moom-roles/api/roles/service/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.roles.service.v1";
+
+service Roles {
+	rpc CreateRoles (CreateRolesRequest) returns (CreateRolesReply);
+	rpc UpdateRoles (UpdateRolesRequest) returns (UpdateRolesReply);
+	rpc DeleteRoles (DeleteRolesRequest) returns (DeleteRolesReply);
+	rpc GetRoles (GetRolesRequest) returns (GetRolesReply);
+	rpc ListRoles (ListRolesRequest) returns (ListRolesReply);
+}
+
+message CreateRolesRequest {}
+message CreateRolesReply {}
+
+message UpdateRolesRequest {}
+message UpdateRolesReply {}
+
+message DeleteRolesRequest {}
+message DeleteRolesReply {}
+
+message GetRolesRequest {}
+message GetRolesReply {}
+
+message ListRolesRequest {}
+message ListRolesReply {}
