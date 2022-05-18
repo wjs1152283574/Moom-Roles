@@ -1,17 +1,19 @@
 syntax = "proto3";
 
 package api.roles.service.v1;
+import "google/api/annotations.proto";
 
 option go_package = "github.com/it-moom/moom-roles/api/roles/service/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.roles.service.v1";
 
 service Roles {
-	rpc CreateRoles (CreateRolesRequest) returns (CreateRolesReply);
-	rpc UpdateRoles (UpdateRolesRequest) returns (UpdateRolesReply);
-	rpc DeleteRoles (DeleteRolesRequest) returns (DeleteRolesReply);
-	rpc GetRoles (GetRolesRequest) returns (GetRolesReply);
-	rpc ListRoles (ListRolesRequest) returns (ListRolesReply);
+	rpc CreateRoles (CreateRolesRequest) returns (CreateRolesReply){
+		option (google.api.http) = {
+            post: "/v1/roles/create",
+            body:"*"  
+        };
+	};
 }
 
 message CreateRolesRequest {}

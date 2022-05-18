@@ -91,6 +91,17 @@ initdb:
 run:
 	cd app/${app}/service && make run
 
+
+.PHONY: wire
+# wire
+wire:
+	cd app/${app}/service/cmd/server && wire && cd .. && cd ..
+
+.PHONY: mod
+# mod
+mod:
+	go env -w GOOS=darwin && go mod tidy && cd app/${app}/service && make run
+	
 # show help
 help:
 	@echo ''

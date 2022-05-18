@@ -23,10 +23,6 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RolesClient interface {
 	CreateRoles(ctx context.Context, in *CreateRolesRequest, opts ...grpc.CallOption) (*CreateRolesReply, error)
-	UpdateRoles(ctx context.Context, in *UpdateRolesRequest, opts ...grpc.CallOption) (*UpdateRolesReply, error)
-	DeleteRoles(ctx context.Context, in *DeleteRolesRequest, opts ...grpc.CallOption) (*DeleteRolesReply, error)
-	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesReply, error)
-	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesReply, error)
 }
 
 type rolesClient struct {
@@ -46,51 +42,11 @@ func (c *rolesClient) CreateRoles(ctx context.Context, in *CreateRolesRequest, o
 	return out, nil
 }
 
-func (c *rolesClient) UpdateRoles(ctx context.Context, in *UpdateRolesRequest, opts ...grpc.CallOption) (*UpdateRolesReply, error) {
-	out := new(UpdateRolesReply)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/UpdateRoles", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rolesClient) DeleteRoles(ctx context.Context, in *DeleteRolesRequest, opts ...grpc.CallOption) (*DeleteRolesReply, error) {
-	out := new(DeleteRolesReply)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/DeleteRoles", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rolesClient) GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesReply, error) {
-	out := new(GetRolesReply)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/GetRoles", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rolesClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesReply, error) {
-	out := new(ListRolesReply)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/ListRoles", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RolesServer is the server API for Roles service.
 // All implementations must embed UnimplementedRolesServer
 // for forward compatibility
 type RolesServer interface {
 	CreateRoles(context.Context, *CreateRolesRequest) (*CreateRolesReply, error)
-	UpdateRoles(context.Context, *UpdateRolesRequest) (*UpdateRolesReply, error)
-	DeleteRoles(context.Context, *DeleteRolesRequest) (*DeleteRolesReply, error)
-	GetRoles(context.Context, *GetRolesRequest) (*GetRolesReply, error)
-	ListRoles(context.Context, *ListRolesRequest) (*ListRolesReply, error)
 	mustEmbedUnimplementedRolesServer()
 }
 
@@ -100,18 +56,6 @@ type UnimplementedRolesServer struct {
 
 func (UnimplementedRolesServer) CreateRoles(context.Context, *CreateRolesRequest) (*CreateRolesReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRoles not implemented")
-}
-func (UnimplementedRolesServer) UpdateRoles(context.Context, *UpdateRolesRequest) (*UpdateRolesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoles not implemented")
-}
-func (UnimplementedRolesServer) DeleteRoles(context.Context, *DeleteRolesRequest) (*DeleteRolesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoles not implemented")
-}
-func (UnimplementedRolesServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
-}
-func (UnimplementedRolesServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
 func (UnimplementedRolesServer) mustEmbedUnimplementedRolesServer() {}
 
@@ -144,78 +88,6 @@ func _Roles_CreateRoles_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Roles_UpdateRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRolesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RolesServer).UpdateRoles(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/UpdateRoles",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).UpdateRoles(ctx, req.(*UpdateRolesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Roles_DeleteRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteRolesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RolesServer).DeleteRoles(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/DeleteRoles",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).DeleteRoles(ctx, req.(*DeleteRolesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Roles_GetRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRolesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RolesServer).GetRoles(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/GetRoles",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).GetRoles(ctx, req.(*GetRolesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Roles_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRolesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RolesServer).ListRoles(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/ListRoles",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).ListRoles(ctx, req.(*ListRolesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Roles_ServiceDesc is the grpc.ServiceDesc for Roles service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -226,22 +98,6 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRoles",
 			Handler:    _Roles_CreateRoles_Handler,
-		},
-		{
-			MethodName: "UpdateRoles",
-			Handler:    _Roles_UpdateRoles_Handler,
-		},
-		{
-			MethodName: "DeleteRoles",
-			Handler:    _Roles_DeleteRoles_Handler,
-		},
-		{
-			MethodName: "GetRoles",
-			Handler:    _Roles_GetRoles_Handler,
-		},
-		{
-			MethodName: "ListRoles",
-			Handler:    _Roles_ListRoles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
