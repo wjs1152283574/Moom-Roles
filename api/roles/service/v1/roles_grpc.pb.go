@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RolesClient interface {
-	CreateRoles(ctx context.Context, in *CreateRolesRequest, opts ...grpc.CallOption) (*CreateRolesReply, error)
+	CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...grpc.CallOption) (*CreateSuperUserResponse, error)
 }
 
 type rolesClient struct {
@@ -33,9 +33,9 @@ func NewRolesClient(cc grpc.ClientConnInterface) RolesClient {
 	return &rolesClient{cc}
 }
 
-func (c *rolesClient) CreateRoles(ctx context.Context, in *CreateRolesRequest, opts ...grpc.CallOption) (*CreateRolesReply, error) {
-	out := new(CreateRolesReply)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CreateRoles", in, out, opts...)
+func (c *rolesClient) CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...grpc.CallOption) (*CreateSuperUserResponse, error) {
+	out := new(CreateSuperUserResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CreateSuperUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *rolesClient) CreateRoles(ctx context.Context, in *CreateRolesRequest, o
 // All implementations must embed UnimplementedRolesServer
 // for forward compatibility
 type RolesServer interface {
-	CreateRoles(context.Context, *CreateRolesRequest) (*CreateRolesReply, error)
+	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
 	mustEmbedUnimplementedRolesServer()
 }
 
@@ -54,8 +54,8 @@ type RolesServer interface {
 type UnimplementedRolesServer struct {
 }
 
-func (UnimplementedRolesServer) CreateRoles(context.Context, *CreateRolesRequest) (*CreateRolesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRoles not implemented")
+func (UnimplementedRolesServer) CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSuperUser not implemented")
 }
 func (UnimplementedRolesServer) mustEmbedUnimplementedRolesServer() {}
 
@@ -70,20 +70,20 @@ func RegisterRolesServer(s grpc.ServiceRegistrar, srv RolesServer) {
 	s.RegisterService(&Roles_ServiceDesc, srv)
 }
 
-func _Roles_CreateRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRolesRequest)
+func _Roles_CreateSuperUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSuperUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServer).CreateRoles(ctx, in)
+		return srv.(RolesServer).CreateSuperUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/CreateRoles",
+		FullMethod: "/api.roles.service.v1.Roles/CreateSuperUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).CreateRoles(ctx, req.(*CreateRolesRequest))
+		return srv.(RolesServer).CreateSuperUser(ctx, req.(*CreateSuperUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +96,8 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RolesServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateRoles",
-			Handler:    _Roles_CreateRoles_Handler,
+			MethodName: "CreateSuperUser",
+			Handler:    _Roles_CreateSuperUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

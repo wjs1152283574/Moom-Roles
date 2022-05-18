@@ -6,6 +6,7 @@ import (
 	pb "github.com/it-moom/moom-roles/api/roles/service/v1"
 )
 
-func (s *RolesService) CreateRoles(ctx context.Context, req *pb.CreateRolesRequest) (*pb.CreateRolesReply, error) {
-	return &pb.CreateRolesReply{}, nil
+// CreateSuperUser 生成超级用户
+func (s *RolesService) CreateSuperUser(ctx context.Context, req *pb.CreateSuperUserRequest) (*pb.CreateSuperUserResponse, error) {
+	return &pb.CreateSuperUserResponse{}, nil
 }

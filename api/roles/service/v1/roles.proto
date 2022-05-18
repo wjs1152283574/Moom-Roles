@@ -8,25 +8,14 @@ option java_multiple_files = true;
 option java_package = "api.roles.service.v1";
 
 service Roles {
-	rpc CreateRoles (CreateRolesRequest) returns (CreateRolesReply){
-		option (google.api.http) = {
-            post: "/v1/roles/create",
-            body:"*"  
+	rpc CreateSuperUser (CreateSuperUserRequest) returns (CreateSuperUserResponse){
+        option (google.api.http) = {
+            get: "/v1/superuser/create",
         };
-	};
+    };
 }
 
-message CreateRolesRequest {}
-message CreateRolesReply {}
+message CreateSuperUserRequest {}
+message CreateSuperUserResponse {}
 
-message UpdateRolesRequest {}
-message UpdateRolesReply {}
 
-message DeleteRolesRequest {}
-message DeleteRolesReply {}
-
-message GetRolesRequest {}
-message GetRolesReply {}
-
-message ListRolesRequest {}
-message ListRolesReply {}

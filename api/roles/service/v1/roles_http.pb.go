@@ -18,35 +18,35 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 type RolesHTTPServer interface {
-	CreateRoles(context.Context, *CreateRolesRequest) (*CreateRolesReply, error)
+	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
 }
 
 func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r := s.Route("/")
-	r.POST("/v1/roles/create", _Roles_CreateRoles0_HTTP_Handler(srv))
+	r.GET("/v1/superuser/create", _Roles_CreateSuperUser0_HTTP_Handler(srv))
 }
 
-func _Roles_CreateRoles0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
+func _Roles_CreateSuperUser0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateRolesRequest
-		if err := ctx.Bind(&in); err != nil {
+		var in CreateSuperUserRequest
+		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, "/api.roles.service.v1.Roles/CreateRoles")
+		http.SetOperation(ctx, "/api.roles.service.v1.Roles/CreateSuperUser")
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateRoles(ctx, req.(*CreateRolesRequest))
+			return srv.CreateSuperUser(ctx, req.(*CreateSuperUserRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*CreateRolesReply)
+		reply := out.(*CreateSuperUserResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
 type RolesHTTPClient interface {
-	CreateRoles(ctx context.Context, req *CreateRolesRequest, opts ...http.CallOption) (rsp *CreateRolesReply, err error)
+	CreateSuperUser(ctx context.Context, req *CreateSuperUserRequest, opts ...http.CallOption) (rsp *CreateSuperUserResponse, err error)
 }
 
 type RolesHTTPClientImpl struct {
@@ -57,13 +57,13 @@ func NewRolesHTTPClient(client *http.Client) RolesHTTPClient {
 	return &RolesHTTPClientImpl{client}
 }
 
-func (c *RolesHTTPClientImpl) CreateRoles(ctx context.Context, in *CreateRolesRequest, opts ...http.CallOption) (*CreateRolesReply, error) {
-	var out CreateRolesReply
-	pattern := "/v1/roles/create"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/CreateRoles"))
+func (c *RolesHTTPClientImpl) CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...http.CallOption) (*CreateSuperUserResponse, error) {
+	var out CreateSuperUserResponse
+	pattern := "/v1/superuser/create"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/CreateSuperUser"))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

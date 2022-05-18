@@ -67,6 +67,11 @@ func main() {
 		panic(err)
 	}
 
+	// 监听配置文件
+	if err := conf.LoadConf(c); err != nil {
+		panic(err)
+	}
+
 	app, cleanup, err := initApp(bc.Server, bc.Data, logger)
 	if err != nil {
 		panic(err)

@@ -16,14 +16,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/roles/create": {
-      "post": {
-        "operationId": "Roles_CreateRoles",
+    "/v1/superuser/create": {
+      "get": {
+        "operationId": "Roles_CreateSuperUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateRolesReply"
+              "$ref": "#/definitions/v1CreateSuperUserResponse"
             }
           },
           "default": {
@@ -33,16 +33,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateRolesRequest"
-            }
-          }
-        ],
         "tags": [
           "Roles"
         ]
@@ -77,10 +67,7 @@
         }
       }
     },
-    "v1CreateRolesReply": {
-      "type": "object"
-    },
-    "v1CreateRolesRequest": {
+    "v1CreateSuperUserResponse": {
       "type": "object"
     }
   }
