@@ -15,7 +15,7 @@ func NewRd(conf *conf.Data, logger log.Logger) *redis.Client {
 		ReadTimeout:  conf.Redis.ReadTimeout.AsDuration(),
 		WriteTimeout: conf.Redis.WriteTimeout.AsDuration(),
 		PoolSize:     int(conf.Redis.Pool),
-		DB:           0,
+		DB:           int(conf.Redis.Db),
 	}
 	return redis.NewClient(&opts)
 }

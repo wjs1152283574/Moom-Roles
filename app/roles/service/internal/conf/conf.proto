@@ -34,6 +34,9 @@ message Data {
   message Database {
     string driver = 1;
     string source = 2;
+    int64 max_idle = 3;
+    int64 max_open = 4;
+    int64 conn_life_time_hours = 5;
   }
   message Redis {
     string network = 1;
@@ -43,6 +46,7 @@ message Data {
     int64 pool = 5;
     string auth = 6;
     string password = 7;
+    int64 db = 8;
   }
   message Apollo {
     string addr = 1;

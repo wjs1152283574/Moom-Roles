@@ -24,9 +24,9 @@ func NewDB(conf *conf.Data, logger log.Logger) *gorm.DB {
 		log.Fatalf("failed making connection-pool: %v", err)
 	}
 
-	sqlDB.SetMaxIdleConns(10)           // 空闲最大数量
-	sqlDB.SetMaxOpenConns(100)          // 最大链接数
-	sqlDB.SetConnMaxLifetime(time.Hour) // 最大可复用时间
+	sqlDB.SetMaxIdleConns(int(conf.Database.MaxIdle))                                    // 空闲最大数量
+	sqlDB.SetMaxOpenConns(int(conf.Database.MaxOpen))                                    // 最大链接数
+	sqlDB.SetConnMaxLifetime(time.Hour * time.Duration(conf.Database.ConnLifeTimeHours)) // 最大可复用时间
 
 	if err := db.AutoMigrate(); err != nil {
 		log.Fatal(err)
