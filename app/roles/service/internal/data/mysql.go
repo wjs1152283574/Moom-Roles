@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/it-moom/moom-roles/app/roles/service/internal/conf"
+	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -28,7 +29,7 @@ func NewDB(conf *conf.Data, logger log.Logger) *gorm.DB {
 	sqlDB.SetMaxOpenConns(int(conf.Database.MaxOpen))                                    // 最大链接数
 	sqlDB.SetConnMaxLifetime(time.Hour * time.Duration(conf.Database.ConnLifeTimeHours)) // 最大可复用时间
 
-	if err := db.AutoMigrate(); err != nil {
+	if err := db.AutoMigrate(&model.User{}, &model.Role{}, &model.Permission{}, &model.UserRole{}, &model.RolePermission{}, &model.UserPermission{}); err != nil {
 		log.Fatal(err)
 	}
 	return db
