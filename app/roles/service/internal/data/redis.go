@@ -17,5 +17,6 @@ func NewRd(conf *conf.Data, logger log.Logger) *redis.Client {
 		PoolSize:     int(conf.Redis.Pool),
 		DB:           int(conf.Redis.Db),
 	}
+
 	return redis.NewClient(&opts)
 }

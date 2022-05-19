@@ -16,8 +16,32 @@
     "application/json"
   ],
   "paths": {
-    "/v1/superuser/create": {
+    "/v1/role/captcha": {
       "get": {
+        "summary": "获取图片验证码",
+        "operationId": "Roles_GetCaptcha",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCaptchaResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/superuser/create": {
+      "get": {
+        "summary": "生成超级用户",
         "operationId": "Roles_CreateSuperUser",
         "responses": {
           "200": {
@@ -33,6 +57,37 @@
             }
           }
         },
+        "tags": [
+          "Roles"
+        ]
+      },
+      "post": {
+        "summary": "后台登陆",
+        "operationId": "Roles_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginRequest"
+            }
+          }
+        ],
         "tags": [
           "Roles"
         ]
@@ -69,6 +124,49 @@
     },
     "v1CreateSuperUserResponse": {
       "type": "object"
+    },
+    "v1GetCaptchaResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "验证码对应的key"
+        },
+        "verify": {
+          "type": "string",
+          "title": "base64 验证码"
+        }
+      }
+    },
+    "v1LoginRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "验证码对应的key"
+        },
+        "val": {
+          "type": "string",
+          "title": "验证码值"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名"
+        },
+        "pass": {
+          "type": "string",
+          "title": "密码"
+        }
+      }
+    },
+    "v1LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "title": "token"
+        }
+      }
     }
   }
 }

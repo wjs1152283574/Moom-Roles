@@ -14,10 +14,47 @@ service Roles {
             get: "/v1/role/superuser/create",
         };
     };
+
+    // 获取图片验证码
+    rpc GetCaptcha (GetCaptchaRequest) returns (GetCaptchaResponse){
+        option (google.api.http) = {
+            get: "/v1/role/captcha",
+        };
+    };
     
+    // 后台登陆
+    rpc Login (LoginRequest) returns (LoginResponse){
+        option (google.api.http) = {
+            post: "/v1/role/login",
+            body: "*"
+        };
+    };
 }
 
 message CreateSuperUserRequest {}
 message CreateSuperUserResponse {}
+
+message GetCaptchaRequest{}
+message GetCaptchaResponse{
+    // 验证码对应的key
+    string key = 1;
+    // base64 验证码
+    string verify = 2;
+}
+
+message LoginRequest{
+    // 验证码对应的key
+    string key = 1;
+    // 验证码值
+    string val = 2;
+    // 用户名
+    string name = 3;
+    // 密码
+    string pass = 4;
+}
+message LoginResponse {
+    // token 
+    string token = 1;
+}
 
 

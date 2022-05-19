@@ -22,7 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RolesClient interface {
+	// 生成超级用户
 	CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...grpc.CallOption) (*CreateSuperUserResponse, error)
+	// 获取图片验证码
+	GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaResponse, error)
+	// 后台登陆
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type rolesClient struct {
@@ -42,11 +47,34 @@ func (c *rolesClient) CreateSuperUser(ctx context.Context, in *CreateSuperUserRe
 	return out, nil
 }
 
+func (c *rolesClient) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaResponse, error) {
+	out := new(GetCaptchaResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/GetCaptcha", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RolesServer is the server API for Roles service.
 // All implementations must embed UnimplementedRolesServer
 // for forward compatibility
 type RolesServer interface {
+	// 生成超级用户
 	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
+	// 获取图片验证码
+	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaResponse, error)
+	// 后台登陆
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	mustEmbedUnimplementedRolesServer()
 }
 
@@ -56,6 +84,12 @@ type UnimplementedRolesServer struct {
 
 func (UnimplementedRolesServer) CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSuperUser not implemented")
+}
+func (UnimplementedRolesServer) GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCaptcha not implemented")
+}
+func (UnimplementedRolesServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedRolesServer) mustEmbedUnimplementedRolesServer() {}
 
@@ -88,6 +122,42 @@ func _Roles_CreateSuperUser_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_GetCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCaptchaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).GetCaptcha(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/GetCaptcha",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).GetCaptcha(ctx, req.(*GetCaptchaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Roles_ServiceDesc is the grpc.ServiceDesc for Roles service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +168,14 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateSuperUser",
 			Handler:    _Roles_CreateSuperUser_Handler,
+		},
+		{
+			MethodName: "GetCaptcha",
+			Handler:    _Roles_GetCaptcha_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _Roles_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
