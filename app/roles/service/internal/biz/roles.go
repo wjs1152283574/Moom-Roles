@@ -51,12 +51,12 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 		return &v1.LoginResponse{}, errors.ErrInvalidPass
 	}
 	// 生成token
-	token, err := tool.NewJWT().CreateToken(strconv.Itoa(int(user.ID)))
+	token, err := tool.NewJWT(conf.GB.TokenScreat).CreateToken(strconv.Itoa(int(user.ID)), conf.GB.Issuer, conf.GB.TokenTtl)
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}
 	// 存入redis
-	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, 3600)
+	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, conf.GB.TokenTtl)
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}

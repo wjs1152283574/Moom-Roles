@@ -12,41 +12,24 @@ type JWT struct {
 	SigningKey []byte
 }
 
-var (
-	SignKey = "jwt.secret"
-	TTL     = 3600
-	Issuer  = "IT-MOOM"
-)
-
 // NewJWT 新建一个jwt实例
-func NewJWT() *JWT {
+func NewJWT(screct string) *JWT {
 	return &JWT{
-		[]byte(GetSignKey()),
+		[]byte(screct),
 	}
 }
 
-// GetSignKey 获取signKey
-func GetSignKey() string {
-	return SignKey
-}
-
-// SetSignKey 这是SignKey
-func SetSignKey(key string) string {
-	SignKey = key
-	return SignKey
-}
-
 // CreateToken 生成一个token
-func (j *JWT) CreateToken(userId string) (string, error) {
+func (j *JWT) CreateToken(userId, issuer string, tll int64) (string, error) {
 
 	// 过期时间处理
-	expiresAt := time.Now().Add(time.Second * time.Duration(TTL)).Unix()
+	expiresAt := time.Now().Add(time.Second * time.Duration(tll)).Unix()
 	// 构造Payload
 	claims := jwt.StandardClaims{
 		ExpiresAt: expiresAt,         // 过期时间
 		Id:        SimpleUUID(),      // Jti:token唯一标识符
 		IssuedAt:  time.Now().Unix(), // 颁发时间
-		Issuer:    Issuer,            // 颁发机构
+		Issuer:    issuer,            // 颁发机构
 		NotBefore: time.Now().Unix(), // 生效时间
 		Subject:   userId,            // 主题
 	}
@@ -74,10 +57,10 @@ func (j *JWT) ParseToken(tokenString string) (*jwt.StandardClaims, error) {
 }
 
 // RefreshToken 刷新token
-func (j *JWT) RefreshToken(tokenString string) (string, error) {
+func (j *JWT) RefreshToken(tokenString, screct string) (string, error) {
 
 	// 解析token
-	claims, err := NewJWT().ParseToken(tokenString)
+	claims, err := NewJWT(screct).ParseToken(tokenString)
 
 	// token无效
 	if err != nil {
@@ -85,5 +68,5 @@ func (j *JWT) RefreshToken(tokenString string) (string, error) {
 	}
 
 	// 重新生成token
-	return j.CreateToken(claims.Subject)
+	return j.CreateToken(claims.Subject, claims.Issuer, claims.ExpiresAt)
 }
