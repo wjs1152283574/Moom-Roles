@@ -30,3 +30,16 @@ func (s *RolesService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaRequest
 		Verify: bs64,
 	}, nil
 }
+
+// Login 登陆
+func (s *RolesService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
+	if !tool.VerifyNameFormat(req.Name) {
+		return &pb.LoginResponse{}, errors.ErrInvalidUsername
+	}
+
+	if !tool.VerifyPassFormat(req.Pass) {
+		return &pb.LoginResponse{}, errors.ErrInvalidPass
+	}
+
+	return s.uc.Login(ctx, req)
+}
