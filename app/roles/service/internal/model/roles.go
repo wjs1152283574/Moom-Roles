@@ -10,14 +10,12 @@ var (
 )
 
 type User struct {
-	ID     uint   `gorm:"primarykey"`
+	Commom
 	Name   string `gorm:"type:varchar(50);NOT NULL;UNIQUE;COMMENT:用户名"`
 	Pass   string `gorm:"type:varchar(200);NOT NULL;COMMENT:登陆密码"`
 	Type   int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-普通管理员 2-超级管理员"`
 	Status int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-正常 2-冻结"`
 	Icon   string `gorm:"type:varchar(500);COMMENT:头像"`
-
-	Commom
 }
 
 func (u *User) TableName() string {
@@ -25,7 +23,6 @@ func (u *User) TableName() string {
 }
 
 type Role struct {
-	ID   uint   `gorm:"primarykey"`
 	Name string `gorm:"type:varchar(100);NOT NULL;UNIQUE;COMMENT:角色名称"`
 	Code string `gorm:"type:varchar(50);NOT NULL;UNIQUE;COMMENT:角色代码"`
 
@@ -37,7 +34,6 @@ func (r *Role) TableName() string {
 }
 
 type Permission struct {
-	ID   uint   `gorm:"primarykey"`
 	Name string `gorm:"type:varchar(100);NOT NULL;UNIQUE;COMMENT:权限名称"`
 	Code string `gorm:"type:varchar(50);NOT NULL;UNIQUE;COMMENT:权限代码"`
 
@@ -49,7 +45,6 @@ func (p *Permission) TableName() string {
 }
 
 type UserRole struct {
-	ID  uint `gorm:"primarykey"`
 	UID uint `gorm:"COMMENT:用户ID"`
 	RID uint `gorm:"COMMENT:角色ID"`
 
@@ -61,7 +56,6 @@ func (u *UserRole) TableName() string {
 }
 
 type RolePermission struct {
-	ID  uint `gorm:"primarykey"`
 	PID uint `gorm:"COMMENT:权限ID"`
 	RID uint `gorm:"COMMENT:角色ID"`
 
@@ -74,11 +68,9 @@ func (r *RolePermission) TableName() string {
 
 // 兼容 用户直接获取某个单独的权限
 type UserPermission struct {
-	ID  uint `gorm:"primarykey"`
+	Commom
 	UID uint `gorm:"COMMENT:用户ID"`
 	PID uint `gorm:"COMMENT:权限ID"`
-
-	Commom
 }
 
 func (u *UserPermission) TableName() string {

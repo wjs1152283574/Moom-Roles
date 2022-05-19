@@ -11,14 +11,14 @@ var keys = []string{
 	"super_user",
 }
 
-var SuperUsers SuperUser
+var SU SuperUser
 
 func LoadConf(conf config.Config) (err error) {
 	for _, key := range keys {
 		err = conf.Watch(key, func(key string, value config.Value) {
 			switch key {
 			case "temp":
-				err = value.Scan(&SuperUsers) // conf.Scan(&UConf)
+				err = value.Scan(&SU) // conf.Scan(&UConf)
 			default:
 				fmt.Println("load empty configs")
 			}
@@ -28,5 +28,5 @@ func LoadConf(conf config.Config) (err error) {
 		}
 	}
 
-	return conf.Scan(&SuperUsers)
+	return conf.Scan(&SU)
 }

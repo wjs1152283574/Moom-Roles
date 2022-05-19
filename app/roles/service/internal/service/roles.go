@@ -8,5 +8,5 @@ import (
 
 // CreateSuperUser 生成超级用户
 func (s *RolesService) CreateSuperUser(ctx context.Context, req *pb.CreateSuperUserRequest) (*pb.CreateSuperUserResponse, error) {
-	return &pb.CreateSuperUserResponse{}, nil
+	return s.uc.CreateSuperUser(ctx)
 }

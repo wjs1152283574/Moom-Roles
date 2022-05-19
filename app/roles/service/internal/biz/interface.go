@@ -1,7 +1,12 @@
 package biz
 
-import "context"
+import (
+	"context"
+
+	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
+)
 
 type RolesRepo interface {
-	CreateUser(ctx context.Context, name, pass string, typ, status int64) error
+	// 批量新建用户
+	CreateUser(ctx context.Context, data []model.User) error
 }

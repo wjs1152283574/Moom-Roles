@@ -1,6 +1,7 @@
 package model
 
 type Commom struct {
+	ID          uint   `gorm:"primarykey"`
 	CreatorID   int64  `gorm:"type:int(11);COMMENT:创建者ID"`
 	CreatorName string `gorm:"type:varchar(50);COMMENT:创建者名称（列表冗余）"`
 
