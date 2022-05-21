@@ -65,12 +65,6 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 	return srv
 }
 
-// 不需要鉴权的路由
-var Notneed = []string{
-	"/v1/auth/role/superuser/create",
-	"/v1/role/captcha",
-}
-
 // AuthMiddleware 网关服务会将userid添加到查询参数打到本服务。次中间件将userid 添加到上下文中
 func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
