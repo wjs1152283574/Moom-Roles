@@ -2,25 +2,38 @@ package server
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
+	"github.com/go-kratos/kratos/v2/transport"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
 	"github.com/it-moom/moom-roles/app/roles/service/internal/conf"
 	"github.com/it-moom/moom-roles/app/roles/service/internal/service"
+	"github.com/it-moom/moom-roles/pkg/errors"
+	"github.com/it-moom/moom-roles/pkg/tool"
 )
 
 // NewHTTPServer new a HTTP server.
 func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
+			// selector.Server(
+			// 	recovery.Recovery(),
+			// 	AuthMiddleware,
+			// 	logging.Client(logger),
+			// 	logging.Server(logger),
+			// ).Path("/v1/auth/role/superuser/create").Build(),
+
 			AuthMiddleware,
 			logging.Server(logger), // 添加全局日志中间件
 			logging.Client(logger),
 			// ratelimit.Server(), // 启用过载保护（默认一个时间窗口 100 pass）
+
 		),
 	}
 
@@ -52,20 +65,33 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 	return srv
 }
 
+// 不需要鉴权的路由
+var Notneed = []string{
+	"/v1/auth/role/superuser/create",
+	"/v1/role/captcha",
+}
+
 // AuthMiddleware 网关服务会将userid添加到查询参数打到本服务。次中间件将userid 添加到上下文中
 func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
-		reply, err = handler(ctx, req)
-		// if tr, ok := transport.FromServerContext(ctx); ok {
-		// 	// ht, _ := tr.(*http.Transport)
-		// 	// if len(ht.Request().URL.Query()[contextkey.UserID]) > 0 {
-		// 	// 	k := contextkey.NewKey
-		// 	// 	v := ht.Request().URL.Query()[contextkey.UserID][0]
-		// 	// 	fmt.Printf("登陆uid:%s", v)
-		// 	// 	etxs := context.WithValue(ctx, k, v)
-		// 	// 	reply, err = handler(etxs, req)
-		// 	// }
-		// }
+		if tr, ok := transport.FromServerContext(ctx); ok {
+			ht, _ := tr.(*http.Transport)
+			fmt.Println(ht.Request().URL)
+			reply, err = handler(ctx, req)
+			if !tool.InSlice(Notneed, ht.Request().URL.Path) {
+				tokenStr := strings.Split(ht.RequestHeader().Get("Authrication"), " ")
+				if len(tokenStr) > 1 { // 存在token，解析
+					tcliam, errs := tool.NewJWT("").ParseToken(tokenStr[1])
+					if errs == nil {
+						etxs := context.WithValue(ctx, "userid", tcliam.Subject)
+						reply, err = handler(etxs, req)
+						return
+					}
+				}
+				return nil, errors.ErrAuthFail
+			}
+		}
+
 		return
 	}
 }

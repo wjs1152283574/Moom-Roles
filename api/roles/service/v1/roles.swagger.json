@@ -16,6 +16,29 @@
     "application/json"
   ],
   "paths": {
+    "/v1/auth/role/superuser/create": {
+      "get": {
+        "summary": "生成超级用户",
+        "operationId": "Roles_CreateSuperUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateSuperUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/captcha": {
       "get": {
         "summary": "获取图片验证码",
@@ -39,28 +62,7 @@
         ]
       }
     },
-    "/v1/role/superuser/create": {
-      "get": {
-        "summary": "生成超级用户",
-        "operationId": "Roles_CreateSuperUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateSuperUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "Roles"
-        ]
-      },
+    "/v1/role/login": {
       "post": {
         "summary": "后台登陆",
         "operationId": "Roles_Login",
@@ -98,11 +100,14 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "@type": {
+        "typeUrl": {
           "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
         }
-      },
-      "additionalProperties": {}
+      }
     },
     "rpcStatus": {
       "type": "object",

@@ -10,12 +10,12 @@ import (
 )
 
 // CreateSuperUser 生成超级用户
-func (s *RolesService) CreateSuperUser(ctx context.Context, req *pb.CreateSuperUserRequest) (*pb.CreateSuperUserResponse, error) {
-	return s.uc.CreateSuperUser(ctx)
+func (r *RolesService) CreateSuperUser(ctx context.Context, req *pb.CreateSuperUserRequest) (*pb.CreateSuperUserResponse, error) {
+	return r.uc.CreateSuperUser(ctx)
 }
 
 // GetCaptcha 获取图片验证码
-func (s *RolesService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaRequest) (*pb.GetCaptchaResponse, error) {
+func (r *RolesService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaRequest) (*pb.GetCaptchaResponse, error) {
 	if !conf.GB.Verify {
 		return &pb.GetCaptchaResponse{}, errors.ErrNoNeedCaptcha
 	}
@@ -32,7 +32,7 @@ func (s *RolesService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaRequest
 }
 
 // Login 登陆
-func (s *RolesService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
+func (r *RolesService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
 	if !tool.VerifyNameFormat(req.Name) {
 		return &pb.LoginResponse{}, errors.ErrInvalidUsername
 	}
@@ -41,5 +41,5 @@ func (s *RolesService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 		return &pb.LoginResponse{}, errors.ErrInvalidPass
 	}
 
-	return s.uc.Login(ctx, req)
+	return r.uc.Login(ctx, req)
 }

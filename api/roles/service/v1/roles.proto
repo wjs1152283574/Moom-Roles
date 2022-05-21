@@ -11,7 +11,7 @@ service Roles {
     // 生成超级用户
 	rpc CreateSuperUser (CreateSuperUserRequest) returns (CreateSuperUserResponse){
         option (google.api.http) = {
-            get: "/v1/role/superuser/create",
+            get: "/v1/auth/role/superuser/create",
         };
     };
 
