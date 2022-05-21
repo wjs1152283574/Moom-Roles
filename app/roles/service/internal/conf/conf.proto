@@ -6,13 +6,8 @@ option go_package = "github.com/it-moom/moom-roles/app/user/service/internal/con
 import "google/protobuf/duration.proto";
 
 message Bootstrap {
-    Trace trace = 1;
-    Server server = 2;
-    Data data = 3;
-}
-
-message Trace {
-    string endpoint = 1;
+    Server server = 1;
+    Data data = 2;
 }
 
 message Server {

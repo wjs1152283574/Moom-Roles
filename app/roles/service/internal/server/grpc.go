@@ -4,7 +4,6 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
-	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
 	"github.com/it-moom/moom-roles/app/roles/service/internal/conf"
@@ -16,7 +15,7 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
-			tracing.Server(),
+			// tracing.Server(),
 			logging.Server(logger),
 			logging.Client(logger),
 		),

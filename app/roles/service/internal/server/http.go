@@ -6,7 +6,6 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
-	"github.com/go-kratos/kratos/v2/middleware/ratelimit"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
@@ -21,7 +20,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 			AuthMiddleware,
 			logging.Server(logger), // 添加全局日志中间件
 			logging.Client(logger),
-			ratelimit.Server(), // 启用过载保护（默认一个时间窗口 100 pass）
+			// ratelimit.Server(), // 启用过载保护（默认一个时间窗口 100 pass）
 		),
 	}
 
