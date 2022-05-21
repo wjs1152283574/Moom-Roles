@@ -70,7 +70,6 @@ func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 		if tr, ok := transport.FromServerContext(ctx); ok {
 			ht, _ := tr.(*http.Transport)
-			fmt.Println(ht.Request().URL)
 			reply, err = handler(ctx, req)
 			if !tool.InSlice(Notneed, ht.Request().URL.Path) {
 				tokenStr := strings.Split(ht.RequestHeader().Get("Authrication"), " ")
