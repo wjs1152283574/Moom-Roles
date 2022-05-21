@@ -21,13 +21,6 @@ import (
 func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
-			// selector.Server(
-			// 	recovery.Recovery(),
-			// 	AuthMiddleware,
-			// 	logging.Client(logger),
-			// 	logging.Server(logger),
-			// ).Path("/v1/auth/role/superuser/create").Build(),
-
 			AuthMiddleware,
 			logging.Server(logger), // 添加全局日志中间件
 			logging.Client(logger),
