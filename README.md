@@ -16,4 +16,4 @@
 
 
 * 问题记录：
-    * 全局限流是根据CPU使用率来动态计算的，目前M1芯片不支持 ：`panic: cgroup cpu init failed!err:=not implemented yet`
+    * `ratelimit.Server()` 全局限流器未开发完成 2022-05-21：`panic: cgroup cpu init failed!err:=not implemented yet`
