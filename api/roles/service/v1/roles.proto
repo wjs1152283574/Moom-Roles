@@ -29,6 +29,118 @@ service Roles {
             body: "*"
         };
     };
+
+    // **********  超级管理员功能  ************ 
+    // 创建后台用户
+    rpc CreateAdminUser (CreateAdminUserRequest) returns (CreateAdminUserResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/create",
+            body: "*"
+        };
+    };
+    // 后台用户列表
+    rpc AdminUserList (AdminUserListRequest) returns (AdminUserListResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/list",
+            body: "*"
+        };
+    };
+    // 后台用户详细
+    rpc AdminUserDetails (AdminUserDetailsRequest) returns (AdminUserDetailsResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/details",
+            body: "*"
+        };
+    };
+    // 编辑后台用户基本信息(用户名/密码/头像)
+    rpc MethodName (Request) returns (Response){
+        option (google.api.http) = {
+            post: "/v1/role/user/update",
+            body: "*"
+        };
+    };
+    // 用户分配角色
+    rpc SetRoles (SetRolesRequest) returns (SetRolesResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/setroles",
+            body: "*"
+        };
+    };
+    // 用户分配权限
+    rpc SetPermission (SetPermissionRequest) returns (SetPermissionResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/setpermissions",
+            body: "*"
+        };
+    };
+    // 删除后台用户
+    rpc AdminUserDelete (AdminUserDeleteRequest) returns (AdminUserDeleteResponse){
+        option (google.api.http) = {
+            delete: "/v1/role/user/{id}"
+        };
+    };
+    // 创建角色
+    rpc RoleCreate (RoleCreateRequest) returns (RoleCreateResponse){
+        option (google.api.http) = {
+            post: "/v1/role/create",
+            body: "*"
+        };
+    };
+    // 角色列表
+    rpc RoleList (RoleListRequest) returns (RoleListResponse){
+        option (google.api.http) = {
+            post: "/v1/role/list",
+            body: "*"
+        };
+    };
+    // 删除角色
+    rpc RoleDelete (RoleDeleteRequest) returns (RoleDeleteResponse){
+        option (google.api.http) = {
+            post: "/v1/role/delete",
+            body: "*"
+        };
+    };
+    // 编辑角色
+    rpc RoleEdit (RoleEditRequest) returns (RoleEditResponse){
+        option (google.api.http) = {
+            post: "/v1/role/update",
+            body: "*"
+        };
+    };
+    // 创建权限
+    rpc PermissionCreate (PermissionCreateRequest) returns (PermissionCreateResponse){
+        option (google.api.http) = {
+            post: "/v1/role/permission/create",
+            body: "*"
+        };
+    };
+    // 权限列表
+    rpc PermissionList (PermissionListRequest) returns (PermissionListResponse){
+        option (google.api.http) = {
+            post: "/v1/role/permission/list",
+            body: "*"
+        };
+    };
+    // 权限删除
+    rpc PermissionDelete (PermissionDeleteRequest) returns (PermissionDeleteResponse){
+        option (google.api.http) = {
+            post: "/v1/role/permission/delete",
+            body: "*"
+        };
+    };
+    // 更新权限
+    rpc PermissionEdit (PermissionEditRequest) returns (PermissionEditResponse){
+        option (google.api.http) = {
+            post: "/v1/role/permission/update",
+            body: "*"
+        };
+    };
+
+    // *******  你的系统鉴权RPC接口  **********
+    // 验证用户角色
+    rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
+    // 验证用户权限
+    rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse);
 }
 
 message CreateSuperUserRequest {}
