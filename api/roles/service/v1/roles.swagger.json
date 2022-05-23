@@ -62,6 +62,105 @@
         ]
       }
     },
+    "/v1/role/create": {
+      "post": {
+        "summary": "创建角色",
+        "operationId": "Roles_RoleCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoleCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoleCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/delete": {
+      "post": {
+        "summary": "删除角色",
+        "operationId": "Roles_RoleDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoleDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoleDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/list": {
+      "post": {
+        "summary": "角色列表",
+        "operationId": "Roles_RoleList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoleListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoleListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/login": {
       "post": {
         "summary": "后台登陆",
@@ -94,20 +193,412 @@
           "Roles"
         ]
       }
+    },
+    "/v1/role/permission/create": {
+      "post": {
+        "summary": "创建权限",
+        "operationId": "Roles_PermissionCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PermissionCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PermissionCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/permission/delete": {
+      "post": {
+        "summary": "权限删除",
+        "operationId": "Roles_PermissionDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PermissionDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PermissionDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/permission/list": {
+      "post": {
+        "summary": "权限列表",
+        "operationId": "Roles_PermissionList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PermissionListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PermissionListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/permission/update": {
+      "post": {
+        "summary": "更新权限",
+        "operationId": "Roles_PermissionEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PermissionEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PermissionEditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/update": {
+      "post": {
+        "summary": "编辑角色",
+        "operationId": "Roles_RoleEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoleEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoleEditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/create": {
+      "post": {
+        "summary": "**********  超级管理员功能  ************ \n创建后台用户",
+        "operationId": "Roles_CreateAdminUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateAdminUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateAdminUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/details": {
+      "post": {
+        "summary": "后台用户详细",
+        "operationId": "Roles_AdminUserDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserDetailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserDetailsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/list": {
+      "post": {
+        "summary": "后台用户列表",
+        "operationId": "Roles_AdminUserList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/setpermissions": {
+      "post": {
+        "summary": "用户分配权限",
+        "operationId": "Roles_SetPermission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetPermissionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SetPermissionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/setroles": {
+      "post": {
+        "summary": "用户分配角色",
+        "operationId": "Roles_SetRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SetRolesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/update": {
+      "post": {
+        "summary": "编辑后台用户基本信息(用户名/密码/头像)",
+        "operationId": "Roles_AdminUserEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserEditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/{id}": {
+      "delete": {
+        "summary": "删除后台用户",
+        "operationId": "Roles_AdminUserDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
     }
   },
   "definitions": {
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rpcStatus": {
       "type": "object",
@@ -126,6 +617,39 @@
           }
         }
       }
+    },
+    "v1AdminUserDeleteResponse": {
+      "type": "object"
+    },
+    "v1AdminUserDetailsRequest": {
+      "type": "object"
+    },
+    "v1AdminUserDetailsResponse": {
+      "type": "object"
+    },
+    "v1AdminUserEditRequest": {
+      "type": "object"
+    },
+    "v1AdminUserEditResponse": {
+      "type": "object"
+    },
+    "v1AdminUserListRequest": {
+      "type": "object"
+    },
+    "v1AdminUserListResponse": {
+      "type": "object"
+    },
+    "v1CheckPermissionResponse": {
+      "type": "object"
+    },
+    "v1CheckRoleResponse": {
+      "type": "object"
+    },
+    "v1CreateAdminUserRequest": {
+      "type": "object"
+    },
+    "v1CreateAdminUserResponse": {
+      "type": "object"
     },
     "v1CreateSuperUserResponse": {
       "type": "object"
@@ -172,6 +696,66 @@
           "title": "token"
         }
       }
+    },
+    "v1PermissionCreateRequest": {
+      "type": "object"
+    },
+    "v1PermissionCreateResponse": {
+      "type": "object"
+    },
+    "v1PermissionDeleteRequest": {
+      "type": "object"
+    },
+    "v1PermissionDeleteResponse": {
+      "type": "object"
+    },
+    "v1PermissionEditRequest": {
+      "type": "object"
+    },
+    "v1PermissionEditResponse": {
+      "type": "object"
+    },
+    "v1PermissionListRequest": {
+      "type": "object"
+    },
+    "v1PermissionListResponse": {
+      "type": "object"
+    },
+    "v1RoleCreateRequest": {
+      "type": "object"
+    },
+    "v1RoleCreateResponse": {
+      "type": "object"
+    },
+    "v1RoleDeleteRequest": {
+      "type": "object"
+    },
+    "v1RoleDeleteResponse": {
+      "type": "object"
+    },
+    "v1RoleEditRequest": {
+      "type": "object"
+    },
+    "v1RoleEditResponse": {
+      "type": "object"
+    },
+    "v1RoleListRequest": {
+      "type": "object"
+    },
+    "v1RoleListResponse": {
+      "type": "object"
+    },
+    "v1SetPermissionRequest": {
+      "type": "object"
+    },
+    "v1SetPermissionResponse": {
+      "type": "object"
+    },
+    "v1SetRolesRequest": {
+      "type": "object"
+    },
+    "v1SetRolesResponse": {
+      "type": "object"
     }
   }
 }

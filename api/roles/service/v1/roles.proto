@@ -53,7 +53,7 @@ service Roles {
         };
     };
     // 编辑后台用户基本信息(用户名/密码/头像)
-    rpc MethodName (Request) returns (Response){
+    rpc AdminUserEdit (AdminUserEditRequest) returns (AdminUserEditResponse){
         option (google.api.http) = {
             post: "/v1/role/user/update",
             body: "*"
@@ -141,6 +141,125 @@ service Roles {
     rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
     // 验证用户权限
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse);
+}
+
+message CreateAdminUserRequest {
+
+}
+message CreateAdminUserResponse {
+
+}
+
+message AdminUserListRequest {
+
+}
+message AdminUserListResponse {
+
+}
+
+message AdminUserDetailsRequest {
+
+}
+message AdminUserDetailsResponse {
+
+}
+
+message AdminUserEditRequest {
+
+}
+message AdminUserEditResponse {
+
+}
+
+message AdminUserDeleteRequest {
+    int64 id = 1;
+}
+message AdminUserDeleteResponse {
+
+}
+
+message SetRolesRequest {
+
+}
+message SetRolesResponse {
+
+}
+
+message SetPermissionRequest {
+
+}
+message SetPermissionResponse {
+
+}
+
+message RoleCreateRequest {
+
+}
+message RoleCreateResponse {
+
+}
+
+message RoleListRequest {
+
+}
+message RoleListResponse {
+
+}
+
+message RoleDeleteRequest {
+
+}
+message RoleDeleteResponse {
+
+}
+
+message RoleEditRequest {
+
+}
+message RoleEditResponse {
+
+}
+
+message PermissionCreateRequest {
+
+}
+message PermissionCreateResponse {
+
+}
+
+message PermissionListRequest {
+
+}
+message PermissionListResponse {
+
+}
+
+message PermissionDeleteRequest {
+
+}
+message PermissionDeleteResponse {
+
+}
+
+message PermissionEditRequest {
+
+}
+message PermissionEditResponse {
+
+}
+
+message CheckRoleRequest {
+
+}
+message CheckRoleResponse {
+
+}
+
+message CheckPermissionRequest {
+
+}
+message CheckPermissionResponse {
+
 }
 
 message CreateSuperUserRequest {}
