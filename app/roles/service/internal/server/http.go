@@ -63,7 +63,7 @@ func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 		if tr, ok := transport.FromServerContext(ctx); ok {
 			ht, _ := tr.(*http.Transport)
 			reply, err = handler(ctx, req)
-			if !tool.InSlice(Notneed, ht.Request().URL.Path) {
+			if !tool.InSlice(NotneedAuth, ht.Request().URL.Path) {
 				tokenStr := strings.Split(ht.RequestHeader().Get("Authrication"), " ")
 				if len(tokenStr) > 1 { // 存在token，解析
 					tcliam, errs := tool.NewJWT("").ParseToken(tokenStr[1])
