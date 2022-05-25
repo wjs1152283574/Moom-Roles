@@ -65,3 +65,24 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 		Token: token,
 	}, nil
 }
+
+func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminUserRequest) (*v1.CreateAdminUserResponse, error) {
+	// 组装用户数据
+	var data []model.User
+	for _, v := range conf.SU.SuperUser {
+		data = append(data, model.User{
+			Name:   v.Name,
+			Pass:   tool.Base64Md5(v.Pass),
+			Type:   1,
+			Status: 1,
+			Commom: model.Commom{CreatedTime: time.Now().Unix()},
+		})
+
+	}
+	// 新建用户
+	if err := r.repo.CreateUser(ctx, data); err != nil {
+		return &v1.CreateAdminUserResponse{}, errors.ErrSystemBusy
+	}
+
+	return &v1.CreateAdminUserResponse{}, nil
+}
