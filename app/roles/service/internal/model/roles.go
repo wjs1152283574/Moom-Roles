@@ -1,12 +1,15 @@
 package model
 
 var (
-	UserTableName           = "users"
-	RoleTableName           = "roles"
-	PermissionTableName     = "permissions"
-	UserRoleTablename       = "user_roles"
-	RolePermissionTablename = "role_permissions"
-	UserPermissionTablename = "user_permissions"
+	UserTableName            = "users"
+	RoleTableName            = "roles"
+	PermissionTableName      = "permissions"
+	UserRoleTablename        = "user_roles"
+	RolePermissionTablename  = "role_permissions"
+	UserPermissionTablename  = "user_permissions"
+	RouteTablename           = "routes"
+	RouteRoleTablename       = "route_roles"
+	RoutePermissionTablename = "route_permissions"
 )
 
 type User struct {
@@ -75,4 +78,37 @@ type UserPermission struct {
 
 func (u *UserPermission) TableName() string {
 	return UserPermissionTablename
+}
+
+type Route struct {
+	Commom
+
+	URL    string `gorm:"COMMENT:路由"`
+	Method int64  `gorm:"COMMENT:对应路由方法：1-get 2-post 3-put 4-delete ..."`
+}
+
+func (u *Route) TableName() string {
+	return RouteTablename
+}
+
+type RouteRole struct {
+	Commom
+
+	RID    int64 `gorm:"COMMENT:路由ID"`
+	RoleID uint  `gorm:"COMMENT:角色ID"`
+}
+
+func (u *RouteRole) TableName() string {
+	return RouteRoleTablename
+}
+
+type RoutePermission struct {
+	Commom
+
+	RID int64 `gorm:"COMMENT:路由ID"`
+	PID uint  `gorm:"COMMENT:权限ID"`
+}
+
+func (u *RoutePermission) TableName() string {
+	return RoutePermissionTablename
 }
