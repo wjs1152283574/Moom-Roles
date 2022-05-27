@@ -45,7 +45,15 @@ func (r *RolesService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 }
 
 func (r *RolesService) CreateAdminUser(ctx context.Context, req *pb.CreateAdminUserRequest) (*pb.CreateAdminUserResponse, error) {
-	return &pb.CreateAdminUserResponse{}, nil
+	if !tool.VerifyNameFormat(req.Name) {
+		return &pb.CreateAdminUserResponse{}, errors.ErrInvalidUsername
+	}
+
+	if !tool.VerifyPassFormat(req.Pass) {
+		return &pb.CreateAdminUserResponse{}, errors.ErrInvalidPass
+	}
+
+	return r.uc.CreateAdminUser(ctx, req)
 }
 
 func (r *RolesService) AdminUserList(ctx context.Context, req *pb.AdminUserListRequest) (*pb.AdminUserListResponse, error) {

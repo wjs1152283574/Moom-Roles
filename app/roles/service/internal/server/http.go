@@ -23,7 +23,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 		http.Middleware(
 			AuthMiddleware,
 			logging.Server(logger), // 添加全局日志中间件
-			logging.Client(logger),
+			// logging.Client(logger),
 			// ratelimit.Server(), // 启用过载保护（默认一个时间窗口 100 pass）
 
 		),

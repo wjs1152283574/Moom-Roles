@@ -17,7 +17,7 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, s *service.RolesService) *
 			recovery.Recovery(),
 			// tracing.Server(),
 			logging.Server(logger),
-			logging.Client(logger),
+			// logging.Client(logger),
 		),
 	}
 	if c.Grpc.Network != "" {

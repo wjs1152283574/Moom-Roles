@@ -234,10 +234,15 @@ message RouteCreateResponse {
 }
 
 message CreateAdminUserRequest {
-    
+    // 用户名
+    string name = 1;
+    // 密码
+    string pass = 2;
+    // 头像RUL
+    string icon = 3;
 }
 message CreateAdminUserResponse {
-
+    
 }
 
 message AdminUserListRequest {

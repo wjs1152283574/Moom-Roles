@@ -787,7 +787,21 @@
       }
     },
     "v1CreateAdminUserRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "用户名"
+        },
+        "pass": {
+          "type": "string",
+          "title": "密码"
+        },
+        "icon": {
+          "type": "string",
+          "title": "头像RUL"
+        }
+      }
     },
     "v1CreateAdminUserResponse": {
       "type": "object"

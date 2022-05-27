@@ -1519,6 +1519,12 @@ func (m *CreateAdminUserRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
+	// no validation rules for Pass
+
+	// no validation rules for Icon
+
 	if len(errors) > 0 {
 		return CreateAdminUserRequestMultiError(errors)
 	}
