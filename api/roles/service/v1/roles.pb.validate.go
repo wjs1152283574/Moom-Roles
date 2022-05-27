@@ -1955,22 +1955,22 @@ var _ interface {
 	ErrorName() string
 } = AdminUserListResponseValidationError{}
 
-// Validate checks the field values on AdminUserDetailsRequest with the rules
+// Validate checks the field values on AdminUserInfosRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AdminUserDetailsRequest) Validate() error {
+func (m *AdminUserInfosRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AdminUserDetailsRequest with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on AdminUserInfosRequest with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// AdminUserDetailsRequestMultiError, or nil if none found.
-func (m *AdminUserDetailsRequest) ValidateAll() error {
+// AdminUserInfosRequestMultiError, or nil if none found.
+func (m *AdminUserInfosRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AdminUserDetailsRequest) validate(all bool) error {
+func (m *AdminUserInfosRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1978,19 +1978,19 @@ func (m *AdminUserDetailsRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return AdminUserDetailsRequestMultiError(errors)
+		return AdminUserInfosRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AdminUserDetailsRequestMultiError is an error wrapping multiple validation
-// errors returned by AdminUserDetailsRequest.ValidateAll() if the designated
+// AdminUserInfosRequestMultiError is an error wrapping multiple validation
+// errors returned by AdminUserInfosRequest.ValidateAll() if the designated
 // constraints aren't met.
-type AdminUserDetailsRequestMultiError []error
+type AdminUserInfosRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AdminUserDetailsRequestMultiError) Error() string {
+func (m AdminUserInfosRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1999,11 +1999,11 @@ func (m AdminUserDetailsRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AdminUserDetailsRequestMultiError) AllErrors() []error { return m }
+func (m AdminUserInfosRequestMultiError) AllErrors() []error { return m }
 
-// AdminUserDetailsRequestValidationError is the validation error returned by
-// AdminUserDetailsRequest.Validate if the designated constraints aren't met.
-type AdminUserDetailsRequestValidationError struct {
+// AdminUserInfosRequestValidationError is the validation error returned by
+// AdminUserInfosRequest.Validate if the designated constraints aren't met.
+type AdminUserInfosRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2011,24 +2011,24 @@ type AdminUserDetailsRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AdminUserDetailsRequestValidationError) Field() string { return e.field }
+func (e AdminUserInfosRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AdminUserDetailsRequestValidationError) Reason() string { return e.reason }
+func (e AdminUserInfosRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AdminUserDetailsRequestValidationError) Cause() error { return e.cause }
+func (e AdminUserInfosRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AdminUserDetailsRequestValidationError) Key() bool { return e.key }
+func (e AdminUserInfosRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AdminUserDetailsRequestValidationError) ErrorName() string {
-	return "AdminUserDetailsRequestValidationError"
+func (e AdminUserInfosRequestValidationError) ErrorName() string {
+	return "AdminUserInfosRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AdminUserDetailsRequestValidationError) Error() string {
+func (e AdminUserInfosRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2040,14 +2040,14 @@ func (e AdminUserDetailsRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAdminUserDetailsRequest.%s: %s%s",
+		"invalid %sAdminUserInfosRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AdminUserDetailsRequestValidationError{}
+var _ error = AdminUserInfosRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -2055,44 +2055,47 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AdminUserDetailsRequestValidationError{}
+} = AdminUserInfosRequestValidationError{}
 
-// Validate checks the field values on AdminUserDetailsResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AdminUserDetailsResponse) Validate() error {
+// Validate checks the field values on Permissions with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Permissions) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AdminUserDetailsResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AdminUserDetailsResponseMultiError, or nil if none found.
-func (m *AdminUserDetailsResponse) ValidateAll() error {
+// ValidateAll checks the field values on Permissions with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PermissionsMultiError, or
+// nil if none found.
+func (m *Permissions) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AdminUserDetailsResponse) validate(all bool) error {
+func (m *Permissions) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Id
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
-		return AdminUserDetailsResponseMultiError(errors)
+		return PermissionsMultiError(errors)
 	}
 
 	return nil
 }
 
-// AdminUserDetailsResponseMultiError is an error wrapping multiple validation
-// errors returned by AdminUserDetailsResponse.ValidateAll() if the designated
-// constraints aren't met.
-type AdminUserDetailsResponseMultiError []error
+// PermissionsMultiError is an error wrapping multiple validation errors
+// returned by Permissions.ValidateAll() if the designated constraints aren't met.
+type PermissionsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AdminUserDetailsResponseMultiError) Error() string {
+func (m PermissionsMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2101,11 +2104,11 @@ func (m AdminUserDetailsResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AdminUserDetailsResponseMultiError) AllErrors() []error { return m }
+func (m PermissionsMultiError) AllErrors() []error { return m }
 
-// AdminUserDetailsResponseValidationError is the validation error returned by
-// AdminUserDetailsResponse.Validate if the designated constraints aren't met.
-type AdminUserDetailsResponseValidationError struct {
+// PermissionsValidationError is the validation error returned by
+// Permissions.Validate if the designated constraints aren't met.
+type PermissionsValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2113,24 +2116,22 @@ type AdminUserDetailsResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e AdminUserDetailsResponseValidationError) Field() string { return e.field }
+func (e PermissionsValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AdminUserDetailsResponseValidationError) Reason() string { return e.reason }
+func (e PermissionsValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AdminUserDetailsResponseValidationError) Cause() error { return e.cause }
+func (e PermissionsValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AdminUserDetailsResponseValidationError) Key() bool { return e.key }
+func (e PermissionsValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AdminUserDetailsResponseValidationError) ErrorName() string {
-	return "AdminUserDetailsResponseValidationError"
-}
+func (e PermissionsValidationError) ErrorName() string { return "PermissionsValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AdminUserDetailsResponseValidationError) Error() string {
+func (e PermissionsValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2142,14 +2143,14 @@ func (e AdminUserDetailsResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAdminUserDetailsResponse.%s: %s%s",
+		"invalid %sPermissions.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AdminUserDetailsResponseValidationError{}
+var _ error = PermissionsValidationError{}
 
 var _ interface {
 	Field() string
@@ -2157,7 +2158,285 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AdminUserDetailsResponseValidationError{}
+} = PermissionsValidationError{}
+
+// Validate checks the field values on Role with the rules defined in the proto
+// definition for this message. If any rules are violated, the first error
+// encountered is returned, or nil if there are no violations.
+func (m *Role) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Role with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in RoleMultiError, or nil if none found.
+func (m *Role) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Role) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Code
+
+	if len(errors) > 0 {
+		return RoleMultiError(errors)
+	}
+
+	return nil
+}
+
+// RoleMultiError is an error wrapping multiple validation errors returned by
+// Role.ValidateAll() if the designated constraints aren't met.
+type RoleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RoleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RoleMultiError) AllErrors() []error { return m }
+
+// RoleValidationError is the validation error returned by Role.Validate if the
+// designated constraints aren't met.
+type RoleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RoleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RoleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RoleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RoleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RoleValidationError) ErrorName() string { return "RoleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RoleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRole.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RoleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RoleValidationError{}
+
+// Validate checks the field values on AdminUserInfosResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AdminUserInfosResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AdminUserInfosResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AdminUserInfosResponseMultiError, or nil if none found.
+func (m *AdminUserInfosResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AdminUserInfosResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Icon
+
+	for idx, item := range m.GetPermossions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AdminUserInfosResponseValidationError{
+						field:  fmt.Sprintf("Permossions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AdminUserInfosResponseValidationError{
+						field:  fmt.Sprintf("Permossions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AdminUserInfosResponseValidationError{
+					field:  fmt.Sprintf("Permossions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetRoles() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AdminUserInfosResponseValidationError{
+						field:  fmt.Sprintf("Roles[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AdminUserInfosResponseValidationError{
+						field:  fmt.Sprintf("Roles[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AdminUserInfosResponseValidationError{
+					field:  fmt.Sprintf("Roles[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return AdminUserInfosResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdminUserInfosResponseMultiError is an error wrapping multiple validation
+// errors returned by AdminUserInfosResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AdminUserInfosResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdminUserInfosResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdminUserInfosResponseMultiError) AllErrors() []error { return m }
+
+// AdminUserInfosResponseValidationError is the validation error returned by
+// AdminUserInfosResponse.Validate if the designated constraints aren't met.
+type AdminUserInfosResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdminUserInfosResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdminUserInfosResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdminUserInfosResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdminUserInfosResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdminUserInfosResponseValidationError) ErrorName() string {
+	return "AdminUserInfosResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AdminUserInfosResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdminUserInfosResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdminUserInfosResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdminUserInfosResponseValidationError{}
 
 // Validate checks the field values on AdminUserEditRequest with the rules
 // defined in the proto definition for this message. If any rules are

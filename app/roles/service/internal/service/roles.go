@@ -68,8 +68,8 @@ func (r *RolesService) AdminUserList(ctx context.Context, req *pb.AdminUserListR
 	return r.uc.AdminUserList(ctx, req)
 }
 
-func (r *RolesService) AdminUserDetails(ctx context.Context, req *pb.AdminUserDetailsRequest) (*pb.AdminUserDetailsResponse, error) {
-	return &pb.AdminUserDetailsResponse{}, nil
+func (r *RolesService) AdminUserInfos(ctx context.Context, req *pb.AdminUserInfosRequest) (*pb.AdminUserInfosResponse, error) {
+	return &pb.AdminUserInfosResponse{}, nil
 }
 
 func (r *RolesService) AdminUserEdit(ctx context.Context, req *pb.AdminUserEditRequest) (*pb.AdminUserEditResponse, error) {

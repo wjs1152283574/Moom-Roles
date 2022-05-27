@@ -494,12 +494,12 @@
     "/v1/role/user/details": {
       "post": {
         "summary": "后台用户详细",
-        "operationId": "Roles_AdminUserDetails",
+        "operationId": "Roles_AdminUserInfos",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AdminUserDetailsResponse"
+              "$ref": "#/definitions/v1AdminUserInfosResponse"
             }
           },
           "default": {
@@ -515,7 +515,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AdminUserDetailsRequest"
+              "$ref": "#/definitions/v1AdminUserInfosRequest"
             }
           }
         ],
@@ -766,17 +766,46 @@
     "v1AdminUserDeleteResponse": {
       "type": "object"
     },
-    "v1AdminUserDetailsRequest": {
-      "type": "object"
-    },
-    "v1AdminUserDetailsResponse": {
-      "type": "object"
-    },
     "v1AdminUserEditRequest": {
       "type": "object"
     },
     "v1AdminUserEditResponse": {
       "type": "object"
+    },
+    "v1AdminUserInfosRequest": {
+      "type": "object"
+    },
+    "v1AdminUserInfosResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名"
+        },
+        "icon": {
+          "type": "string",
+          "title": "头像"
+        },
+        "permossions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Permissions"
+          },
+          "title": "拥有的权限"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Role"
+          },
+          "title": "拥有的角色"
+        }
+      }
     },
     "v1AdminUserListRequest": {
       "type": "object",
@@ -971,6 +1000,34 @@
     },
     "v1PermissionListResponse": {
       "type": "object"
+    },
+    "v1Permissions": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码"
+        }
+      }
+    },
+    "v1Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码"
+        }
+      }
     },
     "v1RoleCreateRequest": {
       "type": "object"

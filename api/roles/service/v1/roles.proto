@@ -46,7 +46,7 @@ service Roles {
         };
     };
     // 后台用户详细
-    rpc AdminUserDetails (AdminUserDetailsRequest) returns (AdminUserDetailsResponse){
+    rpc AdminUserInfos (AdminUserInfosRequest) returns (AdminUserInfosResponse){
         option (google.api.http) = {
             post: "/v1/role/user/details",
             body: "*"
@@ -286,11 +286,34 @@ message AdminUserListResponse {
     repeated List list = 2;
 }
 
-message AdminUserDetailsRequest {
+message AdminUserInfosRequest {
 
 }
-message AdminUserDetailsResponse {
 
+message Permissions {
+    // ID 
+    int64 id = 1;
+    // 代码
+    string code = 2;
+}
+message Role {
+    // ID 
+    int64 id = 1;
+    // 代码
+    string code = 2;
+}
+
+message AdminUserInfosResponse {
+    // ID 
+    int64 id = 1;
+    // 用户名
+    string name = 2;
+    // 头像
+    string icon = 3;
+    // 拥有的权限
+    repeated Permissions permossions = 4;
+    // 拥有的角色
+    repeated Role roles = 5;
 }
 
 message AdminUserEditRequest {

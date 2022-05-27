@@ -19,8 +19,8 @@ const _ = http.SupportPackageIsVersion1
 
 type RolesHTTPServer interface {
 	AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error)
-	AdminUserDetails(context.Context, *AdminUserDetailsRequest) (*AdminUserDetailsResponse, error)
 	AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error)
+	AdminUserInfos(context.Context, *AdminUserInfosRequest) (*AdminUserInfosResponse, error)
 	AdminUserList(context.Context, *AdminUserListRequest) (*AdminUserListResponse, error)
 	CreateAdminUser(context.Context, *CreateAdminUserRequest) (*CreateAdminUserResponse, error)
 	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
@@ -48,7 +48,7 @@ func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r.POST("/v1/role/login", _Roles_Login0_HTTP_Handler(srv))
 	r.POST("/v1/role/user/create", _Roles_CreateAdminUser0_HTTP_Handler(srv))
 	r.POST("/v1/role/user/list", _Roles_AdminUserList0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/details", _Roles_AdminUserDetails0_HTTP_Handler(srv))
+	r.POST("/v1/role/user/details", _Roles_AdminUserInfos0_HTTP_Handler(srv))
 	r.POST("/v1/role/user/update", _Roles_AdminUserEdit0_HTTP_Handler(srv))
 	r.POST("/v1/role/user/setroles", _Roles_SetRoles0_HTTP_Handler(srv))
 	r.POST("/v1/role/user/setpermissions", _Roles_SetPermission0_HTTP_Handler(srv))
@@ -161,21 +161,21 @@ func _Roles_AdminUserList0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Conte
 	}
 }
 
-func _Roles_AdminUserDetails0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
+func _Roles_AdminUserInfos0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in AdminUserDetailsRequest
+		var in AdminUserInfosRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, "/api.roles.service.v1.Roles/AdminUserDetails")
+		http.SetOperation(ctx, "/api.roles.service.v1.Roles/AdminUserInfos")
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.AdminUserDetails(ctx, req.(*AdminUserDetailsRequest))
+			return srv.AdminUserInfos(ctx, req.(*AdminUserInfosRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*AdminUserDetailsResponse)
+		reply := out.(*AdminUserInfosResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -470,8 +470,8 @@ func _Roles_RoutePermission0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Con
 
 type RolesHTTPClient interface {
 	AdminUserDelete(ctx context.Context, req *AdminUserDeleteRequest, opts ...http.CallOption) (rsp *AdminUserDeleteResponse, err error)
-	AdminUserDetails(ctx context.Context, req *AdminUserDetailsRequest, opts ...http.CallOption) (rsp *AdminUserDetailsResponse, err error)
 	AdminUserEdit(ctx context.Context, req *AdminUserEditRequest, opts ...http.CallOption) (rsp *AdminUserEditResponse, err error)
+	AdminUserInfos(ctx context.Context, req *AdminUserInfosRequest, opts ...http.CallOption) (rsp *AdminUserInfosResponse, err error)
 	AdminUserList(ctx context.Context, req *AdminUserListRequest, opts ...http.CallOption) (rsp *AdminUserListResponse, err error)
 	CreateAdminUser(ctx context.Context, req *CreateAdminUserRequest, opts ...http.CallOption) (rsp *CreateAdminUserResponse, err error)
 	CreateSuperUser(ctx context.Context, req *CreateSuperUserRequest, opts ...http.CallOption) (rsp *CreateSuperUserResponse, err error)
@@ -513,11 +513,11 @@ func (c *RolesHTTPClientImpl) AdminUserDelete(ctx context.Context, in *AdminUser
 	return &out, err
 }
 
-func (c *RolesHTTPClientImpl) AdminUserDetails(ctx context.Context, in *AdminUserDetailsRequest, opts ...http.CallOption) (*AdminUserDetailsResponse, error) {
-	var out AdminUserDetailsResponse
-	pattern := "/v1/role/user/details"
+func (c *RolesHTTPClientImpl) AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...http.CallOption) (*AdminUserEditResponse, error) {
+	var out AdminUserEditResponse
+	pattern := "/v1/role/user/update"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserDetails"))
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserEdit"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -526,11 +526,11 @@ func (c *RolesHTTPClientImpl) AdminUserDetails(ctx context.Context, in *AdminUse
 	return &out, err
 }
 
-func (c *RolesHTTPClientImpl) AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...http.CallOption) (*AdminUserEditResponse, error) {
-	var out AdminUserEditResponse
-	pattern := "/v1/role/user/update"
+func (c *RolesHTTPClientImpl) AdminUserInfos(ctx context.Context, in *AdminUserInfosRequest, opts ...http.CallOption) (*AdminUserInfosResponse, error) {
+	var out AdminUserInfosResponse
+	pattern := "/v1/role/user/details"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserEdit"))
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserInfos"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

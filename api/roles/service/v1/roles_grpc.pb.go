@@ -34,7 +34,7 @@ type RolesClient interface {
 	// 后台用户列表
 	AdminUserList(ctx context.Context, in *AdminUserListRequest, opts ...grpc.CallOption) (*AdminUserListResponse, error)
 	// 后台用户详细
-	AdminUserDetails(ctx context.Context, in *AdminUserDetailsRequest, opts ...grpc.CallOption) (*AdminUserDetailsResponse, error)
+	AdminUserInfos(ctx context.Context, in *AdminUserInfosRequest, opts ...grpc.CallOption) (*AdminUserInfosResponse, error)
 	// 编辑后台用户基本信息(用户名/密码/头像)
 	AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...grpc.CallOption) (*AdminUserEditResponse, error)
 	// 用户分配角色
@@ -133,9 +133,9 @@ func (c *rolesClient) AdminUserList(ctx context.Context, in *AdminUserListReques
 	return out, nil
 }
 
-func (c *rolesClient) AdminUserDetails(ctx context.Context, in *AdminUserDetailsRequest, opts ...grpc.CallOption) (*AdminUserDetailsResponse, error) {
-	out := new(AdminUserDetailsResponse)
-	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/AdminUserDetails", in, out, opts...)
+func (c *rolesClient) AdminUserInfos(ctx context.Context, in *AdminUserInfosRequest, opts ...grpc.CallOption) (*AdminUserInfosResponse, error) {
+	out := new(AdminUserInfosResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/AdminUserInfos", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +347,7 @@ type RolesServer interface {
 	// 后台用户列表
 	AdminUserList(context.Context, *AdminUserListRequest) (*AdminUserListResponse, error)
 	// 后台用户详细
-	AdminUserDetails(context.Context, *AdminUserDetailsRequest) (*AdminUserDetailsResponse, error)
+	AdminUserInfos(context.Context, *AdminUserInfosRequest) (*AdminUserInfosResponse, error)
 	// 编辑后台用户基本信息(用户名/密码/头像)
 	AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error)
 	// 用户分配角色
@@ -413,8 +413,8 @@ func (UnimplementedRolesServer) CreateAdminUser(context.Context, *CreateAdminUse
 func (UnimplementedRolesServer) AdminUserList(context.Context, *AdminUserListRequest) (*AdminUserListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUserList not implemented")
 }
-func (UnimplementedRolesServer) AdminUserDetails(context.Context, *AdminUserDetailsRequest) (*AdminUserDetailsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AdminUserDetails not implemented")
+func (UnimplementedRolesServer) AdminUserInfos(context.Context, *AdminUserInfosRequest) (*AdminUserInfosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminUserInfos not implemented")
 }
 func (UnimplementedRolesServer) AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUserEdit not implemented")
@@ -582,20 +582,20 @@ func _Roles_AdminUserList_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Roles_AdminUserDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AdminUserDetailsRequest)
+func _Roles_AdminUserInfos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminUserInfosRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServer).AdminUserDetails(ctx, in)
+		return srv.(RolesServer).AdminUserInfos(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.roles.service.v1.Roles/AdminUserDetails",
+		FullMethod: "/api.roles.service.v1.Roles/AdminUserInfos",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServer).AdminUserDetails(ctx, req.(*AdminUserDetailsRequest))
+		return srv.(RolesServer).AdminUserInfos(ctx, req.(*AdminUserInfosRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1006,8 +1006,8 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Roles_AdminUserList_Handler,
 		},
 		{
-			MethodName: "AdminUserDetails",
-			Handler:    _Roles_AdminUserDetails_Handler,
+			MethodName: "AdminUserInfos",
+			Handler:    _Roles_AdminUserInfos_Handler,
 		},
 		{
 			MethodName: "AdminUserEdit",
