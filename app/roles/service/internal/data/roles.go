@@ -38,3 +38,36 @@ func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int64) err
 
 	return nil
 }
+
+func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int64, typ, status []int64) ([]model.User, int64, error) {
+	var users []model.User
+	var total int64
+	tx := r.data.db.Table(model.UserTableName)
+
+	if name != "" {
+		tx.Where("name = ?", name)
+	}
+
+	if cname != "" {
+		tx.Where("creator_name = ?", cname)
+	}
+
+	if len(typ) > 0 {
+		tx.Where("type in ?", typ)
+	}
+
+	if len(status) > 0 {
+		tx.Where("status in ?", status)
+	}
+
+	tx.Count(&total)
+	tx.Offset((int(page) - 1) * int(limit)).Limit(int(limit))
+	tx.Order("created_time DESC") // 默认创建时间倒序
+	err := tx.Scan(&users).Error
+	if err != nil {
+		r.log.Errorf("[UserList] get list err : %v", err)
+		err = errors.ErrSystemBusy
+	}
+
+	return users, total, err
+}

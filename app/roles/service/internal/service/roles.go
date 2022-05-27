@@ -57,7 +57,15 @@ func (r *RolesService) CreateAdminUser(ctx context.Context, req *pb.CreateAdminU
 }
 
 func (r *RolesService) AdminUserList(ctx context.Context, req *pb.AdminUserListRequest) (*pb.AdminUserListResponse, error) {
-	return &pb.AdminUserListResponse{}, nil
+	if req.Page <= 0 {
+		req.Page = 1
+	}
+
+	if req.Limit <= 0 || req.Limit > 100 {
+		req.Limit = 20
+	}
+
+	return r.uc.AdminUserList(ctx, req)
 }
 
 func (r *RolesService) AdminUserDetails(ctx context.Context, req *pb.AdminUserDetailsRequest) (*pb.AdminUserDetailsResponse, error) {

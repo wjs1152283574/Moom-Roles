@@ -86,3 +86,30 @@ func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminU
 
 	return &v1.CreateAdminUserResponse{}, nil
 }
+
+func (r *RolesUseCase) AdminUserList(ctx context.Context, req *v1.AdminUserListRequest) (*v1.AdminUserListResponse, error) {
+	users, total, err := r.repo.UserList(ctx, req.Name, req.Cname, req.Page, req.Limit, req.Type, req.Status)
+	if err != nil {
+		return &v1.AdminUserListResponse{}, err
+	}
+
+	var List []*v1.AdminUserListResponse_List
+	for _, v := range users {
+		List = append(List, &v1.AdminUserListResponse_List{
+			Id:     int64(v.ID),
+			Cid:    v.CreatorID,
+			Cname:  v.CreatorName,
+			Ctime:  v.CreatedTime,
+			Name:   v.Name,
+			Pass:   v.Pass,
+			Type:   v.Type,
+			Status: v.Status,
+			Icon:   v.Icon,
+		})
+	}
+
+	return &v1.AdminUserListResponse{
+		Total: total,
+		List:  List,
+	}, nil
+}

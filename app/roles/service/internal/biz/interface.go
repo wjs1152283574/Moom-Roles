@@ -13,4 +13,6 @@ type RolesRepo interface {
 	CheckUser(ctx context.Context, name string) (model.User, error)
 	// 存入redis ttl:second
 	RedisSet(ctx context.Context, key, val string, ttl int64) error
+	// 获取用户列表
+	UserList(ctx context.Context, name, cname string, page, limit int64, typ, status []int64) ([]model.User, int64, error)
 }
