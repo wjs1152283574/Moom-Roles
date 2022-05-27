@@ -690,6 +690,52 @@
     }
   },
   "definitions": {
+    "AdminUserListResponseList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "cid": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建者ID"
+        },
+        "cname": {
+          "type": "string",
+          "title": "创建者用户名"
+        },
+        "ctime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间（秒级时间戳）"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名"
+        },
+        "pass": {
+          "type": "string",
+          "title": "加密密码"
+        },
+        "type": {
+          "type": "string",
+          "format": "int64",
+          "title": "类型 1-普通管理员 2-超级管理员"
+        },
+        "status": {
+          "type": "string",
+          "format": "int64",
+          "title": "状态 1-正常 2-冻结"
+        },
+        "icon": {
+          "type": "string",
+          "title": "头像"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -733,10 +779,60 @@
       "type": "object"
     },
     "v1AdminUserListRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "int64",
+          "title": "页数"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64",
+          "title": "每页数量"
+        },
+        "cname": {
+          "type": "string",
+          "title": "创建者用户名 （模糊查询）"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名（模糊查询）"
+        },
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "类型 1-普通管理员 2-超级管理员"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "状态 1-正常 2-冻结"
+        }
+      }
     },
     "v1AdminUserListResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminUserListResponseList"
+          },
+          "title": "列表"
+        }
+      }
     },
     "v1CheckPermissionResponse": {
       "type": "object",

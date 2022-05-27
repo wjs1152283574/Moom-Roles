@@ -246,10 +246,44 @@ message CreateAdminUserResponse {
 }
 
 message AdminUserListRequest {
-
+    // 页数
+    int64 page = 1;
+    // 每页数量
+    int64 limit = 2;
+    // 创建者用户名 （模糊查询）
+    string cname = 3;
+    // 用户名（模糊查询）
+    string name = 4;
+    // 类型 1-普通管理员 2-超级管理员
+    repeated int64 type = 5;
+    // 状态 1-正常 2-冻结
+    repeated int64 status = 6;
 }
 message AdminUserListResponse {
-
+    message List {
+        // ID
+        int64 id = 1;
+        // 创建者ID
+        int64 cid = 2;
+        // 创建者用户名
+        string cname = 3;
+        // 创建时间（秒级时间戳）
+        int64 ctime = 4;
+        // 用户名
+        string name = 5;
+        // 加密密码
+        string pass = 6;
+        // 类型 1-普通管理员 2-超级管理员
+        int64 type = 7;
+        // 状态 1-正常 2-冻结
+        int64 status = 8;
+        // 头像
+        string icon = 9;
+    }
+    // 总数
+    int64 total = 1;
+    // 列表
+    repeated List list = 2;
 }
 
 message AdminUserDetailsRequest {
