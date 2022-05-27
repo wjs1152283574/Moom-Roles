@@ -162,13 +162,61 @@ service Roles {
     rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
     // 验证用户权限
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse);
+    // 验证路由可访问角色--token
+    rpc CheckRouteRoleByToken (CheckRouteRoleByTokenRequest) returns (CheckRouteRoleByTokenResponse);
+    // 验证路由可访问角色--id
+    rpc CheckRouteRoleByID (CheckRouteRoleByIDRequest) returns (CheckRouteRoleByIDResponse);
+    // 验证路由可访问权限--token
+    rpc CheckRoutePermissionByToken (CheckRoutePermissionByTokenRequest) returns (CheckRoutePermissionByTokenResponse);
+    // 验证路由可访问权限--id
+    rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse);
+}
+
+message CheckRoutePermissionByIDRequest {
+    // 管理员ID
+    int64 id = 1;
+    // 角色代码
+    string code = 2;
+}
+message CheckRoutePermissionByIDResponse {
+    bool result = 1;
+}
+
+message CheckRoutePermissionByTokenRequest {
+     // 登陆Token (使用者检测路由的角色时未必有管理员ID，可以直接传token进行检测)
+     string token = 1;
+     // 角色代码
+     string code = 2;
+}
+message CheckRoutePermissionByTokenResponse {
+    bool result = 1;
+}
+
+message CheckRouteRoleByIDRequest {
+    // 管理员ID
+    int64 id = 1;
+    // 角色代码
+    string code = 2;
+}
+message CheckRouteRoleByIDResponse {
+    bool result = 1;
+}
+
+message CheckRouteRoleByTokenRequest {
+    // 登陆Token (使用者检测路由的角色时未必有管理员ID，可以直接传token进行检测)
+    string token = 1;
+    // 角色代码
+    string code = 2;
+}
+message CheckRouteRoleByTokenResponse {
+    bool result = 1;
 }
 
 message RoutePermissionRequest {
 
 }
 message RoutePermissionResponse {
-    
+
 }
 
 message RouteRoleRequest {
@@ -291,17 +339,23 @@ message PermissionEditResponse {
 }
 
 message CheckRoleRequest {
-
+    // 管理员ID
+    int64 id = 1;
+    // 角色代码（调用者使用更有语意化的字符串来表示而非数值）
+    string code = 2;
 }
 message CheckRoleResponse {
-
+    bool result  = 1;
 }
 
 message CheckPermissionRequest {
-
+    // 管理员ID
+    int64 id = 1;
+    // 权限代码
+    string code = 2;
 }
 message CheckPermissionResponse {
-
+    bool result  = 1;
 }
 
 message CreateSuperUserRequest {}

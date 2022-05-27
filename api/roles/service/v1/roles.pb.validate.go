@@ -35,6 +35,858 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on CheckRoutePermissionByIDRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckRoutePermissionByIDRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRoutePermissionByIDRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// CheckRoutePermissionByIDRequestMultiError, or nil if none found.
+func (m *CheckRoutePermissionByIDRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRoutePermissionByIDRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Code
+
+	if len(errors) > 0 {
+		return CheckRoutePermissionByIDRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRoutePermissionByIDRequestMultiError is an error wrapping multiple
+// validation errors returned by CheckRoutePermissionByIDRequest.ValidateAll()
+// if the designated constraints aren't met.
+type CheckRoutePermissionByIDRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRoutePermissionByIDRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRoutePermissionByIDRequestMultiError) AllErrors() []error { return m }
+
+// CheckRoutePermissionByIDRequestValidationError is the validation error
+// returned by CheckRoutePermissionByIDRequest.Validate if the designated
+// constraints aren't met.
+type CheckRoutePermissionByIDRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRoutePermissionByIDRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRoutePermissionByIDRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRoutePermissionByIDRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRoutePermissionByIDRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRoutePermissionByIDRequestValidationError) ErrorName() string {
+	return "CheckRoutePermissionByIDRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRoutePermissionByIDRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRoutePermissionByIDRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRoutePermissionByIDRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRoutePermissionByIDRequestValidationError{}
+
+// Validate checks the field values on CheckRoutePermissionByIDResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CheckRoutePermissionByIDResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRoutePermissionByIDResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// CheckRoutePermissionByIDResponseMultiError, or nil if none found.
+func (m *CheckRoutePermissionByIDResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRoutePermissionByIDResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return CheckRoutePermissionByIDResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRoutePermissionByIDResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// CheckRoutePermissionByIDResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CheckRoutePermissionByIDResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRoutePermissionByIDResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRoutePermissionByIDResponseMultiError) AllErrors() []error { return m }
+
+// CheckRoutePermissionByIDResponseValidationError is the validation error
+// returned by CheckRoutePermissionByIDResponse.Validate if the designated
+// constraints aren't met.
+type CheckRoutePermissionByIDResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRoutePermissionByIDResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRoutePermissionByIDResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRoutePermissionByIDResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRoutePermissionByIDResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRoutePermissionByIDResponseValidationError) ErrorName() string {
+	return "CheckRoutePermissionByIDResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRoutePermissionByIDResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRoutePermissionByIDResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRoutePermissionByIDResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRoutePermissionByIDResponseValidationError{}
+
+// Validate checks the field values on CheckRoutePermissionByTokenRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CheckRoutePermissionByTokenRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRoutePermissionByTokenRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CheckRoutePermissionByTokenRequestMultiError, or nil if none found.
+func (m *CheckRoutePermissionByTokenRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRoutePermissionByTokenRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Token
+
+	// no validation rules for Code
+
+	if len(errors) > 0 {
+		return CheckRoutePermissionByTokenRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRoutePermissionByTokenRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// CheckRoutePermissionByTokenRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CheckRoutePermissionByTokenRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRoutePermissionByTokenRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRoutePermissionByTokenRequestMultiError) AllErrors() []error { return m }
+
+// CheckRoutePermissionByTokenRequestValidationError is the validation error
+// returned by CheckRoutePermissionByTokenRequest.Validate if the designated
+// constraints aren't met.
+type CheckRoutePermissionByTokenRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRoutePermissionByTokenRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRoutePermissionByTokenRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRoutePermissionByTokenRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRoutePermissionByTokenRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRoutePermissionByTokenRequestValidationError) ErrorName() string {
+	return "CheckRoutePermissionByTokenRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRoutePermissionByTokenRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRoutePermissionByTokenRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRoutePermissionByTokenRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRoutePermissionByTokenRequestValidationError{}
+
+// Validate checks the field values on CheckRoutePermissionByTokenResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CheckRoutePermissionByTokenResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRoutePermissionByTokenResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CheckRoutePermissionByTokenResponseMultiError, or nil if none found.
+func (m *CheckRoutePermissionByTokenResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRoutePermissionByTokenResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return CheckRoutePermissionByTokenResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRoutePermissionByTokenResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// CheckRoutePermissionByTokenResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CheckRoutePermissionByTokenResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRoutePermissionByTokenResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRoutePermissionByTokenResponseMultiError) AllErrors() []error { return m }
+
+// CheckRoutePermissionByTokenResponseValidationError is the validation error
+// returned by CheckRoutePermissionByTokenResponse.Validate if the designated
+// constraints aren't met.
+type CheckRoutePermissionByTokenResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRoutePermissionByTokenResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRoutePermissionByTokenResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRoutePermissionByTokenResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRoutePermissionByTokenResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRoutePermissionByTokenResponseValidationError) ErrorName() string {
+	return "CheckRoutePermissionByTokenResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRoutePermissionByTokenResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRoutePermissionByTokenResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRoutePermissionByTokenResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRoutePermissionByTokenResponseValidationError{}
+
+// Validate checks the field values on CheckRouteRoleByIDRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckRouteRoleByIDRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRouteRoleByIDRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckRouteRoleByIDRequestMultiError, or nil if none found.
+func (m *CheckRouteRoleByIDRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRouteRoleByIDRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Code
+
+	if len(errors) > 0 {
+		return CheckRouteRoleByIDRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRouteRoleByIDRequestMultiError is an error wrapping multiple validation
+// errors returned by CheckRouteRoleByIDRequest.ValidateAll() if the
+// designated constraints aren't met.
+type CheckRouteRoleByIDRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRouteRoleByIDRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRouteRoleByIDRequestMultiError) AllErrors() []error { return m }
+
+// CheckRouteRoleByIDRequestValidationError is the validation error returned by
+// CheckRouteRoleByIDRequest.Validate if the designated constraints aren't met.
+type CheckRouteRoleByIDRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRouteRoleByIDRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRouteRoleByIDRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRouteRoleByIDRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRouteRoleByIDRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRouteRoleByIDRequestValidationError) ErrorName() string {
+	return "CheckRouteRoleByIDRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRouteRoleByIDRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRouteRoleByIDRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRouteRoleByIDRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRouteRoleByIDRequestValidationError{}
+
+// Validate checks the field values on CheckRouteRoleByIDResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckRouteRoleByIDResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRouteRoleByIDResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckRouteRoleByIDResponseMultiError, or nil if none found.
+func (m *CheckRouteRoleByIDResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRouteRoleByIDResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return CheckRouteRoleByIDResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRouteRoleByIDResponseMultiError is an error wrapping multiple
+// validation errors returned by CheckRouteRoleByIDResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CheckRouteRoleByIDResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRouteRoleByIDResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRouteRoleByIDResponseMultiError) AllErrors() []error { return m }
+
+// CheckRouteRoleByIDResponseValidationError is the validation error returned
+// by CheckRouteRoleByIDResponse.Validate if the designated constraints aren't met.
+type CheckRouteRoleByIDResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRouteRoleByIDResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRouteRoleByIDResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRouteRoleByIDResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRouteRoleByIDResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRouteRoleByIDResponseValidationError) ErrorName() string {
+	return "CheckRouteRoleByIDResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRouteRoleByIDResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRouteRoleByIDResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRouteRoleByIDResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRouteRoleByIDResponseValidationError{}
+
+// Validate checks the field values on CheckRouteRoleByTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckRouteRoleByTokenRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRouteRoleByTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckRouteRoleByTokenRequestMultiError, or nil if none found.
+func (m *CheckRouteRoleByTokenRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRouteRoleByTokenRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Token
+
+	// no validation rules for Code
+
+	if len(errors) > 0 {
+		return CheckRouteRoleByTokenRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRouteRoleByTokenRequestMultiError is an error wrapping multiple
+// validation errors returned by CheckRouteRoleByTokenRequest.ValidateAll() if
+// the designated constraints aren't met.
+type CheckRouteRoleByTokenRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRouteRoleByTokenRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRouteRoleByTokenRequestMultiError) AllErrors() []error { return m }
+
+// CheckRouteRoleByTokenRequestValidationError is the validation error returned
+// by CheckRouteRoleByTokenRequest.Validate if the designated constraints
+// aren't met.
+type CheckRouteRoleByTokenRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRouteRoleByTokenRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRouteRoleByTokenRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRouteRoleByTokenRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRouteRoleByTokenRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRouteRoleByTokenRequestValidationError) ErrorName() string {
+	return "CheckRouteRoleByTokenRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRouteRoleByTokenRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRouteRoleByTokenRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRouteRoleByTokenRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRouteRoleByTokenRequestValidationError{}
+
+// Validate checks the field values on CheckRouteRoleByTokenResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckRouteRoleByTokenResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckRouteRoleByTokenResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// CheckRouteRoleByTokenResponseMultiError, or nil if none found.
+func (m *CheckRouteRoleByTokenResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckRouteRoleByTokenResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	if len(errors) > 0 {
+		return CheckRouteRoleByTokenResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckRouteRoleByTokenResponseMultiError is an error wrapping multiple
+// validation errors returned by CheckRouteRoleByTokenResponse.ValidateAll()
+// if the designated constraints aren't met.
+type CheckRouteRoleByTokenResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckRouteRoleByTokenResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckRouteRoleByTokenResponseMultiError) AllErrors() []error { return m }
+
+// CheckRouteRoleByTokenResponseValidationError is the validation error
+// returned by CheckRouteRoleByTokenResponse.Validate if the designated
+// constraints aren't met.
+type CheckRouteRoleByTokenResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckRouteRoleByTokenResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckRouteRoleByTokenResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckRouteRoleByTokenResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckRouteRoleByTokenResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckRouteRoleByTokenResponseValidationError) ErrorName() string {
+	return "CheckRouteRoleByTokenResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckRouteRoleByTokenResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckRouteRoleByTokenResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckRouteRoleByTokenResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckRouteRoleByTokenResponseValidationError{}
+
 // Validate checks the field values on RoutePermissionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -3717,6 +4569,10 @@ func (m *CheckRoleRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return CheckRoleRequestMultiError(errors)
 	}
@@ -3816,6 +4672,8 @@ func (m *CheckRoleResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Result
 
 	if len(errors) > 0 {
 		return CheckRoleResponseMultiError(errors)
@@ -3919,6 +4777,10 @@ func (m *CheckPermissionRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return CheckPermissionRequestMultiError(errors)
 	}
@@ -4020,6 +4882,8 @@ func (m *CheckPermissionResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Result
 
 	if len(errors) > 0 {
 		return CheckPermissionResponseMultiError(errors)

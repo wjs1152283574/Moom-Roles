@@ -70,6 +70,14 @@ type RolesClient interface {
 	CheckRole(ctx context.Context, in *CheckRoleRequest, opts ...grpc.CallOption) (*CheckRoleResponse, error)
 	// 验证用户权限
 	CheckPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
+	// 验证路由可访问角色--token
+	CheckRouteRoleByToken(ctx context.Context, in *CheckRouteRoleByTokenRequest, opts ...grpc.CallOption) (*CheckRouteRoleByTokenResponse, error)
+	// 验证路由可访问角色--id
+	CheckRouteRoleByID(ctx context.Context, in *CheckRouteRoleByIDRequest, opts ...grpc.CallOption) (*CheckRouteRoleByIDResponse, error)
+	// 验证路由可访问权限--token
+	CheckRoutePermissionByToken(ctx context.Context, in *CheckRoutePermissionByTokenRequest, opts ...grpc.CallOption) (*CheckRoutePermissionByTokenResponse, error)
+	// 验证路由可访问权限--id
+	CheckRoutePermissionByID(ctx context.Context, in *CheckRoutePermissionByIDRequest, opts ...grpc.CallOption) (*CheckRoutePermissionByIDResponse, error)
 }
 
 type rolesClient struct {
@@ -287,6 +295,42 @@ func (c *rolesClient) CheckPermission(ctx context.Context, in *CheckPermissionRe
 	return out, nil
 }
 
+func (c *rolesClient) CheckRouteRoleByToken(ctx context.Context, in *CheckRouteRoleByTokenRequest, opts ...grpc.CallOption) (*CheckRouteRoleByTokenResponse, error) {
+	out := new(CheckRouteRoleByTokenResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CheckRouteRoleByToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) CheckRouteRoleByID(ctx context.Context, in *CheckRouteRoleByIDRequest, opts ...grpc.CallOption) (*CheckRouteRoleByIDResponse, error) {
+	out := new(CheckRouteRoleByIDResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CheckRouteRoleByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) CheckRoutePermissionByToken(ctx context.Context, in *CheckRoutePermissionByTokenRequest, opts ...grpc.CallOption) (*CheckRoutePermissionByTokenResponse, error) {
+	out := new(CheckRoutePermissionByTokenResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CheckRoutePermissionByToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) CheckRoutePermissionByID(ctx context.Context, in *CheckRoutePermissionByIDRequest, opts ...grpc.CallOption) (*CheckRoutePermissionByIDResponse, error) {
+	out := new(CheckRoutePermissionByIDResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/CheckRoutePermissionByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RolesServer is the server API for Roles service.
 // All implementations must embed UnimplementedRolesServer
 // for forward compatibility
@@ -339,6 +383,14 @@ type RolesServer interface {
 	CheckRole(context.Context, *CheckRoleRequest) (*CheckRoleResponse, error)
 	// 验证用户权限
 	CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
+	// 验证路由可访问角色--token
+	CheckRouteRoleByToken(context.Context, *CheckRouteRoleByTokenRequest) (*CheckRouteRoleByTokenResponse, error)
+	// 验证路由可访问角色--id
+	CheckRouteRoleByID(context.Context, *CheckRouteRoleByIDRequest) (*CheckRouteRoleByIDResponse, error)
+	// 验证路由可访问权限--token
+	CheckRoutePermissionByToken(context.Context, *CheckRoutePermissionByTokenRequest) (*CheckRoutePermissionByTokenResponse, error)
+	// 验证路由可访问权限--id
+	CheckRoutePermissionByID(context.Context, *CheckRoutePermissionByIDRequest) (*CheckRoutePermissionByIDResponse, error)
 	mustEmbedUnimplementedRolesServer()
 }
 
@@ -414,6 +466,18 @@ func (UnimplementedRolesServer) CheckRole(context.Context, *CheckRoleRequest) (*
 }
 func (UnimplementedRolesServer) CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckPermission not implemented")
+}
+func (UnimplementedRolesServer) CheckRouteRoleByToken(context.Context, *CheckRouteRoleByTokenRequest) (*CheckRouteRoleByTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRouteRoleByToken not implemented")
+}
+func (UnimplementedRolesServer) CheckRouteRoleByID(context.Context, *CheckRouteRoleByIDRequest) (*CheckRouteRoleByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRouteRoleByID not implemented")
+}
+func (UnimplementedRolesServer) CheckRoutePermissionByToken(context.Context, *CheckRoutePermissionByTokenRequest) (*CheckRoutePermissionByTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRoutePermissionByToken not implemented")
+}
+func (UnimplementedRolesServer) CheckRoutePermissionByID(context.Context, *CheckRoutePermissionByIDRequest) (*CheckRoutePermissionByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckRoutePermissionByID not implemented")
 }
 func (UnimplementedRolesServer) mustEmbedUnimplementedRolesServer() {}
 
@@ -842,6 +906,78 @@ func _Roles_CheckPermission_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_CheckRouteRoleByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckRouteRoleByTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).CheckRouteRoleByToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/CheckRouteRoleByToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).CheckRouteRoleByToken(ctx, req.(*CheckRouteRoleByTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_CheckRouteRoleByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckRouteRoleByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).CheckRouteRoleByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/CheckRouteRoleByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).CheckRouteRoleByID(ctx, req.(*CheckRouteRoleByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_CheckRoutePermissionByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckRoutePermissionByTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).CheckRoutePermissionByToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/CheckRoutePermissionByToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).CheckRoutePermissionByToken(ctx, req.(*CheckRoutePermissionByTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_CheckRoutePermissionByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckRoutePermissionByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).CheckRoutePermissionByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/CheckRoutePermissionByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).CheckRoutePermissionByID(ctx, req.(*CheckRoutePermissionByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Roles_ServiceDesc is the grpc.ServiceDesc for Roles service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -940,6 +1076,22 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckPermission",
 			Handler:    _Roles_CheckPermission_Handler,
+		},
+		{
+			MethodName: "CheckRouteRoleByToken",
+			Handler:    _Roles_CheckRouteRoleByToken_Handler,
+		},
+		{
+			MethodName: "CheckRouteRoleByID",
+			Handler:    _Roles_CheckRouteRoleByID_Handler,
+		},
+		{
+			MethodName: "CheckRoutePermissionByToken",
+			Handler:    _Roles_CheckRoutePermissionByToken_Handler,
+		},
+		{
+			MethodName: "CheckRoutePermissionByID",
+			Handler:    _Roles_CheckRoutePermissionByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

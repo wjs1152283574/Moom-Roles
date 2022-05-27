@@ -739,10 +739,52 @@
       "type": "object"
     },
     "v1CheckPermissionResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
     },
     "v1CheckRoleResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1CheckRoutePermissionByIDResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1CheckRoutePermissionByTokenResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1CheckRouteRoleByIDResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1CheckRouteRoleByTokenResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
     },
     "v1CreateAdminUserRequest": {
       "type": "object"
