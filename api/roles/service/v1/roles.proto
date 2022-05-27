@@ -234,7 +234,7 @@ message RouteCreateResponse {
 }
 
 message CreateAdminUserRequest {
-
+    
 }
 message CreateAdminUserResponse {
 
