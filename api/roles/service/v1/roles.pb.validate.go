@@ -35,6 +35,616 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on RoutePermissionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RoutePermissionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RoutePermissionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RoutePermissionRequestMultiError, or nil if none found.
+func (m *RoutePermissionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RoutePermissionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RoutePermissionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RoutePermissionRequestMultiError is an error wrapping multiple validation
+// errors returned by RoutePermissionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RoutePermissionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RoutePermissionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RoutePermissionRequestMultiError) AllErrors() []error { return m }
+
+// RoutePermissionRequestValidationError is the validation error returned by
+// RoutePermissionRequest.Validate if the designated constraints aren't met.
+type RoutePermissionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RoutePermissionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RoutePermissionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RoutePermissionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RoutePermissionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RoutePermissionRequestValidationError) ErrorName() string {
+	return "RoutePermissionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RoutePermissionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRoutePermissionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RoutePermissionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RoutePermissionRequestValidationError{}
+
+// Validate checks the field values on RoutePermissionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RoutePermissionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RoutePermissionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RoutePermissionResponseMultiError, or nil if none found.
+func (m *RoutePermissionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RoutePermissionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RoutePermissionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RoutePermissionResponseMultiError is an error wrapping multiple validation
+// errors returned by RoutePermissionResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RoutePermissionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RoutePermissionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RoutePermissionResponseMultiError) AllErrors() []error { return m }
+
+// RoutePermissionResponseValidationError is the validation error returned by
+// RoutePermissionResponse.Validate if the designated constraints aren't met.
+type RoutePermissionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RoutePermissionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RoutePermissionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RoutePermissionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RoutePermissionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RoutePermissionResponseValidationError) ErrorName() string {
+	return "RoutePermissionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RoutePermissionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRoutePermissionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RoutePermissionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RoutePermissionResponseValidationError{}
+
+// Validate checks the field values on RouteRoleRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *RouteRoleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RouteRoleRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RouteRoleRequestMultiError, or nil if none found.
+func (m *RouteRoleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RouteRoleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RouteRoleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RouteRoleRequestMultiError is an error wrapping multiple validation errors
+// returned by RouteRoleRequest.ValidateAll() if the designated constraints
+// aren't met.
+type RouteRoleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RouteRoleRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RouteRoleRequestMultiError) AllErrors() []error { return m }
+
+// RouteRoleRequestValidationError is the validation error returned by
+// RouteRoleRequest.Validate if the designated constraints aren't met.
+type RouteRoleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RouteRoleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RouteRoleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RouteRoleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RouteRoleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RouteRoleRequestValidationError) ErrorName() string { return "RouteRoleRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RouteRoleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRouteRoleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RouteRoleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RouteRoleRequestValidationError{}
+
+// Validate checks the field values on RouteRoleResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *RouteRoleResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RouteRoleResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RouteRoleResponseMultiError, or nil if none found.
+func (m *RouteRoleResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RouteRoleResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RouteRoleResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RouteRoleResponseMultiError is an error wrapping multiple validation errors
+// returned by RouteRoleResponse.ValidateAll() if the designated constraints
+// aren't met.
+type RouteRoleResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RouteRoleResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RouteRoleResponseMultiError) AllErrors() []error { return m }
+
+// RouteRoleResponseValidationError is the validation error returned by
+// RouteRoleResponse.Validate if the designated constraints aren't met.
+type RouteRoleResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RouteRoleResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RouteRoleResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RouteRoleResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RouteRoleResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RouteRoleResponseValidationError) ErrorName() string {
+	return "RouteRoleResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RouteRoleResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRouteRoleResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RouteRoleResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RouteRoleResponseValidationError{}
+
+// Validate checks the field values on RouteCreateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RouteCreateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RouteCreateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RouteCreateRequestMultiError, or nil if none found.
+func (m *RouteCreateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RouteCreateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RouteCreateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RouteCreateRequestMultiError is an error wrapping multiple validation errors
+// returned by RouteCreateRequest.ValidateAll() if the designated constraints
+// aren't met.
+type RouteCreateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RouteCreateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RouteCreateRequestMultiError) AllErrors() []error { return m }
+
+// RouteCreateRequestValidationError is the validation error returned by
+// RouteCreateRequest.Validate if the designated constraints aren't met.
+type RouteCreateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RouteCreateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RouteCreateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RouteCreateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RouteCreateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RouteCreateRequestValidationError) ErrorName() string {
+	return "RouteCreateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RouteCreateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRouteCreateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RouteCreateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RouteCreateRequestValidationError{}
+
+// Validate checks the field values on RouteCreateResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RouteCreateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RouteCreateResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RouteCreateResponseMultiError, or nil if none found.
+func (m *RouteCreateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RouteCreateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RouteCreateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RouteCreateResponseMultiError is an error wrapping multiple validation
+// errors returned by RouteCreateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RouteCreateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RouteCreateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RouteCreateResponseMultiError) AllErrors() []error { return m }
+
+// RouteCreateResponseValidationError is the validation error returned by
+// RouteCreateResponse.Validate if the designated constraints aren't met.
+type RouteCreateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RouteCreateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RouteCreateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RouteCreateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RouteCreateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RouteCreateResponseValidationError) ErrorName() string {
+	return "RouteCreateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RouteCreateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRouteCreateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RouteCreateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RouteCreateResponseValidationError{}
+
 // Validate checks the field values on CreateAdminUserRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

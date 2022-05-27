@@ -135,12 +135,54 @@ service Roles {
             body: "*"
         };
     };
+    // 创建路由
+    rpc RouteCreate (RouteCreateRequest) returns (RouteCreateResponse){
+        option (google.api.http) = {
+            post: "/v1/role/route/create",
+            body: "*"
+        };
+    };
+    // 路由绑定角色
+    rpc RouteRole (RouteRoleRequest) returns (RouteRoleResponse){
+        option (google.api.http) = {
+            post: "/v1/role/route/setrole",
+            body: "*"
+        };
+    };
+    // 路由绑定权限
+    rpc RoutePermission (RoutePermissionRequest) returns (RoutePermissionResponse){
+        option (google.api.http) = {
+            post: "/v1/role/route/setpermission",
+            body: "*"
+        };
+    };
 
     // *******  你的系统鉴权RPC接口  **********
     // 验证用户角色
     rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
     // 验证用户权限
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse);
+}
+
+message RoutePermissionRequest {
+
+}
+message RoutePermissionResponse {
+    
+}
+
+message RouteRoleRequest {
+
+}
+message RouteRoleResponse {
+
+}
+
+message RouteCreateRequest {
+
+}
+message RouteCreateResponse {
+
 }
 
 message CreateAdminUserRequest {

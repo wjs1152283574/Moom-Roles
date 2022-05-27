@@ -326,6 +326,105 @@
         ]
       }
     },
+    "/v1/role/route/create": {
+      "post": {
+        "summary": "创建路由",
+        "operationId": "Roles_RouteCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/setpermission": {
+      "post": {
+        "summary": "路由绑定权限",
+        "operationId": "Roles_RoutePermission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoutePermissionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoutePermissionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/setrole": {
+      "post": {
+        "summary": "路由绑定角色",
+        "operationId": "Roles_RouteRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteRoleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/update": {
       "post": {
         "summary": "编辑角色",
@@ -743,6 +842,24 @@
       "type": "object"
     },
     "v1RoleListResponse": {
+      "type": "object"
+    },
+    "v1RouteCreateRequest": {
+      "type": "object"
+    },
+    "v1RouteCreateResponse": {
+      "type": "object"
+    },
+    "v1RoutePermissionRequest": {
+      "type": "object"
+    },
+    "v1RoutePermissionResponse": {
+      "type": "object"
+    },
+    "v1RouteRoleRequest": {
+      "type": "object"
+    },
+    "v1RouteRoleResponse": {
       "type": "object"
     },
     "v1SetPermissionRequest": {
