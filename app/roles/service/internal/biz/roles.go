@@ -113,3 +113,7 @@ func (r *RolesUseCase) AdminUserList(ctx context.Context, req *v1.AdminUserListR
 		List:  List,
 	}, nil
 }
+
+func (r *RolesUseCase) AdminUserInfos(ctx context.Context, req *v1.AdminUserInfosRequest) (*v1.AdminUserInfosResponse, error) {
+	return &v1.AdminUserInfosResponse{}, nil
+}
