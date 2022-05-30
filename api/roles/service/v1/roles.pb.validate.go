@@ -3080,6 +3080,8 @@ func (m *SetPermissionRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Uid
+
 	if len(errors) > 0 {
 		return SetPermissionRequestMultiError(errors)
 	}

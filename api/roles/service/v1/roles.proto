@@ -348,7 +348,10 @@ message SetRolesResponse {
 }
 
 message SetPermissionRequest {
-
+    // 用户ID
+    int64 uid = 1;
+    // 权限ID 列表
+    repeated int64 pid = 2;
 }
 message SetPermissionResponse {
 
