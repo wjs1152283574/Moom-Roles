@@ -317,10 +317,15 @@ message AdminUserInfosResponse {
 }
 
 message AdminUserEditRequest {
-
+    // 用户名 
+    string name = 1;
+    // 密码 
+    string pass = 2;
+    // 头像
+    string icon = 3;
 }
 message AdminUserEditResponse {
-
+    
 }
 
 message AdminUserDeleteRequest {

@@ -767,7 +767,21 @@
       "type": "object"
     },
     "v1AdminUserEditRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "用户名"
+        },
+        "pass": {
+          "type": "string",
+          "title": "密码"
+        },
+        "icon": {
+          "type": "string",
+          "title": "头像"
+        }
+      }
     },
     "v1AdminUserEditResponse": {
       "type": "object"

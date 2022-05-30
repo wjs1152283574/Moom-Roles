@@ -17,6 +17,8 @@ type RolesRepo interface {
 	UserList(ctx context.Context, name, cname string, page, limit int64, typ, status []int64) ([]model.User, int64, error)
 	// 获取用户基本信息
 	UserBaseInfos(ctx context.Context, uid int64) (model.User, error)
+	// 编辑用户基本信息
+	UserBaseEdit(ctx context.Context, user model.User) error
 	// 获取用户角色列表
 	UserRoleList(ctx context.Context, uid int64) ([]model.Role, error)
 	// 获取用户权限列表

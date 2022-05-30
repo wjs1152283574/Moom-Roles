@@ -105,3 +105,13 @@ func (r *UserRepo) UserPermissionList(ctx context.Context, uid int64) ([]model.P
 
 	return permissions, nil
 }
+
+// 编辑用户基本信息
+func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
+	err := r.data.db.Updates(&user).Error
+	if err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}

@@ -73,7 +73,11 @@ func (r *RolesService) AdminUserInfos(ctx context.Context, req *pb.AdminUserInfo
 }
 
 func (r *RolesService) AdminUserEdit(ctx context.Context, req *pb.AdminUserEditRequest) (*pb.AdminUserEditResponse, error) {
-	return &pb.AdminUserEditResponse{}, nil
+	if req.Name == "" && req.Pass == "" && req.Icon == "" {
+		return &pb.AdminUserEditResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.AdminUserEdit(ctx, r.GetUserID(ctx), req)
 }
 
 func (r *RolesService) SetRoles(ctx context.Context, req *pb.SetRolesRequest) (*pb.SetRolesResponse, error) {

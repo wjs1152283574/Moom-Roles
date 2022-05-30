@@ -152,3 +152,24 @@ func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.Admin
 		Permossions: Per,
 	}, nil
 }
+
+func (r *RolesUseCase) AdminUserEdit(ctx context.Context, uid int64, req *v1.AdminUserEditRequest) (*v1.AdminUserEditResponse, error) {
+	user, err := r.repo.UserBaseInfos(ctx, uid)
+	if err != nil {
+		return &v1.AdminUserEditResponse{}, err
+	}
+
+	if req.Name != "" {
+		user.Name = req.Name
+	}
+
+	if req.Pass != "" {
+		user.Pass = tool.Base64Md5(req.Pass)
+	}
+
+	if req.Icon != "" {
+		user.Icon = req.Icon
+	}
+
+	return &v1.AdminUserEditResponse{}, r.repo.UserBaseEdit(ctx, user)
+}
