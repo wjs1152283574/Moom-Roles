@@ -102,5 +102,6 @@ func (r *UserRepo) UserPermissionList(ctx context.Context, uid int64) ([]model.P
 	if err != nil {
 		return permissions, errors.ErrSystemBusy
 	}
+
 	return permissions, nil
 }

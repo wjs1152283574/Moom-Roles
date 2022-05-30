@@ -114,6 +114,41 @@ func (r *RolesUseCase) AdminUserList(ctx context.Context, req *v1.AdminUserListR
 	}, nil
 }
 
-func (r *RolesUseCase) AdminUserInfos(ctx context.Context, req *v1.AdminUserInfosRequest) (*v1.AdminUserInfosResponse, error) {
-	return &v1.AdminUserInfosResponse{}, nil
+func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.AdminUserInfosResponse, error) {
+	user, err := r.repo.UserBaseInfos(ctx, uid)
+	if err != nil {
+		return &v1.AdminUserInfosResponse{}, err
+	}
+
+	var Role []*v1.Role
+	roles, err := r.repo.UserRoleList(ctx, uid)
+	if err != nil {
+		return &v1.AdminUserInfosResponse{}, err
+	}
+	for _, v := range roles {
+		Role = append(Role, &v1.Role{
+			Id:   int64(v.ID),
+			Code: v.Code,
+		})
+	}
+
+	var Per []*v1.Permissions
+	permissions, err := r.repo.UserPermissionList(ctx, uid)
+	if err != nil {
+		return &v1.AdminUserInfosResponse{}, err
+	}
+	for _, v := range permissions {
+		Per = append(Per, &v1.Permissions{
+			Id:   int64(v.ID),
+			Code: v.Code,
+		})
+	}
+
+	return &v1.AdminUserInfosResponse{
+		Id:          int64(user.ID),
+		Name:        user.Name,
+		Icon:        user.Icon,
+		Roles:       Role,
+		Permossions: Per,
+	}, nil
 }
