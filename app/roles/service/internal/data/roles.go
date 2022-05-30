@@ -71,3 +71,36 @@ func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit
 
 	return users, total, err
 }
+
+// 获取用户基本信息
+func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int64) (model.User, error) {
+	var user model.User
+	user.ID = uint(uid)
+	err := r.data.db.First(&user).Error
+	if err != nil {
+		return user, errors.ErrUserNotExit
+	}
+
+	return user, nil
+}
+
+// 获取用户角色列表
+func (r *UserRepo) UserRoleList(ctx context.Context, uid int64) ([]model.Role, error) {
+	var role []model.Role
+	err := r.data.db.Exec("SELECT * FROM roles WHERE id in (SELECT r_id FROM user_roles WHERE uid=?)", uid).Scan(&role).Error
+	if err != nil {
+		return role, errors.ErrSystemBusy
+	}
+
+	return role, nil
+}
+
+// 获取用户权限列表
+func (r *UserRepo) UserPermissionList(ctx context.Context, uid int64) ([]model.Permission, error) {
+	var permissions []model.Permission
+	err := r.data.db.Exec("SELECT * FROM permissions WHERE id in (SELECT p_id FROM user_permissions WHERE uid=?)", uid).Scan(&permissions).Error
+	if err != nil {
+		return permissions, errors.ErrSystemBusy
+	}
+	return permissions, nil
+}
