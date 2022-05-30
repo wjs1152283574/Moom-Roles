@@ -780,6 +780,11 @@
         "icon": {
           "type": "string",
           "title": "头像"
+        },
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
         }
       }
     },
@@ -1092,7 +1097,22 @@
       "type": "object"
     },
     "v1SetRolesRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "rid": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "角色ID 列表"
+        }
+      }
     },
     "v1SetRolesResponse": {
       "type": "object"

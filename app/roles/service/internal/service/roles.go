@@ -53,7 +53,7 @@ func (r *RolesService) CreateAdminUser(ctx context.Context, req *pb.CreateAdminU
 		return &pb.CreateAdminUserResponse{}, errors.ErrInvalidPass
 	}
 
-	return r.uc.CreateAdminUser(ctx, req)
+	return r.uc.CreateAdminUser(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) AdminUserList(ctx context.Context, req *pb.AdminUserListRequest) (*pb.AdminUserListResponse, error) {
@@ -77,11 +77,19 @@ func (r *RolesService) AdminUserEdit(ctx context.Context, req *pb.AdminUserEditR
 		return &pb.AdminUserEditResponse{}, errors.ErrInvalidParams
 	}
 
-	return r.uc.AdminUserEdit(ctx, r.GetUserID(ctx), req)
+	return r.uc.AdminUserEdit(ctx, req)
 }
 
 func (r *RolesService) SetRoles(ctx context.Context, req *pb.SetRolesRequest) (*pb.SetRolesResponse, error) {
-	return &pb.SetRolesResponse{}, nil
+	if req.Uid <= 0 {
+		return &pb.SetRolesResponse{}, errors.ErrInvalidUID
+	}
+
+	if len(req.Rid) <= 0 {
+		return &pb.SetRolesResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.SetRoles(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) SetPermission(ctx context.Context, req *pb.SetPermissionRequest) (*pb.SetPermissionResponse, error) {

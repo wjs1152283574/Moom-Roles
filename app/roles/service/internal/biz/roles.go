@@ -66,7 +66,7 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 	}, nil
 }
 
-func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminUserRequest) (*v1.CreateAdminUserResponse, error) {
+func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminUserRequest, uid int64) (*v1.CreateAdminUserResponse, error) {
 	// 组装用户数据
 	var data []model.User
 	for _, v := range conf.SU.SuperUser {
@@ -75,7 +75,7 @@ func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminU
 			Pass:   tool.Base64Md5(v.Pass),
 			Type:   1,
 			Status: 1,
-			Commom: model.Commom{CreatedTime: time.Now().Unix()},
+			Commom: model.Commom{CreatedTime: time.Now().Unix(), CreatorID: uid},
 		})
 
 	}
@@ -153,8 +153,8 @@ func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.Admin
 	}, nil
 }
 
-func (r *RolesUseCase) AdminUserEdit(ctx context.Context, uid int64, req *v1.AdminUserEditRequest) (*v1.AdminUserEditResponse, error) {
-	user, err := r.repo.UserBaseInfos(ctx, uid)
+func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditRequest) (*v1.AdminUserEditResponse, error) {
+	user, err := r.repo.UserBaseInfos(ctx, req.Uid)
 	if err != nil {
 		return &v1.AdminUserEditResponse{}, err
 	}
@@ -171,5 +171,15 @@ func (r *RolesUseCase) AdminUserEdit(ctx context.Context, uid int64, req *v1.Adm
 		user.Icon = req.Icon
 	}
 
+	user.UpdatedTime = time.Now().Unix()
+
 	return &v1.AdminUserEditResponse{}, r.repo.UserBaseEdit(ctx, user)
+}
+
+func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, creator int64) (*v1.SetRolesResponse, error) {
+	if err := r.repo.SetRoles(ctx, req.Uid, creator, req.Rid); err != nil {
+		return &v1.SetRolesResponse{}, err
+	}
+
+	return &v1.SetRolesResponse{}, nil
 }

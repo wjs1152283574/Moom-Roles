@@ -2466,6 +2466,8 @@ func (m *AdminUserEditRequest) validate(all bool) error {
 
 	// no validation rules for Icon
 
+	// no validation rules for Uid
+
 	if len(errors) > 0 {
 		return AdminUserEditRequestMultiError(errors)
 	}
@@ -2875,6 +2877,8 @@ func (m *SetRolesRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Uid
 
 	if len(errors) > 0 {
 		return SetRolesRequestMultiError(errors)

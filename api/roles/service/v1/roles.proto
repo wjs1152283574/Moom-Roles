@@ -323,9 +323,11 @@ message AdminUserEditRequest {
     string pass = 2;
     // 头像
     string icon = 3;
+    // 用户ID
+    int64 uid = 4;
 }
 message AdminUserEditResponse {
-    
+
 }
 
 message AdminUserDeleteRequest {
@@ -336,7 +338,10 @@ message AdminUserDeleteResponse {
 }
 
 message SetRolesRequest {
-
+    // 用户ID
+    int64 uid = 1;
+    // 角色ID 列表
+    repeated int64 rid = 2;
 }
 message SetRolesResponse {
 

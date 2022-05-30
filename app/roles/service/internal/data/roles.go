@@ -115,3 +115,21 @@ func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 
 	return nil
 }
+
+// 设置用户角色
+func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int64, rid []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range rid {
+			var userRole model.UserRole
+			userRole.UID = uint(uid)
+			userRole.CreatedTime = time.Now().Unix()
+			userRole.CreatorID = creator
+			userRole.RID = uint(v)
+			if err := tx.Create(&userRole).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+
+		return nil
+	})
+}

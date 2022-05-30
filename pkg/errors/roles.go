@@ -5,6 +5,7 @@ import "github.com/go-kratos/kratos/v2/errors"
 var (
 	ErrAuthFail          = errors.New(401, "AuthFail", "Missing token or token incorrect")
 	ErrInvalidParams     = errors.New(400, "InvalidParams", "invalid params")
+	ErrInvalidUID        = errors.New(400, "InvalidUID", "invalid uid")
 	ErrInvalidUsername   = errors.New(400, "InvalidUsername", "invalid user name")
 	ErrInvalidPass       = errors.New(400, "InvalidPass", "invalid password")
 	ErrSystemBusy        = errors.New(500, "SystemBusy", "system busy")

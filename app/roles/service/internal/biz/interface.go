@@ -23,4 +23,6 @@ type RolesRepo interface {
 	UserRoleList(ctx context.Context, uid int64) ([]model.Role, error)
 	// 获取用户权限列表
 	UserPermissionList(ctx context.Context, uid int64) ([]model.Permission, error)
+	// 设置用户角色
+	SetRoles(ctx context.Context, uid, creator int64, rid []int64) error
 }
