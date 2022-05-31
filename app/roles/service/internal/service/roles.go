@@ -113,7 +113,11 @@ func (r *RolesService) AdminUserDelete(ctx context.Context, req *pb.AdminUserDel
 }
 
 func (r *RolesService) RoleCreate(ctx context.Context, req *pb.RoleCreateRequest) (*pb.RoleCreateResponse, error) {
-	return &pb.RoleCreateResponse{}, nil
+	if req.Name == "" || req.Code == "" {
+		return &pb.RoleCreateResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RoleCreate(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RoleList(ctx context.Context, req *pb.RoleListRequest) (*pb.RoleListResponse, error) {

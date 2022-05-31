@@ -359,7 +359,10 @@ message SetPermissionResponse {
 }
 
 message RoleCreateRequest {
-
+    // 角色名称
+    string name = 1;
+    // 代码
+    string code =2;
 }
 message RoleCreateResponse {
 

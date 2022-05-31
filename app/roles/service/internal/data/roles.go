@@ -161,3 +161,15 @@ func (r *UserRepo) UserDelete(ctx context.Context, uid int64) error {
 		return nil
 	})
 }
+
+func (r *UserRepo) RoleCreate(ctx context.Context, creator int64, name, code string) error {
+	var role model.Role
+	role.Name = name
+	role.Code = code
+	role.Commom = model.Commom{CreatorID: creator, CreatedTime: time.Now().Unix()}
+	if err := r.data.db.Table(model.RoleTableName).Create(&role).Error; err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}

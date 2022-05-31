@@ -1050,7 +1050,17 @@
       }
     },
     "v1RoleCreateRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码"
+        }
+      }
     },
     "v1RoleCreateResponse": {
       "type": "object"

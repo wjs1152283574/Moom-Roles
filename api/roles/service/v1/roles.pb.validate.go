@@ -3286,6 +3286,10 @@ func (m *RoleCreateRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return RoleCreateRequestMultiError(errors)
 	}

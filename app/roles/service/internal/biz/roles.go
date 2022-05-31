@@ -199,3 +199,11 @@ func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 
 	return &v1.AdminUserDeleteResponse{}, nil
 }
+
+func (r *RolesUseCase) RoleCreate(ctx context.Context, req *v1.RoleCreateRequest, creator int64) (*v1.RoleCreateResponse, error) {
+	if err := r.repo.RoleCreate(ctx, creator, req.Name, req.Code); err != nil {
+		return &v1.RoleCreateResponse{}, err
+	}
+
+	return &v1.RoleCreateResponse{}, nil
+}
