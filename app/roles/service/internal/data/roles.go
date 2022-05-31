@@ -133,3 +133,20 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int64, rid []int64
 		return nil
 	})
 }
+
+func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int64, pid []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range pid {
+			var userRole model.UserPermission
+			userRole.UID = uint(uid)
+			userRole.CreatedTime = time.Now().Unix()
+			userRole.CreatorID = creator
+			userRole.PID = uint(v)
+			if err := tx.Create(&userRole).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+
+		return nil
+	})
+}

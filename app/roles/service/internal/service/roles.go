@@ -93,7 +93,15 @@ func (r *RolesService) SetRoles(ctx context.Context, req *pb.SetRolesRequest) (*
 }
 
 func (r *RolesService) SetPermission(ctx context.Context, req *pb.SetPermissionRequest) (*pb.SetPermissionResponse, error) {
-	return &pb.SetPermissionResponse{}, nil
+	if req.Uid <= 0 {
+		return &pb.SetPermissionResponse{}, errors.ErrInvalidUID
+	}
+
+	if len(req.Pid) <= 0 {
+		return &pb.SetPermissionResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.SetPermission(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) AdminUserDelete(ctx context.Context, req *pb.AdminUserDeleteRequest) (*pb.AdminUserDeleteResponse, error) {

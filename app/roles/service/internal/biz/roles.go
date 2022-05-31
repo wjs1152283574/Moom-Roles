@@ -183,3 +183,11 @@ func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, cr
 
 	return &v1.SetRolesResponse{}, nil
 }
+
+func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionRequest, creator int64) (*v1.SetPermissionResponse, error) {
+	if err := r.repo.SetRoles(ctx, req.Uid, creator, req.Pid); err != nil {
+		return &v1.SetPermissionResponse{}, err
+	}
+
+	return &v1.SetPermissionResponse{}, nil
+}
