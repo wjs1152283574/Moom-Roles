@@ -677,6 +677,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "用户ID",
             "in": "path",
             "required": true,
             "type": "string",

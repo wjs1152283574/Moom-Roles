@@ -150,3 +150,14 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int64, pid [
 		return nil
 	})
 }
+
+func (r *UserRepo) UserDelete(ctx context.Context, uid int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		err := tx.Exec("delete from users where id = ?", uid).Error
+		if err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		return nil
+	})
+}

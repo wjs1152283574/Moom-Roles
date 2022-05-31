@@ -331,6 +331,7 @@ message AdminUserEditResponse {
 }
 
 message AdminUserDeleteRequest {
+    // 用户ID
     int64 id = 1;
 }
 message AdminUserDeleteResponse {

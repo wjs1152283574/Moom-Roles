@@ -105,6 +105,10 @@ func (r *RolesService) SetPermission(ctx context.Context, req *pb.SetPermissionR
 }
 
 func (r *RolesService) AdminUserDelete(ctx context.Context, req *pb.AdminUserDeleteRequest) (*pb.AdminUserDeleteResponse, error) {
+	if req.Id <= 0 {
+		return &pb.AdminUserDeleteResponse{}, errors.ErrInvalidParams
+	}
+
 	return &pb.AdminUserDeleteResponse{}, nil
 }
 

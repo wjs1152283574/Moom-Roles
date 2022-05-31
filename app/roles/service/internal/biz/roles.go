@@ -191,3 +191,11 @@ func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionR
 
 	return &v1.SetPermissionResponse{}, nil
 }
+
+func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {
+	if err := r.repo.UserDelete(ctx, req.Id); err != nil {
+		return &v1.AdminUserDeleteResponse{}, err
+	}
+
+	return &v1.AdminUserDeleteResponse{}, nil
+}
