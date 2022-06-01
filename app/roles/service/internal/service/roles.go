@@ -136,7 +136,8 @@ func (r *RolesService) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest
 	if req.Id <= 0 {
 		return &v1.RoleDeleteResponse{}, errors.ErrInvalidParams
 	}
-	return &v1.RoleDeleteResponse{}, nil
+
+	return r.uc.RoleDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RoleEdit(ctx context.Context, req *v1.RoleEditRequest) (*v1.RoleEditResponse, error) {

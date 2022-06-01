@@ -232,3 +232,7 @@ func (r *RolesUseCase) RoleList(ctx context.Context, req *v1.RoleListRequest) (*
 		Total: total,
 	}, nil
 }
+
+func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest, uid int64) (*v1.RoleDeleteResponse, error) {
+	return &v1.RoleDeleteResponse{}, nil
+}
