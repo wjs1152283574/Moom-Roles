@@ -3494,6 +3494,14 @@ func (m *RoleListRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Page
+
+	// no validation rules for Limit
+
+	// no validation rules for Name
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return RoleListRequestMultiError(errors)
 	}
@@ -3593,6 +3601,42 @@ func (m *RoleListResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RoleListResponseValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RoleListResponseValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RoleListResponseValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Total
 
 	if len(errors) > 0 {
 		return RoleListResponseMultiError(errors)
@@ -6050,3 +6094,120 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AdminUserListResponse_ListValidationError{}
+
+// Validate checks the field values on RoleListResponse_RoleListItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RoleListResponse_RoleListItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RoleListResponse_RoleListItem with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RoleListResponse_RoleListItemMultiError, or nil if none found.
+func (m *RoleListResponse_RoleListItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RoleListResponse_RoleListItem) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Code
+
+	// no validation rules for Cid
+
+	// no validation rules for Cname
+
+	// no validation rules for Ctime
+
+	// no validation rules for Utime
+
+	if len(errors) > 0 {
+		return RoleListResponse_RoleListItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// RoleListResponse_RoleListItemMultiError is an error wrapping multiple
+// validation errors returned by RoleListResponse_RoleListItem.ValidateAll()
+// if the designated constraints aren't met.
+type RoleListResponse_RoleListItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RoleListResponse_RoleListItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RoleListResponse_RoleListItemMultiError) AllErrors() []error { return m }
+
+// RoleListResponse_RoleListItemValidationError is the validation error
+// returned by RoleListResponse_RoleListItem.Validate if the designated
+// constraints aren't met.
+type RoleListResponse_RoleListItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RoleListResponse_RoleListItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RoleListResponse_RoleListItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RoleListResponse_RoleListItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RoleListResponse_RoleListItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RoleListResponse_RoleListItemValidationError) ErrorName() string {
+	return "RoleListResponse_RoleListItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RoleListResponse_RoleListItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRoleListResponse_RoleListItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RoleListResponse_RoleListItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RoleListResponse_RoleListItemValidationError{}
