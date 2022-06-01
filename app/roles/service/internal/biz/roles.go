@@ -207,3 +207,28 @@ func (r *RolesUseCase) RoleCreate(ctx context.Context, req *v1.RoleCreateRequest
 
 	return &v1.RoleCreateResponse{}, nil
 }
+
+func (r *RolesUseCase) RoleList(ctx context.Context, req *v1.RoleListRequest) (*v1.RoleListResponse, error) {
+	roles, total, err := r.repo.RoleList(ctx, req.Page, req.Limit, req.Name, req.Code)
+	if err != nil {
+		return &v1.RoleListResponse{}, err
+	}
+
+	var List []*v1.RoleListResponse_RoleListItem
+	for _, v := range roles {
+		List = append(List, &v1.RoleListResponse_RoleListItem{
+			Id:    int64(v.ID),
+			Name:  v.Name,
+			Code:  v.Code,
+			Cid:   v.CreatorID,
+			Cname: v.CreatorName,
+			Ctime: v.CreatedTime,
+			Utime: v.UpdatedTime,
+		})
+	}
+
+	return &v1.RoleListResponse{
+		List:  List,
+		Total: total,
+	}, nil
+}

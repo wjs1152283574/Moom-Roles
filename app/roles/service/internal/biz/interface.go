@@ -31,4 +31,6 @@ type RolesRepo interface {
 	UserDelete(ctx context.Context, uid int64) error
 	// 创建角色
 	RoleCreate(ctx context.Context, creator int64, name, code string) error
+	// 角色列表
+	RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error)
 }

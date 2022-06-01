@@ -173,3 +173,8 @@ func (r *UserRepo) RoleCreate(ctx context.Context, creator int64, name, code str
 
 	return nil
 }
+
+func (r *UserRepo) RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error) {
+	var roles []model.Role
+	return roles, 0, nil
+}
