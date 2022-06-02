@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
@@ -176,5 +177,35 @@ func (r *UserRepo) RoleCreate(ctx context.Context, creator int64, name, code str
 
 func (r *UserRepo) RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error) {
 	var roles []model.Role
-	return roles, 0, nil
+	var total int64
+	tx := r.data.db.Table(model.RoleTableName)
+	if name != "" {
+		key := fmt.Sprintf("%%%s%%", name)
+		tx.Where("name like ?", key)
+	}
+
+	if code != "" {
+		key := fmt.Sprintf("%%%s%%", code)
+		tx.Where("code like ?", key)
+	}
+
+	tx.Count(&total)
+	tx.Offset((int(page) - 1) * int(limit)).Limit(int(limit))
+
+	err := tx.Scan(&roles).Error
+	if err != nil {
+		r.log.Errorf("[RoleList] get list err : %v", err)
+	}
+
+	return roles, total, nil
+}
+
+func (r *UserRepo) RoleDelete(ctx context.Context, id, creator int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		err := tx.Exec("delete from users where id = ?", id).Error
+		if err != nil {
+			return errors.ErrSystemBusy
+		}
+		return nil
+	})
 }
