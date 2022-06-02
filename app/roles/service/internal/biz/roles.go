@@ -240,3 +240,11 @@ func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest
 
 	return &v1.RoleDeleteResponse{}, nil
 }
+
+func (r *RolesUseCase) RoleEdit(ctx context.Context, req *v1.RoleEditRequest, uid int64) (*v1.RoleEditResponse, error) {
+	if err := r.repo.RoleEdit(ctx, req.Id, uid, req.Name, req.Code); err != nil {
+		return &v1.RoleEditResponse{}, err
+	}
+
+	return &v1.RoleEditResponse{}, nil
+}

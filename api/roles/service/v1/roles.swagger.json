@@ -1116,7 +1116,22 @@
       "type": "object"
     },
     "v1RoleEditRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "角色ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "角色代码"
+        }
+      }
     },
     "v1RoleEditResponse": {
       "type": "object"

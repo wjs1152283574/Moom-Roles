@@ -35,4 +35,6 @@ type RolesRepo interface {
 	RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error)
 	// 删除角色
 	RoleDelete(ctx context.Context, id, creator int64) error
+	// 编辑角色
+	RoleEdit(ctx context.Context, id, creator int64, name, code string) error
 }

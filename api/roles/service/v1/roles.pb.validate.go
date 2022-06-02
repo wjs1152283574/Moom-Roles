@@ -3944,6 +3944,12 @@ func (m *RoleEditRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return RoleEditRequestMultiError(errors)
 	}

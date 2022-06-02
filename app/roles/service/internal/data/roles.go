@@ -8,6 +8,7 @@ import (
 	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
 	"github.com/it-moom/moom-roles/pkg/errors"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 func (r *UserRepo) CreateUser(ctx context.Context, data []model.User) error {
@@ -206,6 +207,31 @@ func (r *UserRepo) RoleDelete(ctx context.Context, id, creator int64) error {
 		if err != nil {
 			return errors.ErrSystemBusy
 		}
+		return nil
+	})
+}
+
+func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int64, name, code string) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		var role model.Role
+		err := tx.Clauses(clause.Locking{
+			Strength: "UPDATE",
+		}).Where("id = ?", id).First(&role).Error
+		if err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		if name != "" {
+			role.Name = name
+		}
+		if code != "" {
+			role.Code = code
+		}
+		role.UpdatedTime = time.Now().Unix()
+		if err := tx.Updates(&role); err != nil {
+			return errors.ErrSystemBusy
+		}
+
 		return nil
 	})
 }

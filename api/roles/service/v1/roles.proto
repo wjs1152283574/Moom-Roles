@@ -406,14 +406,19 @@ message RoleDeleteRequest {
     int64 id = 1;
 }
 message RoleDeleteResponse {
-    
+
 }
 
 message RoleEditRequest {
-
+    // 角色ID
+    int64 id = 1;
+    // 角色名称
+    string name = 2;
+    // 角色代码
+    string code = 3;
 }
 message RoleEditResponse {
-
+    
 }
 
 message PermissionCreateRequest {

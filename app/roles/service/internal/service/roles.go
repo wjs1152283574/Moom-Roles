@@ -141,7 +141,11 @@ func (r *RolesService) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest
 }
 
 func (r *RolesService) RoleEdit(ctx context.Context, req *v1.RoleEditRequest) (*v1.RoleEditResponse, error) {
-	return &v1.RoleEditResponse{}, nil
+	if req.Id <= 0 || (req.Name == "" && req.Code == "") {
+		return &v1.RoleEditResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RoleEdit(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) PermissionCreate(ctx context.Context, req *v1.PermissionCreateRequest) (*v1.PermissionCreateResponse, error) {
