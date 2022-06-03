@@ -37,6 +37,6 @@ type RolesRepo interface {
 	RoleDelete(ctx context.Context, id, creator int64) error
 	// 编辑角色
 	RoleEdit(ctx context.Context, id, creator int64, name, code string) error
-	// 创建角色
+	// 创建权限
 	PermissionCreate(ctx context.Context, creator int64, name, code string) error
 }
