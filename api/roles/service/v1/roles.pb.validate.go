@@ -4150,6 +4150,10 @@ func (m *PermissionCreateRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
+	// no validation rules for Code
+
 	if len(errors) > 0 {
 		return PermissionCreateRequestMultiError(errors)
 	}

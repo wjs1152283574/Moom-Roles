@@ -422,7 +422,10 @@ message RoleEditResponse {
 }
 
 message PermissionCreateRequest {
-
+    // 权限名称
+    string name = 1;
+    // 代码
+    string code =2;
 }
 message PermissionCreateResponse {
 

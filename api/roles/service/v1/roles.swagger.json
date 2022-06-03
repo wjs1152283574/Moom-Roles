@@ -777,11 +777,14 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "@type": {
+        "typeUrl": {
           "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
         }
-      },
-      "additionalProperties": {}
+      }
     },
     "rpcStatus": {
       "type": "object",
@@ -1035,7 +1038,17 @@
       }
     },
     "v1PermissionCreateRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "权限名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码"
+        }
+      }
     },
     "v1PermissionCreateResponse": {
       "type": "object"
