@@ -248,3 +248,11 @@ func (r *RolesUseCase) RoleEdit(ctx context.Context, req *v1.RoleEditRequest, ui
 
 	return &v1.RoleEditResponse{}, nil
 }
+
+func (r *RolesUseCase) PermissionCreate(ctx context.Context, req *v1.PermissionCreateRequest, uid int64) (*v1.PermissionCreateResponse, error) {
+	if err := r.repo.PermissionCreate(ctx, uid, req.Name, req.Code); err != nil {
+		return &v1.PermissionCreateResponse{}, err
+	}
+
+	return &v1.PermissionCreateResponse{}, nil
+}

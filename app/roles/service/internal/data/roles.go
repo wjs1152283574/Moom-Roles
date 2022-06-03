@@ -235,3 +235,15 @@ func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int64, name, code s
 		return nil
 	})
 }
+
+func (r *UserRepo) PermissionCreate(ctx context.Context, creator int64, name, code string) error {
+	var per model.Permission
+	per.Code = code
+	per.Name = name
+	per.Commom = model.Commom{CreatorID: creator, CreatedTime: time.Now().Unix()}
+	if err := r.data.db.Create(&per); err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}
