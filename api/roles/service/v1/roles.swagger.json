@@ -737,6 +737,43 @@
         }
       }
     },
+    "PermissionListResponsePermissionListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码"
+        },
+        "cid": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建者ID"
+        },
+        "cname": {
+          "type": "string",
+          "title": "创建者名称"
+        },
+        "ctime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "utime": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        }
+      }
+    },
     "RoleListResponseRoleListItem": {
       "type": "object",
       "properties": {
@@ -1060,16 +1097,65 @@
       "type": "object"
     },
     "v1PermissionEditRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "角色ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "角色代码"
+        }
+      }
     },
     "v1PermissionEditResponse": {
       "type": "object"
     },
     "v1PermissionListRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "int64",
+          "title": "页数"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64",
+          "title": "每页数量"
+        },
+        "name": {
+          "type": "string",
+          "title": "名称 （模糊查询）"
+        },
+        "code": {
+          "type": "string",
+          "title": "代码 （模糊查询）"
+        }
+      }
     },
     "v1PermissionListResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PermissionListResponsePermissionListItem"
+          },
+          "title": "列表"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        }
+      }
     },
     "v1Permissions": {
       "type": "object",

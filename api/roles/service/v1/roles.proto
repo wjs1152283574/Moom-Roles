@@ -432,10 +432,36 @@ message PermissionCreateResponse {
 }
 
 message PermissionListRequest {
-
+    // 页数
+    int64 page = 1;
+    // 每页数量
+    int64 limit = 2;
+    // 名称 （模糊查询）
+    string name = 3;
+    // 代码 （模糊查询）
+    string code = 4;
 }
 message PermissionListResponse {
-
+    message PermissionListItem {
+        // ID
+        int64 id = 1;
+        // 名称 
+        string name = 2;
+        // 代码 
+        string code = 3;
+        // 创建者ID
+        int64 cid = 4;
+        // 创建者名称
+        string cname = 5;
+        // 创建时间
+        int64 ctime = 6;
+        // 更新时间
+        int64 utime = 7;
+    }
+    // 列表
+    repeated PermissionListItem list = 1;
+    // 总数
+    int64 total = 2;
 }
 
 message PermissionDeleteRequest {
@@ -446,7 +472,12 @@ message PermissionDeleteResponse {
 }
 
 message PermissionEditRequest {
-
+    // 角色ID
+    int64 id = 1;
+    // 角色名称
+    string name = 2;
+    // 角色代码
+    string code = 3;
 }
 message PermissionEditResponse {
 
