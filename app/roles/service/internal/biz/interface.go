@@ -39,4 +39,6 @@ type RolesRepo interface {
 	RoleEdit(ctx context.Context, id, creator int64, name, code string) error
 	// 创建权限
 	PermissionCreate(ctx context.Context, creator int64, name, code string) error
+	// 权限列表
+	PermissionList(ctx context.Context, page, limit int64, name, code string) ([]model.Permission, int64, error)
 }

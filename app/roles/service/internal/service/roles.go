@@ -157,7 +157,15 @@ func (r *RolesService) PermissionCreate(ctx context.Context, req *v1.PermissionC
 }
 
 func (r *RolesService) PermissionList(ctx context.Context, req *v1.PermissionListRequest) (*v1.PermissionListResponse, error) {
-	return &v1.PermissionListResponse{}, nil
+	if req.Page <= 0 {
+		req.Page = 1
+	}
+
+	if req.Limit <= 0 || req.Limit > 100 {
+		req.Limit = 20
+	}
+
+	return r.uc.PermissionList(ctx, req)
 }
 
 func (r *RolesService) PermissionDelete(ctx context.Context, req *v1.PermissionDeleteRequest) (*v1.PermissionDeleteResponse, error) {

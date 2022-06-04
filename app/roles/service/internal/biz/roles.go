@@ -256,3 +256,28 @@ func (r *RolesUseCase) PermissionCreate(ctx context.Context, req *v1.PermissionC
 
 	return &v1.PermissionCreateResponse{}, nil
 }
+
+func (r *RolesUseCase) PermissionList(ctx context.Context, req *v1.PermissionListRequest) (*v1.PermissionListResponse, error) {
+	pers, total, err := r.repo.PermissionList(ctx, req.Page, req.Limit, req.Name, req.Code)
+	if err != nil {
+		return &v1.PermissionListResponse{}, err
+	}
+
+	var List []*v1.PermissionListResponse_PermissionListItem
+	for _, v := range pers {
+		List = append(List, &v1.PermissionListResponse_PermissionListItem{
+			Id:    int64(v.ID),
+			Name:  v.Name,
+			Code:  v.Code,
+			Ctime: v.CreatedTime,
+			Cname: v.CreatorName,
+			Cid:   v.CreatorID,
+			Utime: v.UpdatedTime,
+		})
+	}
+
+	return &v1.PermissionListResponse{
+		List:  List,
+		Total: total,
+	}, nil
+}

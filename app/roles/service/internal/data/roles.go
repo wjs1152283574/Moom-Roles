@@ -247,3 +247,29 @@ func (r *UserRepo) PermissionCreate(ctx context.Context, creator int64, name, co
 
 	return nil
 }
+
+func (r *UserRepo) PermissionList(ctx context.Context, page, limit int64, name, code string) ([]model.Permission, int64, error) {
+	var pers []model.Permission
+	var total int64
+	tx := r.data.db.Table(model.PermissionTableName)
+
+	if name != "" {
+		key := fmt.Sprintf("%%%s%%", name)
+		tx.Where("name like ?", key)
+	}
+
+	if code != "" {
+		key := fmt.Sprintf("%%%s%%", code)
+		tx.Where("code like ?", key)
+	}
+
+	tx.Count(&total)
+	tx.Offset((int(page) - 1) * int(limit)).Limit(int(limit))
+
+	err := tx.Scan(&pers).Error
+	if err != nil {
+		r.log.Errorf("[RoleList] get list err : %v", err)
+	}
+
+	return pers, total, nil
+}
