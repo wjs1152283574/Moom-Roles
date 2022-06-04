@@ -281,3 +281,12 @@ func (r *RolesUseCase) PermissionList(ctx context.Context, req *v1.PermissionLis
 		Total: total,
 	}, nil
 }
+
+func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionDeleteRequest) (*v1.PermissionDeleteResponse, error) {
+	err := r.repo.PermissionDelete(ctx, req.Id)
+	if err != nil {
+		return &v1.PermissionDeleteResponse{}, err
+	}
+
+	return &v1.PermissionDeleteResponse{}, nil
+}
