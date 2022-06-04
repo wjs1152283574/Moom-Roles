@@ -1091,7 +1091,14 @@
       "type": "object"
     },
     "v1PermissionDeleteRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "权限ID"
+        }
+      }
     },
     "v1PermissionDeleteResponse": {
       "type": "object"
