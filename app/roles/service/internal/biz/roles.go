@@ -290,3 +290,7 @@ func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionD
 
 	return &v1.PermissionDeleteResponse{}, nil
 }
+
+func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest) (*v1.PermissionEditResponse, error) {
+	return &v1.PermissionEditResponse{}, nil
+}

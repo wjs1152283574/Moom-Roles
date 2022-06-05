@@ -283,3 +283,28 @@ func (r *UserRepo) PermissionDelete(ctx context.Context, id int64) error {
 		return nil
 	})
 }
+
+func (r *UserRepo) PermissionEdit(ctx context.Context, id int64, name, code string) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		var per model.Permission
+		if err := tx.Clauses(clause.Locking{
+			Strength: "UPDATE",
+		}).Where("id = ?", id).First(&per).Error; err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		if name != "" {
+			per.Name = name
+		}
+
+		if code != "" {
+			per.Code = code
+		}
+
+		if err := tx.Updates(&per).Error; err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		return nil
+	})
+}

@@ -177,5 +177,9 @@ func (r *RolesService) PermissionDelete(ctx context.Context, req *v1.PermissionD
 }
 
 func (r *RolesService) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest) (*v1.PermissionEditResponse, error) {
-	return &v1.PermissionEditResponse{}, nil
+	if req.Id <= 0 || (req.Name == "" && req.Code == "") {
+		return &v1.PermissionEditResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.PermissionEdit(ctx, req)
 }

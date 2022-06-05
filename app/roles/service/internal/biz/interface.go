@@ -43,4 +43,6 @@ type RolesRepo interface {
 	PermissionList(ctx context.Context, page, limit int64, name, code string) ([]model.Permission, int64, error)
 	// 删除权限
 	PermissionDelete(ctx context.Context, id int64) error
+	// 编辑权限
+	PermissionEdit(ctx context.Context, id int64, name, code string) error
 }
