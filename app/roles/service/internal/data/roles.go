@@ -323,13 +323,13 @@ func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url strin
 
 func (r *UserRepo) RouteRole(ctx context.Context, uid, route, role int64) error {
 	var routeRole model.RouteRole
-	err := r.data.db.Table(model.RouteRoleTablename).Where("rid = ? and role_id = ?", route, role).First(&routeRole).Error
+	err := r.data.db.Table(model.RouteRoleTablename).Where("route = ? and role = ?", route, role).First(&routeRole).Error
 	if err != nil && gorm.ErrRecordNotFound == err {
 		return errors.ErrMuiltiRecord
 	}
 
-	routeRole.RoleID = uint(role)
-	routeRole.RID = route
+	routeRole.Role = uint(role)
+	routeRole.Route = route
 	routeRole.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
 	if err := r.data.db.Create(&routeRole).Error; err != nil {
 		return errors.ErrSystemBusy
@@ -340,13 +340,13 @@ func (r *UserRepo) RouteRole(ctx context.Context, uid, route, role int64) error 
 
 func (r *UserRepo) RoutePermission(ctx context.Context, uid, route, pid int64) error {
 	var routePer model.RoutePermission
-	err := r.data.db.Table(model.RoutePermissionTablename).Where("rid = ? and pid = ?", route, pid).First(&routePer).Error
+	err := r.data.db.Table(model.RoutePermissionTablename).Where("route = ? and permisson = ?", route, pid).First(&routePer).Error
 	if err != nil && gorm.ErrRecordNotFound == err {
 		return errors.ErrMuiltiRecord
 	}
 
-	routePer.PID = uint(pid)
-	routePer.RID = route
+	routePer.Permission = uint(pid)
+	routePer.Route = route
 	routePer.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
 	if err := r.data.db.Create(&routePer).Error; err != nil {
 		return errors.ErrSystemBusy

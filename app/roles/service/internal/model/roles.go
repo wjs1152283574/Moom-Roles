@@ -94,8 +94,8 @@ func (u *Route) TableName() string {
 type RouteRole struct {
 	Commom
 
-	RID    int64 `gorm:"COMMENT:路由ID"`
-	RoleID uint  `gorm:"COMMENT:角色ID"`
+	Route int64 `gorm:"COMMENT:路由ID"`
+	Role  uint  `gorm:"COMMENT:角色ID"`
 }
 
 func (u *RouteRole) TableName() string {
@@ -105,8 +105,8 @@ func (u *RouteRole) TableName() string {
 type RoutePermission struct {
 	Commom
 
-	RID int64 `gorm:"COMMENT:路由ID"`
-	PID uint  `gorm:"COMMENT:权限ID"`
+	Route      int64 `gorm:"COMMENT:路由ID"`
+	Permission uint  `gorm:"COMMENT:权限ID"`
 }
 
 func (u *RoutePermission) TableName() string {
