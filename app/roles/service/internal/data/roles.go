@@ -308,3 +308,15 @@ func (r *UserRepo) PermissionEdit(ctx context.Context, id int64, name, code stri
 		return nil
 	})
 }
+
+func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url string) error {
+	var route model.Route
+	route.URL = url
+	route.Method = method
+	route.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+	if err := r.data.db.Create(&route).Error; err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}

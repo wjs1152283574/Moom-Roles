@@ -301,6 +301,11 @@ func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEdi
 }
 
 func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateRequest, uid int64) (*v1.RouteCreateResponse, error) {
+	err := r.repo.RouteCreate(ctx, uid, req.Method, req.Url)
+	if err != nil {
+		return &v1.RouteCreateResponse{}, err
+	}
+
 	return &v1.RouteCreateResponse{}, nil
 }
 

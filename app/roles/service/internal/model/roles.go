@@ -83,7 +83,7 @@ func (u *UserPermission) TableName() string {
 type Route struct {
 	Commom
 
-	URL    string `gorm:"COMMENT:路由"`
+	URL    string `gorm:"UNIQUE;COMMENT:路由"`
 	Method int64  `gorm:"COMMENT:对应路由方法：1-get 2-post 3-put 4-delete ..."`
 }
 

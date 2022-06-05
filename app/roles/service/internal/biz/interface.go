@@ -45,4 +45,6 @@ type RolesRepo interface {
 	PermissionDelete(ctx context.Context, id int64) error
 	// 编辑权限
 	PermissionEdit(ctx context.Context, id int64, name, code string) error
+	// 创建路由
+	RouteCreate(ctx context.Context, uid, method int64, url string) error
 }
