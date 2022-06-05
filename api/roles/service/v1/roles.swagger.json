@@ -1283,19 +1283,54 @@
       }
     },
     "v1RouteCreateRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "method": {
+          "type": "string",
+          "format": "int64",
+          "description": "对应路由方法：1-get 2-post 3-put 4-delete ..."
+        }
+      }
     },
     "v1RouteCreateResponse": {
       "type": "object"
     },
     "v1RoutePermissionRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "route": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "permisson": {
+          "type": "string",
+          "format": "int64",
+          "title": "权限ID"
+        }
+      }
     },
     "v1RoutePermissionResponse": {
       "type": "object"
     },
     "v1RouteRoleRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "route": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "role": {
+          "type": "string",
+          "format": "int64",
+          "title": "角色ID"
+        }
+      }
     },
     "v1RouteRoleResponse": {
       "type": "object"

@@ -183,3 +183,27 @@ func (r *RolesService) PermissionEdit(ctx context.Context, req *v1.PermissionEdi
 
 	return r.uc.PermissionEdit(ctx, req)
 }
+
+func (r *RolesService) RouteCreate(ctx context.Context, req *v1.RouteCreateRequest) (*v1.RouteCreateResponse, error) {
+	if req.Method <= 0 || req.Url == "" {
+		return &v1.RouteCreateResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RouteCreate(ctx, req, r.GetUserID(ctx))
+}
+
+func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) (*v1.RouteRoleResponse, error) {
+	if req.Role <= 0 || req.Route <= 0 {
+		return &v1.RouteRoleResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RouteRole(ctx, req, r.GetUserID(ctx))
+}
+
+func (r *RolesService) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest) (*v1.RoutePermissionResponse, error) {
+	if req.Permisson <= 0 || req.Route <= 0 {
+		return &v1.RoutePermissionResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RoutePermission(ctx, req, r.GetUserID(ctx))
+}

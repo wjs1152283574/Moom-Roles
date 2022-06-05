@@ -292,5 +292,22 @@ func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionD
 }
 
 func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest) (*v1.PermissionEditResponse, error) {
+	err := r.repo.PermissionEdit(ctx, req.Id, req.Name, req.Code)
+	if err != nil {
+		return &v1.PermissionEditResponse{}, err
+	}
+
 	return &v1.PermissionEditResponse{}, nil
+}
+
+func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateRequest, uid int64) (*v1.RouteCreateResponse, error) {
+	return &v1.RouteCreateResponse{}, nil
+}
+
+func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, uid int64) (*v1.RouteRoleResponse, error) {
+	return &v1.RouteRoleResponse{}, nil
+}
+
+func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest, uid int64) (*v1.RoutePermissionResponse, error) {
+	return &v1.RoutePermissionResponse{}, nil
 }

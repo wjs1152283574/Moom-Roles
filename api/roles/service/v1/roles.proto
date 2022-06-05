@@ -213,21 +213,30 @@ message CheckRouteRoleByTokenResponse {
 }
 
 message RoutePermissionRequest {
-
+     // 路由ID
+    int64 route = 1; 
+    // 权限ID
+    int64 permisson = 2;
 }
 message RoutePermissionResponse {
 
 }
 
 message RouteRoleRequest {
-
+    // 路由ID
+    int64 route = 1;
+    // 角色ID
+    int64 role = 2;
 }
 message RouteRoleResponse {
 
 }
 
 message RouteCreateRequest {
-
+    // URL 
+    string url = 1;
+    // 对应路由方法：1-get 2-post 3-put 4-delete ...
+    int64 method = 2;
 }
 message RouteCreateResponse {
 

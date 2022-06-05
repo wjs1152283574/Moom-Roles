@@ -909,6 +909,10 @@ func (m *RoutePermissionRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Route
+
+	// no validation rules for Permisson
+
 	if len(errors) > 0 {
 		return RoutePermissionRequestMultiError(errors)
 	}
@@ -1113,6 +1117,10 @@ func (m *RouteRoleRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Route
+
+	// no validation rules for Role
+
 	if len(errors) > 0 {
 		return RouteRoleRequestMultiError(errors)
 	}
@@ -1314,6 +1322,10 @@ func (m *RouteCreateRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Url
+
+	// no validation rules for Method
 
 	if len(errors) > 0 {
 		return RouteCreateRequestMultiError(errors)
