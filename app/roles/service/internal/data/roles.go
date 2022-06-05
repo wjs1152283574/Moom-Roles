@@ -320,3 +320,20 @@ func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url strin
 
 	return nil
 }
+
+func (r *UserRepo) RouteRole(ctx context.Context, uid, route, role int64) error {
+	var routeRole model.RouteRole
+	err := r.data.db.Table(model.RouteRoleTablename).Where("rid = ? and role_id = ?", route, role).First(&routeRole).Error
+	if err != nil && gorm.ErrRecordNotFound == err {
+		return errors.ErrMuiltiRecord
+	}
+
+	routeRole.RoleID = uint(role)
+	routeRole.RID = route
+	routeRole.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+	if err := r.data.db.Create(&routeRole).Error; err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}

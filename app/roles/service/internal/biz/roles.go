@@ -310,6 +310,11 @@ func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 }
 
 func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, uid int64) (*v1.RouteRoleResponse, error) {
+	err := r.repo.RouteRole(ctx, uid, req.Route, req.Role)
+	if err != nil {
+		return &v1.RouteRoleResponse{}, err
+	}
+
 	return &v1.RouteRoleResponse{}, nil
 }
 

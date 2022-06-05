@@ -8,6 +8,7 @@ var (
 	ErrInvalidUID        = errors.New(400, "InvalidUID", "invalid uid")
 	ErrInvalidUsername   = errors.New(400, "InvalidUsername", "invalid user name")
 	ErrInvalidPass       = errors.New(400, "InvalidPass", "invalid password")
+	ErrMuiltiRecord      = errors.New(400, "MuiltiRecord", "muiltiple record")
 	ErrSystemBusy        = errors.New(500, "SystemBusy", "system busy")
 	ErrMuiltpleUserName  = errors.New(400, "MuiltpleUserName", "user allready exit")
 	ErrNoNeedCaptcha     = errors.New(401, "NoNeedCaptcha", "no need captcha")
