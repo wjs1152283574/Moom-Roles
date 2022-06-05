@@ -192,6 +192,18 @@ func (r *RolesService) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 	return r.uc.RouteCreate(ctx, req, r.GetUserID(ctx))
 }
 
+func (r *RolesService) RouteList(ctx context.Context, req *v1.RouteListRequest) (*v1.RouteListResponse, error) {
+	return &v1.RouteListResponse{}, nil
+}
+
+func (r *RolesService) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
+	return &v1.RouteEditResponse{}, nil
+}
+
+func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
+	return &v1.RouteDeleteResponse{}, nil
+}
+
 func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) (*v1.RouteRoleResponse, error) {
 	if req.Role <= 0 || req.Route <= 0 {
 		return &v1.RouteRoleResponse{}, errors.ErrInvalidParams
@@ -200,10 +212,18 @@ func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) 
 	return r.uc.RouteRole(ctx, req, r.GetUserID(ctx))
 }
 
+func (r *RolesService) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDeleteRequest) (*v1.RouteRoleDeleteResponse, error) {
+	return &v1.RouteRoleDeleteResponse{}, nil
+}
+
 func (r *RolesService) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest) (*v1.RoutePermissionResponse, error) {
 	if req.Permisson <= 0 || req.Route <= 0 {
 		return &v1.RoutePermissionResponse{}, errors.ErrInvalidParams
 	}
 
 	return r.uc.RoutePermission(ctx, req, r.GetUserID(ctx))
+}
+
+func (r *RolesService) RoutePermissionDelete(ctx context.Context, req *v1.RoutePermissionDeleteRequest) (*v1.RoutePermissionDeleteResponse, error) {
+	return &v1.RoutePermissionDeleteResponse{}, nil
 }

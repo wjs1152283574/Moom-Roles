@@ -359,6 +359,105 @@
         ]
       }
     },
+    "/v1/role/route/delete": {
+      "post": {
+        "summary": "路由删除",
+        "operationId": "Roles_RouteDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/edit": {
+      "post": {
+        "summary": "路由编辑",
+        "operationId": "Roles_RouteEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteEditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/list": {
+      "post": {
+        "summary": "路由列表",
+        "operationId": "Roles_RouteList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/route/setpermission": {
       "post": {
         "summary": "路由绑定权限",
@@ -417,6 +516,72 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1RouteRoleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/unsetpermission": {
+      "post": {
+        "summary": "路由绑定权限-解除",
+        "operationId": "Roles_RoutePermissionDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RoutePermissionDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RoutePermissionDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/route/unsetrole": {
+      "post": {
+        "summary": "路由绑定角色-解除",
+        "operationId": "Roles_RouteRoleDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteRoleDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteRoleDeleteRequest"
             }
           }
         ],
@@ -484,6 +649,39 @@
             "schema": {
               "$ref": "#/definitions/v1CreateAdminUserRequest"
             }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/delete": {
+      "delete": {
+        "summary": "删除后台用户",
+        "operationId": "Roles_AdminUserDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "用户ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -655,39 +853,6 @@
           "Roles"
         ]
       }
-    },
-    "/v1/role/user/{id}": {
-      "delete": {
-        "summary": "删除后台用户",
-        "operationId": "Roles_AdminUserDelete",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1AdminUserDeleteResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "description": "用户ID",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "Roles"
-        ]
-      }
     }
   },
   "definitions": {
@@ -808,6 +973,39 @@
           "type": "string",
           "format": "int64",
           "title": "更新时间"
+        }
+      }
+    },
+    "RouteListResponseRouteListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID"
+        },
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "method": {
+          "type": "string",
+          "format": "int64",
+          "title": "方法"
+        },
+        "cid": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建者ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "创建者用户名"
+        },
+        "ctime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
         }
       }
     },
@@ -1299,6 +1497,102 @@
     "v1RouteCreateResponse": {
       "type": "object"
     },
+    "v1RouteDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        }
+      }
+    },
+    "v1RouteDeleteResponse": {
+      "type": "object"
+    },
+    "v1RouteEditRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "method": {
+          "type": "string",
+          "format": "int64",
+          "title": "方法"
+        }
+      }
+    },
+    "v1RouteEditResponse": {
+      "type": "object"
+    },
+    "v1RouteListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "int64",
+          "title": "页数"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64",
+          "title": "每页数量"
+        },
+        "cname": {
+          "type": "string",
+          "title": "创建者用户名 （模糊查询）"
+        },
+        "name": {
+          "type": "string",
+          "title": "用户名（模糊查询）"
+        }
+      }
+    },
+    "v1RouteListResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RouteListResponseRouteListItem"
+          },
+          "title": "列表"
+        }
+      }
+    },
+    "v1RoutePermissionDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "permission": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "权限ID列表"
+        }
+      }
+    },
+    "v1RoutePermissionDeleteResponse": {
+      "type": "object"
+    },
     "v1RoutePermissionRequest": {
       "type": "object",
       "properties": {
@@ -1315,6 +1609,27 @@
       }
     },
     "v1RoutePermissionResponse": {
+      "type": "object"
+    },
+    "v1RouteRoleDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "route": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "角色ID列表"
+        }
+      }
+    },
+    "v1RouteRoleDeleteResponse": {
       "type": "object"
     },
     "v1RouteRoleRequest": {

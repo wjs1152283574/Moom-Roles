@@ -61,10 +61,20 @@ type RolesClient interface {
 	PermissionEdit(ctx context.Context, in *PermissionEditRequest, opts ...grpc.CallOption) (*PermissionEditResponse, error)
 	// 创建路由
 	RouteCreate(ctx context.Context, in *RouteCreateRequest, opts ...grpc.CallOption) (*RouteCreateResponse, error)
+	// 路由列表
+	RouteList(ctx context.Context, in *RouteListRequest, opts ...grpc.CallOption) (*RouteListResponse, error)
+	// 路由编辑
+	RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...grpc.CallOption) (*RouteEditResponse, error)
+	// 路由删除
+	RouteDelete(ctx context.Context, in *RouteDeleteRequest, opts ...grpc.CallOption) (*RouteDeleteResponse, error)
 	// 路由绑定角色
 	RouteRole(ctx context.Context, in *RouteRoleRequest, opts ...grpc.CallOption) (*RouteRoleResponse, error)
+	// 路由绑定角色-解除
+	RouteRoleDelete(ctx context.Context, in *RouteRoleDeleteRequest, opts ...grpc.CallOption) (*RouteRoleDeleteResponse, error)
 	// 路由绑定权限
 	RoutePermission(ctx context.Context, in *RoutePermissionRequest, opts ...grpc.CallOption) (*RoutePermissionResponse, error)
+	// 路由绑定权限-解除
+	RoutePermissionDelete(ctx context.Context, in *RoutePermissionDeleteRequest, opts ...grpc.CallOption) (*RoutePermissionDeleteResponse, error)
 	// *******  你的系统鉴权RPC接口  **********
 	// 验证用户角色
 	CheckRole(ctx context.Context, in *CheckRoleRequest, opts ...grpc.CallOption) (*CheckRoleResponse, error)
@@ -259,6 +269,33 @@ func (c *rolesClient) RouteCreate(ctx context.Context, in *RouteCreateRequest, o
 	return out, nil
 }
 
+func (c *rolesClient) RouteList(ctx context.Context, in *RouteListRequest, opts ...grpc.CallOption) (*RouteListResponse, error) {
+	out := new(RouteListResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...grpc.CallOption) (*RouteEditResponse, error) {
+	out := new(RouteEditResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteEdit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) RouteDelete(ctx context.Context, in *RouteDeleteRequest, opts ...grpc.CallOption) (*RouteDeleteResponse, error) {
+	out := new(RouteDeleteResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteDelete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rolesClient) RouteRole(ctx context.Context, in *RouteRoleRequest, opts ...grpc.CallOption) (*RouteRoleResponse, error) {
 	out := new(RouteRoleResponse)
 	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteRole", in, out, opts...)
@@ -268,9 +305,27 @@ func (c *rolesClient) RouteRole(ctx context.Context, in *RouteRoleRequest, opts 
 	return out, nil
 }
 
+func (c *rolesClient) RouteRoleDelete(ctx context.Context, in *RouteRoleDeleteRequest, opts ...grpc.CallOption) (*RouteRoleDeleteResponse, error) {
+	out := new(RouteRoleDeleteResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteRoleDelete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rolesClient) RoutePermission(ctx context.Context, in *RoutePermissionRequest, opts ...grpc.CallOption) (*RoutePermissionResponse, error) {
 	out := new(RoutePermissionResponse)
 	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RoutePermission", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) RoutePermissionDelete(ctx context.Context, in *RoutePermissionDeleteRequest, opts ...grpc.CallOption) (*RoutePermissionDeleteResponse, error) {
+	out := new(RoutePermissionDeleteResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RoutePermissionDelete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -374,10 +429,20 @@ type RolesServer interface {
 	PermissionEdit(context.Context, *PermissionEditRequest) (*PermissionEditResponse, error)
 	// 创建路由
 	RouteCreate(context.Context, *RouteCreateRequest) (*RouteCreateResponse, error)
+	// 路由列表
+	RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error)
+	// 路由编辑
+	RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error)
+	// 路由删除
+	RouteDelete(context.Context, *RouteDeleteRequest) (*RouteDeleteResponse, error)
 	// 路由绑定角色
 	RouteRole(context.Context, *RouteRoleRequest) (*RouteRoleResponse, error)
+	// 路由绑定角色-解除
+	RouteRoleDelete(context.Context, *RouteRoleDeleteRequest) (*RouteRoleDeleteResponse, error)
 	// 路由绑定权限
 	RoutePermission(context.Context, *RoutePermissionRequest) (*RoutePermissionResponse, error)
+	// 路由绑定权限-解除
+	RoutePermissionDelete(context.Context, *RoutePermissionDeleteRequest) (*RoutePermissionDeleteResponse, error)
 	// *******  你的系统鉴权RPC接口  **********
 	// 验证用户角色
 	CheckRole(context.Context, *CheckRoleRequest) (*CheckRoleResponse, error)
@@ -455,11 +520,26 @@ func (UnimplementedRolesServer) PermissionEdit(context.Context, *PermissionEditR
 func (UnimplementedRolesServer) RouteCreate(context.Context, *RouteCreateRequest) (*RouteCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RouteCreate not implemented")
 }
+func (UnimplementedRolesServer) RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RouteList not implemented")
+}
+func (UnimplementedRolesServer) RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RouteEdit not implemented")
+}
+func (UnimplementedRolesServer) RouteDelete(context.Context, *RouteDeleteRequest) (*RouteDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RouteDelete not implemented")
+}
 func (UnimplementedRolesServer) RouteRole(context.Context, *RouteRoleRequest) (*RouteRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RouteRole not implemented")
 }
+func (UnimplementedRolesServer) RouteRoleDelete(context.Context, *RouteRoleDeleteRequest) (*RouteRoleDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RouteRoleDelete not implemented")
+}
 func (UnimplementedRolesServer) RoutePermission(context.Context, *RoutePermissionRequest) (*RoutePermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoutePermission not implemented")
+}
+func (UnimplementedRolesServer) RoutePermissionDelete(context.Context, *RoutePermissionDeleteRequest) (*RoutePermissionDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoutePermissionDelete not implemented")
 }
 func (UnimplementedRolesServer) CheckRole(context.Context, *CheckRoleRequest) (*CheckRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckRole not implemented")
@@ -834,6 +914,60 @@ func _Roles_RouteCreate_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_RouteList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RouteList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RouteList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RouteList(ctx, req.(*RouteListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_RouteEdit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteEditRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RouteEdit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RouteEdit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RouteEdit(ctx, req.(*RouteEditRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_RouteDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RouteDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RouteDelete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RouteDelete(ctx, req.(*RouteDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Roles_RouteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RouteRoleRequest)
 	if err := dec(in); err != nil {
@@ -852,6 +986,24 @@ func _Roles_RouteRole_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_RouteRoleDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteRoleDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RouteRoleDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RouteRoleDelete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RouteRoleDelete(ctx, req.(*RouteRoleDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Roles_RoutePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RoutePermissionRequest)
 	if err := dec(in); err != nil {
@@ -866,6 +1018,24 @@ func _Roles_RoutePermission_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RolesServer).RoutePermission(ctx, req.(*RoutePermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_RoutePermissionDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoutePermissionDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RoutePermissionDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RoutePermissionDelete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RoutePermissionDelete(ctx, req.(*RoutePermissionDeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1062,12 +1232,32 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Roles_RouteCreate_Handler,
 		},
 		{
+			MethodName: "RouteList",
+			Handler:    _Roles_RouteList_Handler,
+		},
+		{
+			MethodName: "RouteEdit",
+			Handler:    _Roles_RouteEdit_Handler,
+		},
+		{
+			MethodName: "RouteDelete",
+			Handler:    _Roles_RouteDelete_Handler,
+		},
+		{
 			MethodName: "RouteRole",
 			Handler:    _Roles_RouteRole_Handler,
 		},
 		{
+			MethodName: "RouteRoleDelete",
+			Handler:    _Roles_RouteRoleDelete_Handler,
+		},
+		{
 			MethodName: "RoutePermission",
 			Handler:    _Roles_RoutePermission_Handler,
+		},
+		{
+			MethodName: "RoutePermissionDelete",
+			Handler:    _Roles_RoutePermissionDelete_Handler,
 		},
 		{
 			MethodName: "CheckRole",
