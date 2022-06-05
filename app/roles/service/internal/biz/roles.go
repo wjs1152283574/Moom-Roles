@@ -319,5 +319,10 @@ func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, 
 }
 
 func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest, uid int64) (*v1.RoutePermissionResponse, error) {
+	err := r.repo.RouteRole(ctx, uid, req.Route, req.Permisson)
+	if err != nil {
+		return &v1.RoutePermissionResponse{}, err
+	}
+
 	return &v1.RoutePermissionResponse{}, nil
 }

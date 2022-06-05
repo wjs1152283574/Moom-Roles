@@ -337,3 +337,20 @@ func (r *UserRepo) RouteRole(ctx context.Context, uid, route, role int64) error 
 
 	return nil
 }
+
+func (r *UserRepo) RoutePermission(ctx context.Context, uid, route, pid int64) error {
+	var routePer model.RoutePermission
+	err := r.data.db.Table(model.RoutePermissionTablename).Where("rid = ? and pid = ?", route, pid).First(&routePer).Error
+	if err != nil && gorm.ErrRecordNotFound == err {
+		return errors.ErrMuiltiRecord
+	}
+
+	routePer.PID = uint(pid)
+	routePer.RID = route
+	routePer.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+	if err := r.data.db.Create(&routePer).Error; err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}
