@@ -309,6 +309,18 @@ func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 	return &v1.RouteCreateResponse{}, nil
 }
 
+func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) (*v1.RouteListResponse, error) {
+	return &v1.RouteListResponse{}, nil
+}
+
+func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
+	return &v1.RouteEditResponse{}, nil
+}
+
+func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
+	return &v1.RouteDeleteResponse{}, nil
+}
+
 func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, uid int64) (*v1.RouteRoleResponse, error) {
 	err := r.repo.RouteRole(ctx, uid, req.Route, req.Role)
 	if err != nil {

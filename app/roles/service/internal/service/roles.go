@@ -193,15 +193,31 @@ func (r *RolesService) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 }
 
 func (r *RolesService) RouteList(ctx context.Context, req *v1.RouteListRequest) (*v1.RouteListResponse, error) {
-	return &v1.RouteListResponse{}, nil
+	if req.Page <= 0 {
+		req.Page = 1
+	}
+
+	if req.Limit <= 0 || req.Limit > 100 {
+		req.Limit = 20
+	}
+
+	return r.uc.RouteList(ctx, req)
 }
 
 func (r *RolesService) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
-	return &v1.RouteEditResponse{}, nil
+	if req.Id <= 0 || (req.Method <= 0 && req.Url == "") {
+		return &v1.RouteEditResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RouteEdit(ctx, req)
 }
 
 func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
-	return &v1.RouteDeleteResponse{}, nil
+	if req.Id <= 0 {
+		return &v1.RouteDeleteResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RouteDelete(ctx, req)
 }
 
 func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) (*v1.RouteRoleResponse, error) {
