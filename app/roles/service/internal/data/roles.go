@@ -321,36 +321,43 @@ func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url strin
 	return nil
 }
 
-func (r *UserRepo) RouteRole(ctx context.Context, uid, route, role int64) error {
-	var routeRole model.RouteRole
-	err := r.data.db.Table(model.RouteRoleTablename).Where("route = ? and role = ?", route, role).First(&routeRole).Error
-	if err != nil && gorm.ErrRecordNotFound == err {
-		return errors.ErrMuiltiRecord
-	}
+func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range role {
+			var routeRole model.RouteRole
+			err := r.data.db.Table(model.RouteRoleTablename).Where("route = ? and role = ?", route, v).First(&routeRole).Error
+			if err != nil && gorm.ErrRecordNotFound == err {
+				return errors.ErrMuiltiRecord
+			}
 
-	routeRole.Role = uint(role)
-	routeRole.Route = route
-	routeRole.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
-	if err := r.data.db.Create(&routeRole).Error; err != nil {
-		return errors.ErrSystemBusy
-	}
-
-	return nil
+			routeRole.Role = uint(v)
+			routeRole.Route = route
+			routeRole.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+			if err := r.data.db.Create(&routeRole).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+		return nil
+	})
 }
 
-func (r *UserRepo) RoutePermission(ctx context.Context, uid, route, pid int64) error {
-	var routePer model.RoutePermission
-	err := r.data.db.Table(model.RoutePermissionTablename).Where("route = ? and permisson = ?", route, pid).First(&routePer).Error
-	if err != nil && gorm.ErrRecordNotFound == err {
-		return errors.ErrMuiltiRecord
-	}
+func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permission []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range permission {
+			var routePer model.RoutePermission
+			err := r.data.db.Table(model.RoutePermissionTablename).Where("route = ? and permisson = ?", route, v).First(&routePer).Error
+			if err != nil && gorm.ErrRecordNotFound == err {
+				return errors.ErrMuiltiRecord
+			}
 
-	routePer.Permission = uint(pid)
-	routePer.Route = route
-	routePer.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
-	if err := r.data.db.Create(&routePer).Error; err != nil {
-		return errors.ErrSystemBusy
-	}
+			routePer.Permission = uint(v)
+			routePer.Route = route
+			routePer.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+			if err := r.data.db.Create(&routePer).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
 
-	return nil
+		return nil
+	})
 }

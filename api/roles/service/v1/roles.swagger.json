@@ -1012,14 +1012,11 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rpcStatus": {
       "type": "object",
@@ -1602,9 +1599,12 @@
           "title": "路由ID"
         },
         "permisson": {
-          "type": "string",
-          "format": "int64",
-          "title": "权限ID"
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "权限ID列表"
         }
       }
     },
@@ -1641,9 +1641,12 @@
           "title": "路由ID"
         },
         "role": {
-          "type": "string",
-          "format": "int64",
-          "title": "角色ID"
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "角色ID列表"
         }
       }
     },

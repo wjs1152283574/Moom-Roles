@@ -315,8 +315,8 @@ message CheckRouteRoleByTokenResponse {
 message RoutePermissionRequest {
      // 路由ID
     int64 route = 1; 
-    // 权限ID
-    int64 permisson = 2;
+    // 权限ID列表
+    repeated int64 permisson = 2;
 }
 message RoutePermissionResponse {
 
@@ -325,8 +325,8 @@ message RoutePermissionResponse {
 message RouteRoleRequest {
     // 路由ID
     int64 route = 1;
-    // 角色ID
-    int64 role = 2;
+    // 角色ID列表
+    repeated int64 role = 2;
 }
 message RouteRoleResponse {
 

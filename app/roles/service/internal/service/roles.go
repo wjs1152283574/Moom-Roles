@@ -221,7 +221,7 @@ func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteReque
 }
 
 func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) (*v1.RouteRoleResponse, error) {
-	if req.Role <= 0 || req.Route <= 0 {
+	if len(req.Role) <= 0 || req.Route <= 0 {
 		return &v1.RouteRoleResponse{}, errors.ErrInvalidParams
 	}
 
@@ -233,7 +233,7 @@ func (r *RolesService) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDel
 }
 
 func (r *RolesService) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest) (*v1.RoutePermissionResponse, error) {
-	if req.Permisson <= 0 || req.Route <= 0 {
+	if len(req.Permisson) <= 0 || req.Route <= 0 {
 		return &v1.RoutePermissionResponse{}, errors.ErrInvalidParams
 	}
 
