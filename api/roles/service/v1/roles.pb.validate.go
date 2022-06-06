@@ -889,9 +889,9 @@ func (m *RouteListRequest) validate(all bool) error {
 
 	// no validation rules for Limit
 
-	// no validation rules for Cname
+	// no validation rules for Method
 
-	// no validation rules for Name
+	// no validation rules for Url
 
 	if len(errors) > 0 {
 		return RouteListRequestMultiError(errors)

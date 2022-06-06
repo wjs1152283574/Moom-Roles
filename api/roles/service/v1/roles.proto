@@ -245,9 +245,9 @@ message RouteListRequest {
     // 每页数量
     int64 limit = 2;
     // 创建者用户名 （模糊查询）
-    string cname = 3;
-    // 用户名（模糊查询）
-    string name = 4;
+    int64 method = 3;
+    // 路由（模糊查询）
+    string url = 4;
 }
 
 message RouteListResponse {

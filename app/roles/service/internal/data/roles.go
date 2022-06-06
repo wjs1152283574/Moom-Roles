@@ -321,6 +321,30 @@ func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url strin
 	return nil
 }
 
+func (r *UserRepo) RouteList(ctx context.Context, page, limit, method int64, url string) ([]model.Route, int64, error) {
+	var list []model.Route
+	var total int64
+	tx := r.data.db.Table(model.RouteTablename)
+	if url != "" {
+		key := fmt.Sprintf("%%%s%%", url)
+		tx.Where("url like ?", key)
+	}
+
+	if method > 0 {
+		tx.Where("method = ?", method)
+	}
+
+	tx.Count(&total)
+	tx.Offset((int(page) - 1) * int(limit)).Limit(int(limit))
+
+	err := tx.Scan(&list).Error
+	if err != nil {
+		r.log.Errorf("[RoleList] get list err : %v", err)
+	}
+
+	return list, total, nil
+}
+
 func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {

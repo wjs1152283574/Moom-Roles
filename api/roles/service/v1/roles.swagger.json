@@ -1542,13 +1542,14 @@
           "format": "int64",
           "title": "每页数量"
         },
-        "cname": {
+        "method": {
           "type": "string",
+          "format": "int64",
           "title": "创建者用户名 （模糊查询）"
         },
-        "name": {
+        "url": {
           "type": "string",
-          "title": "用户名（模糊查询）"
+          "title": "路由（模糊查询）"
         }
       }
     },

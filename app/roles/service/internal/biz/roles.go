@@ -310,7 +310,27 @@ func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 }
 
 func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) (*v1.RouteListResponse, error) {
-	return &v1.RouteListResponse{}, nil
+	list, total, err := r.repo.RouteList(ctx, req.Page, req.Limit, req.Method, req.Url)
+	if err != nil {
+		return &v1.RouteListResponse{}, err
+	}
+
+	var List []*v1.RouteListResponse_RouteListItem
+	for _, v := range list {
+		List = append(List, &v1.RouteListResponse_RouteListItem{
+			Id:     int64(v.ID),
+			Url:    v.URL,
+			Method: v.Method,
+			Cid:    v.CreatorID,
+			Ctime:  v.CreatedTime,
+			Name:   v.CreatorName,
+		})
+	}
+
+	return &v1.RouteListResponse{
+		List:  List,
+		Total: total,
+	}, nil
 }
 
 func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
