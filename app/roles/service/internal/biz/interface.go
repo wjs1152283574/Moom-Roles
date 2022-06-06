@@ -49,6 +49,8 @@ type RolesRepo interface {
 	RouteCreate(ctx context.Context, uid, method int64, url string) error
 	// 路由列表
 	RouteList(ctx context.Context, page, limit, method int64, url string) ([]model.Route, int64, error)
+	// 路由编辑
+	RouteEdit(ctx context.Context, id, method int64, url string) error
 	// 设置路由角色
 	RouteRole(ctx context.Context, uid, route int64, role []int64) error
 	// 设置路由权限

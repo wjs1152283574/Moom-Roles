@@ -345,6 +345,31 @@ func (r *UserRepo) RouteList(ctx context.Context, page, limit, method int64, url
 	return list, total, nil
 }
 
+func (r *UserRepo) RouteEdit(ctx context.Context, id, method int64, url string) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		var route model.Route
+		if err := tx.Clauses(clause.Locking{
+			Strength: "UPDATE",
+		}).Where("id = ?", id).First(&route).Error; err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		if url != "" {
+			route.URL = url
+		}
+
+		if method > 0 {
+			route.Method = method
+		}
+
+		if err := tx.Updates(&route).Error; err != nil {
+			return errors.ErrSystemBusy
+		}
+
+		return nil
+	})
+}
+
 func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
