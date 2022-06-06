@@ -66,10 +66,24 @@ service Roles {
             body: "*"
         };
     };
+    // 用户分配角色-解除
+    rpc SetRolesDelete (SetRolesDeleteRequest) returns (SetRolesDeleteResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/unsetroles",
+            body: "*"
+        };
+    };
     // 用户分配权限
     rpc SetPermission (SetPermissionRequest) returns (SetPermissionResponse){
         option (google.api.http) = {
             post: "/v1/role/user/setpermissions",
+            body: "*"
+        };
+    };
+    // 用户分配权限-解除
+    rpc SetPermissionDelete (SetPermissionDeleteRequest) returns (SetPermissionDeleteResponse){
+        option (google.api.http) = {
+            post: "/v1/role/user/unsetpermissions",
             body: "*"
         };
     };
@@ -206,6 +220,22 @@ service Roles {
     // 验证路由可访问权限--id
     rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse);
 }
+
+message SetPermissionDeleteRequest {
+    // 用户ID 
+    int64 id = 1;
+    // 权限ID列表
+    repeated int64 permission = 2;
+}
+message SetPermissionDeleteResponse {}
+
+message SetRolesDeleteRequest {
+     // 用户ID 
+     int64 id = 1;
+     // 角色ID列表
+     repeated int64 role = 2;
+}
+message SetRolesDeleteResponse {}
 
 message RoutePermissionDeleteRequest {
     // 路由ID 

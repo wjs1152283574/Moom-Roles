@@ -35,6 +35,419 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on SetPermissionDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetPermissionDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetPermissionDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetPermissionDeleteRequestMultiError, or nil if none found.
+func (m *SetPermissionDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetPermissionDeleteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return SetPermissionDeleteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetPermissionDeleteRequestMultiError is an error wrapping multiple
+// validation errors returned by SetPermissionDeleteRequest.ValidateAll() if
+// the designated constraints aren't met.
+type SetPermissionDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetPermissionDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetPermissionDeleteRequestMultiError) AllErrors() []error { return m }
+
+// SetPermissionDeleteRequestValidationError is the validation error returned
+// by SetPermissionDeleteRequest.Validate if the designated constraints aren't met.
+type SetPermissionDeleteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetPermissionDeleteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetPermissionDeleteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetPermissionDeleteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetPermissionDeleteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetPermissionDeleteRequestValidationError) ErrorName() string {
+	return "SetPermissionDeleteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetPermissionDeleteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetPermissionDeleteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetPermissionDeleteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetPermissionDeleteRequestValidationError{}
+
+// Validate checks the field values on SetPermissionDeleteResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetPermissionDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetPermissionDeleteResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetPermissionDeleteResponseMultiError, or nil if none found.
+func (m *SetPermissionDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetPermissionDeleteResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SetPermissionDeleteResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetPermissionDeleteResponseMultiError is an error wrapping multiple
+// validation errors returned by SetPermissionDeleteResponse.ValidateAll() if
+// the designated constraints aren't met.
+type SetPermissionDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetPermissionDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetPermissionDeleteResponseMultiError) AllErrors() []error { return m }
+
+// SetPermissionDeleteResponseValidationError is the validation error returned
+// by SetPermissionDeleteResponse.Validate if the designated constraints
+// aren't met.
+type SetPermissionDeleteResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetPermissionDeleteResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetPermissionDeleteResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetPermissionDeleteResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetPermissionDeleteResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetPermissionDeleteResponseValidationError) ErrorName() string {
+	return "SetPermissionDeleteResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetPermissionDeleteResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetPermissionDeleteResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetPermissionDeleteResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetPermissionDeleteResponseValidationError{}
+
+// Validate checks the field values on SetRolesDeleteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetRolesDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetRolesDeleteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetRolesDeleteRequestMultiError, or nil if none found.
+func (m *SetRolesDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetRolesDeleteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return SetRolesDeleteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetRolesDeleteRequestMultiError is an error wrapping multiple validation
+// errors returned by SetRolesDeleteRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SetRolesDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetRolesDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetRolesDeleteRequestMultiError) AllErrors() []error { return m }
+
+// SetRolesDeleteRequestValidationError is the validation error returned by
+// SetRolesDeleteRequest.Validate if the designated constraints aren't met.
+type SetRolesDeleteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetRolesDeleteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetRolesDeleteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetRolesDeleteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetRolesDeleteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetRolesDeleteRequestValidationError) ErrorName() string {
+	return "SetRolesDeleteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetRolesDeleteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetRolesDeleteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetRolesDeleteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetRolesDeleteRequestValidationError{}
+
+// Validate checks the field values on SetRolesDeleteResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetRolesDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetRolesDeleteResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetRolesDeleteResponseMultiError, or nil if none found.
+func (m *SetRolesDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetRolesDeleteResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SetRolesDeleteResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetRolesDeleteResponseMultiError is an error wrapping multiple validation
+// errors returned by SetRolesDeleteResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SetRolesDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetRolesDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetRolesDeleteResponseMultiError) AllErrors() []error { return m }
+
+// SetRolesDeleteResponseValidationError is the validation error returned by
+// SetRolesDeleteResponse.Validate if the designated constraints aren't met.
+type SetRolesDeleteResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetRolesDeleteResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetRolesDeleteResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetRolesDeleteResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetRolesDeleteResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetRolesDeleteResponseValidationError) ErrorName() string {
+	return "SetRolesDeleteResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetRolesDeleteResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetRolesDeleteResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetRolesDeleteResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetRolesDeleteResponseValidationError{}
+
 // Validate checks the field values on RoutePermissionDeleteRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

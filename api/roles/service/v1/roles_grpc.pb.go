@@ -39,8 +39,12 @@ type RolesClient interface {
 	AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...grpc.CallOption) (*AdminUserEditResponse, error)
 	// 用户分配角色
 	SetRoles(ctx context.Context, in *SetRolesRequest, opts ...grpc.CallOption) (*SetRolesResponse, error)
+	// 用户分配角色-解除
+	SetRolesDelete(ctx context.Context, in *SetRolesDeleteRequest, opts ...grpc.CallOption) (*SetRolesDeleteResponse, error)
 	// 用户分配权限
 	SetPermission(ctx context.Context, in *SetPermissionRequest, opts ...grpc.CallOption) (*SetPermissionResponse, error)
+	// 用户分配权限-解除
+	SetPermissionDelete(ctx context.Context, in *SetPermissionDeleteRequest, opts ...grpc.CallOption) (*SetPermissionDeleteResponse, error)
 	// 删除后台用户
 	AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...grpc.CallOption) (*AdminUserDeleteResponse, error)
 	// 创建角色
@@ -170,9 +174,27 @@ func (c *rolesClient) SetRoles(ctx context.Context, in *SetRolesRequest, opts ..
 	return out, nil
 }
 
+func (c *rolesClient) SetRolesDelete(ctx context.Context, in *SetRolesDeleteRequest, opts ...grpc.CallOption) (*SetRolesDeleteResponse, error) {
+	out := new(SetRolesDeleteResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/SetRolesDelete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rolesClient) SetPermission(ctx context.Context, in *SetPermissionRequest, opts ...grpc.CallOption) (*SetPermissionResponse, error) {
 	out := new(SetPermissionResponse)
 	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/SetPermission", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) SetPermissionDelete(ctx context.Context, in *SetPermissionDeleteRequest, opts ...grpc.CallOption) (*SetPermissionDeleteResponse, error) {
+	out := new(SetPermissionDeleteResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/SetPermissionDelete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -407,8 +429,12 @@ type RolesServer interface {
 	AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error)
 	// 用户分配角色
 	SetRoles(context.Context, *SetRolesRequest) (*SetRolesResponse, error)
+	// 用户分配角色-解除
+	SetRolesDelete(context.Context, *SetRolesDeleteRequest) (*SetRolesDeleteResponse, error)
 	// 用户分配权限
 	SetPermission(context.Context, *SetPermissionRequest) (*SetPermissionResponse, error)
+	// 用户分配权限-解除
+	SetPermissionDelete(context.Context, *SetPermissionDeleteRequest) (*SetPermissionDeleteResponse, error)
 	// 删除后台用户
 	AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error)
 	// 创建角色
@@ -487,8 +513,14 @@ func (UnimplementedRolesServer) AdminUserEdit(context.Context, *AdminUserEditReq
 func (UnimplementedRolesServer) SetRoles(context.Context, *SetRolesRequest) (*SetRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRoles not implemented")
 }
+func (UnimplementedRolesServer) SetRolesDelete(context.Context, *SetRolesDeleteRequest) (*SetRolesDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRolesDelete not implemented")
+}
 func (UnimplementedRolesServer) SetPermission(context.Context, *SetPermissionRequest) (*SetPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetPermission not implemented")
+}
+func (UnimplementedRolesServer) SetPermissionDelete(context.Context, *SetPermissionDeleteRequest) (*SetPermissionDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetPermissionDelete not implemented")
 }
 func (UnimplementedRolesServer) AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUserDelete not implemented")
@@ -716,6 +748,24 @@ func _Roles_SetRoles_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_SetRolesDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRolesDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).SetRolesDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/SetRolesDelete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).SetRolesDelete(ctx, req.(*SetRolesDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Roles_SetPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetPermissionRequest)
 	if err := dec(in); err != nil {
@@ -730,6 +780,24 @@ func _Roles_SetPermission_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RolesServer).SetPermission(ctx, req.(*SetPermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_SetPermissionDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetPermissionDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).SetPermissionDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/SetPermissionDelete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).SetPermissionDelete(ctx, req.(*SetPermissionDeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1188,8 +1256,16 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Roles_SetRoles_Handler,
 		},
 		{
+			MethodName: "SetRolesDelete",
+			Handler:    _Roles_SetRolesDelete_Handler,
+		},
+		{
 			MethodName: "SetPermission",
 			Handler:    _Roles_SetPermission_Handler,
+		},
+		{
+			MethodName: "SetPermissionDelete",
+			Handler:    _Roles_SetPermissionDelete_Handler,
 		},
 		{
 			MethodName: "AdminUserDelete",

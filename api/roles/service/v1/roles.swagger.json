@@ -821,6 +821,72 @@
         ]
       }
     },
+    "/v1/role/user/unsetpermissions": {
+      "post": {
+        "summary": "用户分配权限-解除",
+        "operationId": "Roles_SetPermissionDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetPermissionDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SetPermissionDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/v1/role/user/unsetroles": {
+      "post": {
+        "summary": "用户分配角色-解除",
+        "operationId": "Roles_SetRolesDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetRolesDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SetRolesDeleteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/user/update": {
       "post": {
         "summary": "编辑后台用户基本信息(用户名/密码/头像)",
@@ -1654,6 +1720,27 @@
     "v1RouteRoleResponse": {
       "type": "object"
     },
+    "v1SetPermissionDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "permission": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "权限ID列表"
+        }
+      }
+    },
+    "v1SetPermissionDeleteResponse": {
+      "type": "object"
+    },
     "v1SetPermissionRequest": {
       "type": "object",
       "properties": {
@@ -1673,6 +1760,27 @@
       }
     },
     "v1SetPermissionResponse": {
+      "type": "object"
+    },
+    "v1SetRolesDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户ID"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "角色ID列表"
+        }
+      }
+    },
+    "v1SetRolesDeleteResponse": {
       "type": "object"
     },
     "v1SetRolesRequest": {
