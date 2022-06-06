@@ -370,6 +370,14 @@ func (r *UserRepo) RouteEdit(ctx context.Context, id, method int64, url string) 
 	})
 }
 
+func (r *UserRepo) RouteDelete(ctx context.Context, id int64) error {
+	if err := r.data.db.Exec("delete from routes where id = ?", id).Error; err != nil {
+		return errors.ErrSystemBusy
+	}
+
+	return nil
+}
+
 func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {

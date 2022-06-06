@@ -334,10 +334,20 @@ func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) 
 }
 
 func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
+	err := r.repo.RouteEdit(ctx, req.Id, req.Method, req.Url)
+	if err != nil {
+		return &v1.RouteEditResponse{}, err
+	}
+
 	return &v1.RouteEditResponse{}, nil
 }
 
 func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
+	err := r.repo.RouteDelete(ctx, req.Id)
+	if err != nil {
+		return &v1.RouteDeleteResponse{}, err
+	}
+
 	return &v1.RouteDeleteResponse{}, nil
 }
 
