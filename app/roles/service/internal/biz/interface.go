@@ -55,6 +55,10 @@ type RolesRepo interface {
 	RouteDelete(ctx context.Context, id int64) error
 	// 设置路由角色
 	RouteRole(ctx context.Context, uid, route int64, role []int64) error
+	// 解除路由角色
+	RouteRoleDelete(ctx context.Context, id int64, role []int64) error
 	// 设置路由权限
 	RoutePermission(ctx context.Context, uid, route int64, permission []int64) error
+	// 解除路由权限
+	RoutePermissionDelete(ctx context.Context, id int64, permission []int64) error
 }

@@ -398,6 +398,17 @@ func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64
 	})
 }
 
+func (r *UserRepo) RouteRoleDelete(ctx context.Context, id int64, role []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range role {
+			if err := tx.Exec("delete from ? where route = ? and role = ?", model.RouteRoleTablename, id, v).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+		return nil
+	})
+}
+
 func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permission []int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
@@ -415,6 +426,17 @@ func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permis
 			}
 		}
 
+		return nil
+	})
+}
+
+func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int64, permission []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range permission {
+			if err := tx.Exec("delete from ? where route = ? and role = ?", model.RoutePermissionTablename, id, v).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
 		return nil
 	})
 }

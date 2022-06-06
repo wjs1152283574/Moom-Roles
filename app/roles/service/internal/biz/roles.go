@@ -360,6 +360,15 @@ func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, 
 	return &v1.RouteRoleResponse{}, nil
 }
 
+func (r *RolesUseCase) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDeleteRequest) (*v1.RouteRoleDeleteResponse, error) {
+	err := r.repo.RouteRoleDelete(ctx, req.Id, req.Route)
+	if err != nil {
+		return &v1.RouteRoleDeleteResponse{}, err
+	}
+
+	return &v1.RouteRoleDeleteResponse{}, nil
+}
+
 func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest, uid int64) (*v1.RoutePermissionResponse, error) {
 	err := r.repo.RoutePermission(ctx, uid, req.Route, req.Permisson)
 	if err != nil {
@@ -367,4 +376,13 @@ func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermiss
 	}
 
 	return &v1.RoutePermissionResponse{}, nil
+}
+
+func (r *RolesUseCase) RoutePermissionDelete(ctx context.Context, req *v1.RoutePermissionDeleteRequest) (*v1.RoutePermissionDeleteResponse, error) {
+	err := r.repo.RoutePermissionDelete(ctx, req.Id, req.Permission)
+	if err != nil {
+		return &v1.RoutePermissionDeleteResponse{}, err
+	}
+
+	return &v1.RoutePermissionDeleteResponse{}, nil
 }
