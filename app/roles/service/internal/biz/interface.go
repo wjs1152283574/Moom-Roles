@@ -29,6 +29,8 @@ type RolesRepo interface {
 	SetRolesDelete(ctx context.Context, uid int64, role []int64) error
 	// 设置用户权限
 	SetPermissions(ctx context.Context, uid, creator int64, pid []int64) error
+	// 设置用户权限--解除
+	SetPermissionDelete(ctx context.Context, uid int64, permission []int64) error
 	// 删除用户
 	UserDelete(ctx context.Context, uid int64) error
 	// 创建角色

@@ -185,6 +185,10 @@ func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, cr
 }
 
 func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDeleteRequest) (*v1.SetRolesDeleteResponse, error) {
+	if err := r.repo.SetRolesDelete(ctx, req.Id, req.Role); err != nil {
+		return &v1.SetRolesDeleteResponse{}, err
+	}
+
 	return &v1.SetRolesDeleteResponse{}, nil
 }
 

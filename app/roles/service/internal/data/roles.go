@@ -451,3 +451,14 @@ func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int64, role []int64) 
 		return nil
 	})
 }
+
+func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int64, permission []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range permission {
+			if err := tx.Exec("delete from ? where user = ? and permisson = ?", model.UserRoleTablename, uid, v).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+		return nil
+	})
+}
