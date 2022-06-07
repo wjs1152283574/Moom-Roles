@@ -92,6 +92,18 @@ func (r *RolesService) SetRoles(ctx context.Context, req *v1.SetRolesRequest) (*
 	return r.uc.SetRoles(ctx, req, r.GetUserID(ctx))
 }
 
+func (r *RolesService) SetRolesDelete(ctx context.Context, req *v1.SetRolesDeleteRequest) (*v1.SetRolesDeleteResponse, error) {
+	if req.Id <= 0 {
+		return &v1.SetRolesDeleteResponse{}, errors.ErrInvalidUID
+	}
+
+	if len(req.Role) <= 0 {
+		return &v1.SetRolesDeleteResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.SetRolesDelete(ctx, req)
+}
+
 func (r *RolesService) SetPermission(ctx context.Context, req *v1.SetPermissionRequest) (*v1.SetPermissionResponse, error) {
 	if req.Uid <= 0 {
 		return &v1.SetPermissionResponse{}, errors.ErrInvalidUID
@@ -102,6 +114,18 @@ func (r *RolesService) SetPermission(ctx context.Context, req *v1.SetPermissionR
 	}
 
 	return r.uc.SetPermission(ctx, req, r.GetUserID(ctx))
+}
+
+func (r *RolesService) SetPermissionDelete(ctx context.Context, req *v1.SetPermissionDeleteRequest) (*v1.SetPermissionDeleteResponse, error) {
+	if req.Id <= 0 {
+		return &v1.SetPermissionDeleteResponse{}, errors.ErrInvalidUID
+	}
+
+	if len(req.Permission) <= 0 {
+		return &v1.SetPermissionDeleteResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.SetPermissionDelete(ctx, req)
 }
 
 func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {

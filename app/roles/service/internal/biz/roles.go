@@ -184,12 +184,20 @@ func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, cr
 	return &v1.SetRolesResponse{}, nil
 }
 
+func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDeleteRequest) (*v1.SetRolesDeleteResponse, error) {
+	return &v1.SetRolesDeleteResponse{}, nil
+}
+
 func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionRequest, creator int64) (*v1.SetPermissionResponse, error) {
 	if err := r.repo.SetRoles(ctx, req.Uid, creator, req.Pid); err != nil {
 		return &v1.SetPermissionResponse{}, err
 	}
 
 	return &v1.SetPermissionResponse{}, nil
+}
+
+func (r *RolesUseCase) SetPermissionDelete(ctx context.Context, req *v1.SetPermissionDeleteRequest) (*v1.SetPermissionDeleteResponse, error) {
+	return &v1.SetPermissionDeleteResponse{}, nil
 }
 
 func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {
