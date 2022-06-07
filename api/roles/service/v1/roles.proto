@@ -163,6 +163,13 @@ service Roles {
             body: "*"
         };
     };
+    // 路由详情
+    rpc RouteDetails (RouteDetailsRequest) returns (RouteDetailsResponse){
+        option (google.api.http) = {
+            post: "/v1/role/route/details",
+            body: "*"
+        };
+    };
     // 路由编辑
     rpc RouteEdit (RouteEditRequest) returns (RouteEditResponse){
         option (google.api.http) = {
@@ -219,6 +226,37 @@ service Roles {
     rpc CheckRoutePermissionByToken (CheckRoutePermissionByTokenRequest) returns (CheckRoutePermissionByTokenResponse);
     // 验证路由可访问权限--id
     rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse);
+}
+
+message RouteDetailsRequest {
+    // 路由ID 
+    int64 id = 1;
+}
+message RouteDetailsResponse {
+    // 路由ID 
+    int64 id = 1;
+    // URL 
+    string url = 2;
+    // 请求方法
+    int64 method = 3;
+    // 创建时间
+    int64 ctime = 4;
+    // 最近更新时间
+    int64 utime = 5;
+    repeated Roles roles = 6;
+    repeated Permission permission = 7;
+    message Roles {
+        // 角色名称
+        string name = 1;
+        // 角色代码
+        string code = 2;
+    }
+    message Permission {
+        // 权限名称
+        string name = 1;
+        // 权限代码
+        string code = 2;
+    }
 }
 
 message SetPermissionDeleteRequest {

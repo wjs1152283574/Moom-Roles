@@ -392,6 +392,39 @@
         ]
       }
     },
+    "/v1/role/route/details": {
+      "post": {
+        "summary": "路由详情",
+        "operationId": "Roles_RouteDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RouteDetailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RouteDetailsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/v1/role/route/edit": {
       "post": {
         "summary": "路由编辑",
@@ -1042,6 +1075,32 @@
         }
       }
     },
+    "RouteDetailsResponsePermission": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "权限名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "权限代码"
+        }
+      }
+    },
+    "RouteDetailsResponseRoles": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "code": {
+          "type": "string",
+          "title": "角色代码"
+        }
+      }
+    },
     "RouteListResponseRouteListItem": {
       "type": "object",
       "properties": {
@@ -1572,6 +1631,57 @@
     },
     "v1RouteDeleteResponse": {
       "type": "object"
+    },
+    "v1RouteDetailsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        }
+      }
+    },
+    "v1RouteDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "路由ID"
+        },
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "method": {
+          "type": "string",
+          "format": "int64",
+          "title": "请求方法"
+        },
+        "ctime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "utime": {
+          "type": "string",
+          "format": "int64",
+          "title": "最近更新时间"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RouteDetailsResponseRoles"
+          }
+        },
+        "permission": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RouteDetailsResponsePermission"
+          }
+        }
+      }
     },
     "v1RouteEditRequest": {
       "type": "object",

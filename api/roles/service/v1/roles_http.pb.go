@@ -36,6 +36,7 @@ type RolesHTTPServer interface {
 	RoleList(context.Context, *RoleListRequest) (*RoleListResponse, error)
 	RouteCreate(context.Context, *RouteCreateRequest) (*RouteCreateResponse, error)
 	RouteDelete(context.Context, *RouteDeleteRequest) (*RouteDeleteResponse, error)
+	RouteDetails(context.Context, *RouteDetailsRequest) (*RouteDetailsResponse, error)
 	RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error)
 	RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error)
 	RoutePermission(context.Context, *RoutePermissionRequest) (*RoutePermissionResponse, error)
@@ -72,6 +73,7 @@ func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r.POST("/v1/role/permission/update", _Roles_PermissionEdit0_HTTP_Handler(srv))
 	r.POST("/v1/role/route/create", _Roles_RouteCreate0_HTTP_Handler(srv))
 	r.POST("/v1/role/route/list", _Roles_RouteList0_HTTP_Handler(srv))
+	r.POST("/v1/role/route/details", _Roles_RouteDetails0_HTTP_Handler(srv))
 	r.POST("/v1/role/route/edit", _Roles_RouteEdit0_HTTP_Handler(srv))
 	r.POST("/v1/role/route/delete", _Roles_RouteDelete0_HTTP_Handler(srv))
 	r.POST("/v1/role/route/setrole", _Roles_RouteRole0_HTTP_Handler(srv))
@@ -498,6 +500,25 @@ func _Roles_RouteList0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) 
 	}
 }
 
+func _Roles_RouteDetails0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RouteDetailsRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.roles.service.v1.Roles/RouteDetails")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RouteDetails(ctx, req.(*RouteDetailsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RouteDetailsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Roles_RouteEdit0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in RouteEditRequest
@@ -631,6 +652,7 @@ type RolesHTTPClient interface {
 	RoleList(ctx context.Context, req *RoleListRequest, opts ...http.CallOption) (rsp *RoleListResponse, err error)
 	RouteCreate(ctx context.Context, req *RouteCreateRequest, opts ...http.CallOption) (rsp *RouteCreateResponse, err error)
 	RouteDelete(ctx context.Context, req *RouteDeleteRequest, opts ...http.CallOption) (rsp *RouteDeleteResponse, err error)
+	RouteDetails(ctx context.Context, req *RouteDetailsRequest, opts ...http.CallOption) (rsp *RouteDetailsResponse, err error)
 	RouteEdit(ctx context.Context, req *RouteEditRequest, opts ...http.CallOption) (rsp *RouteEditResponse, err error)
 	RouteList(ctx context.Context, req *RouteListRequest, opts ...http.CallOption) (rsp *RouteListResponse, err error)
 	RoutePermission(ctx context.Context, req *RoutePermissionRequest, opts ...http.CallOption) (rsp *RoutePermissionResponse, err error)
@@ -877,6 +899,19 @@ func (c *RolesHTTPClientImpl) RouteDelete(ctx context.Context, in *RouteDeleteRe
 	pattern := "/v1/role/route/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteDelete"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *RolesHTTPClientImpl) RouteDetails(ctx context.Context, in *RouteDetailsRequest, opts ...http.CallOption) (*RouteDetailsResponse, error) {
+	var out RouteDetailsResponse
+	pattern := "/v1/role/route/details"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteDetails"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

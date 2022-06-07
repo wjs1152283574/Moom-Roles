@@ -67,6 +67,8 @@ type RolesClient interface {
 	RouteCreate(ctx context.Context, in *RouteCreateRequest, opts ...grpc.CallOption) (*RouteCreateResponse, error)
 	// 路由列表
 	RouteList(ctx context.Context, in *RouteListRequest, opts ...grpc.CallOption) (*RouteListResponse, error)
+	// 路由详情
+	RouteDetails(ctx context.Context, in *RouteDetailsRequest, opts ...grpc.CallOption) (*RouteDetailsResponse, error)
 	// 路由编辑
 	RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...grpc.CallOption) (*RouteEditResponse, error)
 	// 路由删除
@@ -300,6 +302,15 @@ func (c *rolesClient) RouteList(ctx context.Context, in *RouteListRequest, opts 
 	return out, nil
 }
 
+func (c *rolesClient) RouteDetails(ctx context.Context, in *RouteDetailsRequest, opts ...grpc.CallOption) (*RouteDetailsResponse, error) {
+	out := new(RouteDetailsResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rolesClient) RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...grpc.CallOption) (*RouteEditResponse, error) {
 	out := new(RouteEditResponse)
 	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/RouteEdit", in, out, opts...)
@@ -457,6 +468,8 @@ type RolesServer interface {
 	RouteCreate(context.Context, *RouteCreateRequest) (*RouteCreateResponse, error)
 	// 路由列表
 	RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error)
+	// 路由详情
+	RouteDetails(context.Context, *RouteDetailsRequest) (*RouteDetailsResponse, error)
 	// 路由编辑
 	RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error)
 	// 路由删除
@@ -554,6 +567,9 @@ func (UnimplementedRolesServer) RouteCreate(context.Context, *RouteCreateRequest
 }
 func (UnimplementedRolesServer) RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RouteList not implemented")
+}
+func (UnimplementedRolesServer) RouteDetails(context.Context, *RouteDetailsRequest) (*RouteDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RouteDetails not implemented")
 }
 func (UnimplementedRolesServer) RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RouteEdit not implemented")
@@ -1000,6 +1016,24 @@ func _Roles_RouteList_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Roles_RouteDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).RouteDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/RouteDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).RouteDetails(ctx, req.(*RouteDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Roles_RouteEdit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RouteEditRequest)
 	if err := dec(in); err != nil {
@@ -1310,6 +1344,10 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RouteList",
 			Handler:    _Roles_RouteList_Handler,
+		},
+		{
+			MethodName: "RouteDetails",
+			Handler:    _Roles_RouteDetails_Handler,
 		},
 		{
 			MethodName: "RouteEdit",
