@@ -123,10 +123,10 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int64, rid []int64
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range rid {
 			var userRole model.UserRole
-			userRole.UID = uint(uid)
+			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
 			userRole.CreatorID = creator
-			userRole.RID = uint(v)
+			userRole.Role = uint(v)
 			if err := tx.Create(&userRole).Error; err != nil {
 				return errors.ErrSystemBusy
 			}
@@ -140,10 +140,10 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int64, pid [
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range pid {
 			var userRole model.UserPermission
-			userRole.UID = uint(uid)
+			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
 			userRole.CreatorID = creator
-			userRole.PID = uint(v)
+			userRole.Permission = uint(v)
 			if err := tx.Create(&userRole).Error; err != nil {
 				return errors.ErrSystemBusy
 			}
@@ -434,6 +434,17 @@ func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int64, permissi
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
 			if err := tx.Exec("delete from ? where route = ? and role = ?", model.RoutePermissionTablename, id, v).Error; err != nil {
+				return errors.ErrSystemBusy
+			}
+		}
+		return nil
+	})
+}
+
+func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int64, role []int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		for _, v := range role {
+			if err := tx.Exec("delete from ? where user = ? and role = ?", model.UserRoleTablename, uid, v).Error; err != nil {
 				return errors.ErrSystemBusy
 			}
 		}

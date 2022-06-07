@@ -48,8 +48,8 @@ func (p *Permission) TableName() string {
 }
 
 type UserRole struct {
-	UID uint `gorm:"COMMENT:用户ID"`
-	RID uint `gorm:"COMMENT:角色ID"`
+	User uint `gorm:"COMMENT:用户ID"`
+	Role uint `gorm:"COMMENT:角色ID"`
 
 	Commom
 }
@@ -59,8 +59,8 @@ func (u *UserRole) TableName() string {
 }
 
 type RolePermission struct {
-	PID uint `gorm:"COMMENT:权限ID"`
-	RID uint `gorm:"COMMENT:角色ID"`
+	Permission uint `gorm:"COMMENT:权限ID"`
+	Role       uint `gorm:"COMMENT:角色ID"`
 
 	Commom
 }
@@ -72,8 +72,8 @@ func (r *RolePermission) TableName() string {
 // 兼容 用户直接获取某个单独的权限
 type UserPermission struct {
 	Commom
-	UID uint `gorm:"COMMENT:用户ID"`
-	PID uint `gorm:"COMMENT:权限ID"`
+	User       uint `gorm:"COMMENT:用户ID"`
+	Permission uint `gorm:"COMMENT:权限ID"`
 }
 
 func (u *UserPermission) TableName() string {
