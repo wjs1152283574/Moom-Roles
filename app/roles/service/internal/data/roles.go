@@ -464,5 +464,20 @@ func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int64, permissio
 }
 
 func (r *UserRepo) RouteDetails(ctx context.Context, routeID int64) (route model.Route, role []model.Role, permission []model.Permission, err error) {
+	if err = r.data.db.Table(model.RouteTablename).Where("id = ?", routeID).First(&route).Error; err != nil {
+		err = errors.ErrRouteNotExit
+		return
+	}
+
+	if err = r.data.db.Exec("SELECT * FROM roles WHERE id in (SELECT route_roles.role FROM route_roles WHERE route_roles.route = ?)", routeID).Scan(&role).Error; err != nil {
+		err = errors.ErrSystemBusy
+		return
+	}
+
+	if err = r.data.db.Exec("SELECT * FROM permissions WHERE id in (SELECT route_permissions.permission FROM route_permissions WHERE route_permissions.route = ?)", routeID).Scan(&permission).Error; err != nil {
+		err = errors.ErrSystemBusy
+		return
+	}
+
 	return
 }

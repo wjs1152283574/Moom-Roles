@@ -14,6 +14,7 @@ var (
 	ErrNoNeedCaptcha     = errors.New(401, "NoNeedCaptcha", "no need captcha")
 	ErrInvalidVerifyCode = errors.New(401, "InvalidVerifyCode", "invalid verify code")
 	ErrUserNotExit       = errors.New(404, "UserNotExit", "user not exit")
+	ErrRouteNotExit      = errors.New(404, "RouteNotExit", "route not exit")
 
 	ErrInvalidToken = errors.New(404, "InvalidToken", "invalid token")
 )
