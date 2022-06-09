@@ -31,7 +31,7 @@ service Roles {
     };
 
     // **********  超级管理员功能  ************ 
-    
+
     // 创建后台用户
     rpc CreateAdminUser (CreateAdminUserRequest) returns (CreateAdminUserResponse){
         option (google.api.http) = {
@@ -215,6 +215,7 @@ service Roles {
     };
 
     // *******  你的系统鉴权RPC接口  **********
+    
     // 验证用户角色
     rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
     // 验证用户权限
