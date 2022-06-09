@@ -462,3 +462,7 @@ func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int64, permissio
 		return nil
 	})
 }
+
+func (r *UserRepo) RouteDetails(ctx context.Context, routeID int64) (route model.Route, role []model.Role, permission []model.Permission, err error) {
+	return
+}

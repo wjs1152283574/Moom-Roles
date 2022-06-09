@@ -398,3 +398,33 @@ func (r *RolesUseCase) RoutePermissionDelete(ctx context.Context, req *v1.RouteP
 
 	return &v1.RoutePermissionDeleteResponse{}, nil
 }
+
+func (r *RolesUseCase) RouteDetails(ctx context.Context, req *v1.RouteDetailsRequest) (*v1.RouteDetailsResponse, error) {
+	route, roles, permisions, err := r.repo.RouteDetails(ctx, req.Id)
+	if err != nil {
+		return &v1.RouteDetailsResponse{}, err
+	}
+	var Roles []*v1.RouteDetailsResponse_Roles
+	for _, v := range roles {
+		Roles = append(Roles, &v1.RouteDetailsResponse_Roles{
+			Name: v.Name,
+			Code: v.Code,
+		})
+	}
+	var Permission []*v1.RouteDetailsResponse_Permission
+	for _, v := range permisions {
+		Permission = append(Permission, &v1.RouteDetailsResponse_Permission{
+			Name: v.Name,
+			Code: v.Code,
+		})
+	}
+
+	return &v1.RouteDetailsResponse{
+		Id:         int64(route.ID),
+		Url:        route.URL,
+		Method:     route.Method,
+		Ctime:      route.CreatedTime,
+		Roles:      Roles,
+		Permission: Permission,
+	}, nil
+}

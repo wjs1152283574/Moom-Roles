@@ -277,5 +277,9 @@ func (r *RolesService) RoutePermissionDelete(ctx context.Context, req *v1.RouteP
 }
 
 func (r *RolesService) RouteDetails(ctx context.Context, req *v1.RouteDetailsRequest) (*v1.RouteDetailsResponse, error) {
-	return &v1.RouteDetailsResponse{}, errors.ErrInvalidParams
+	if req.Id <= 0 {
+		return &v1.RouteDetailsResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.RouteDetails(ctx, req)
 }
