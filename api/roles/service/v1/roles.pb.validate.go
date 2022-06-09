@@ -7840,6 +7840,8 @@ func (m *RouteDetailsResponse_Roles) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	// no validation rules for Name
 
 	// no validation rules for Code
@@ -7945,6 +7947,8 @@ func (m *RouteDetailsResponse_Permission) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
 
 	// no validation rules for Name
 

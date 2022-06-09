@@ -246,16 +246,20 @@ message RouteDetailsResponse {
     repeated Roles roles = 6;
     repeated Permission permission = 7;
     message Roles {
+        // 角色ID
+        int64 id = 1;
         // 角色名称
-        string name = 1;
+        string name = 2;
         // 角色代码
-        string code = 2;
+        string code = 3;
     }
     message Permission {
+        // 权限ID
+        int64 id = 1;
         // 权限名称
-        string name = 1;
+        string name = 2;
         // 权限代码
-        string code = 2;
+        string code = 3;
     }
 }
 

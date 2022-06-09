@@ -407,6 +407,7 @@ func (r *RolesUseCase) RouteDetails(ctx context.Context, req *v1.RouteDetailsReq
 	var Roles []*v1.RouteDetailsResponse_Roles
 	for _, v := range roles {
 		Roles = append(Roles, &v1.RouteDetailsResponse_Roles{
+			Id:   int64(v.ID),
 			Name: v.Name,
 			Code: v.Code,
 		})
@@ -414,6 +415,7 @@ func (r *RolesUseCase) RouteDetails(ctx context.Context, req *v1.RouteDetailsReq
 	var Permission []*v1.RouteDetailsResponse_Permission
 	for _, v := range permisions {
 		Permission = append(Permission, &v1.RouteDetailsResponse_Permission{
+			Id:   int64(v.ID),
 			Name: v.Name,
 			Code: v.Code,
 		})

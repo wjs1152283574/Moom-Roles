@@ -1078,6 +1078,11 @@
     "RouteDetailsResponsePermission": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "权限ID"
+        },
         "name": {
           "type": "string",
           "title": "权限名称"
@@ -1091,6 +1096,11 @@
     "RouteDetailsResponseRoles": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "角色ID"
+        },
         "name": {
           "type": "string",
           "title": "角色名称"
