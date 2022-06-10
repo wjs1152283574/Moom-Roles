@@ -67,4 +67,10 @@ type RolesRepo interface {
 	RoutePermissionDelete(ctx context.Context, id int64, permission []int64) error
 	// 路由详细
 	RouteDetails(ctx context.Context, routeID int64) (route model.Route, role []model.Role, permission []model.Permission, err error)
+
+	Rpc
+}
+
+type Rpc interface {
+	CheckRole(ctx context.Context, uid int64, code string) error
 }

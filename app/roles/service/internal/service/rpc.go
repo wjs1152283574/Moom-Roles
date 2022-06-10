@@ -12,9 +12,13 @@ func (r *RolesService) CheckRole(ctx context.Context, req *v1.CheckRoleRequest) 
 		return &v1.CheckRoleResponse{}, errors.ErrSystemBusy
 	}
 
-	return &v1.CheckRoleResponse{}, nil
+	return r.uc.CheckRole(ctx, req)
 }
 
 func (r *RolesService) CheckPermission(ctx context.Context, req *v1.CheckPermissionRequest) (*v1.CheckPermissionResponse, error) {
-	return &v1.CheckPermissionResponse{}, nil
+	if req.Id <= 0 || req.Code == "" {
+		return &v1.CheckPermissionResponse{}, errors.ErrSystemBusy
+	}
+
+	return r.uc.CheckPermission(ctx, req)
 }
