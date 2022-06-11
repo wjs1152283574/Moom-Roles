@@ -17,5 +17,11 @@ func (r *RolesUseCase) CheckRole(ctx context.Context, req *v1.CheckRoleRequest) 
 }
 
 func (r *RolesUseCase) CheckPermission(ctx context.Context, req *v1.CheckPermissionRequest) (*v1.CheckPermissionResponse, error) {
-	return &v1.CheckPermissionResponse{}, nil
+	if err := r.repo.CheckPermission(ctx, req.Id, req.Code); err != nil {
+		return &v1.CheckPermissionResponse{Result: false}, err
+	}
+
+	return &v1.CheckPermissionResponse{
+		Result: true,
+	}, nil
 }

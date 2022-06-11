@@ -20,3 +20,17 @@ func (r *UserRepo) CheckRole(ctx context.Context, uid int64, code string) error 
 
 	return nil
 }
+
+func (r *UserRepo) CheckPermission(ctx context.Context, uid int64, code string) error {
+	var permission model.Permission
+	if err := r.data.db.Table(model.PermissionTableName).Where("code = ?", code).First(&permission).Error; err != nil {
+		return errors.ErrRoleNotExit
+	}
+
+	var userPermission model.UserPermission
+	if err := r.data.db.Table(model.UserPermissionTablename).Where("user = ? and permission = ?", uid, permission.ID).First(&userPermission); err != nil {
+		return errors.ErrPermissionDeni
+	}
+
+	return nil
+}

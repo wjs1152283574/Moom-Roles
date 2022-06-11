@@ -73,4 +73,5 @@ type RolesRepo interface {
 
 type Rpc interface {
 	CheckRole(ctx context.Context, uid int64, code string) error
+	CheckPermission(ctx context.Context, uid int64, code string) error
 }
