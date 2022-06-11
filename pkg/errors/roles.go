@@ -13,8 +13,10 @@ var (
 	ErrMuiltpleUserName  = errors.New(400, "MuiltpleUserName", "user allready exit")
 	ErrNoNeedCaptcha     = errors.New(401, "NoNeedCaptcha", "no need captcha")
 	ErrInvalidVerifyCode = errors.New(401, "InvalidVerifyCode", "invalid verify code")
+	ErrPermissionDeni    = errors.New(401, "PermissionDeni", "ckech permission fail")
 	ErrUserNotExit       = errors.New(404, "UserNotExit", "user not exit")
 	ErrRouteNotExit      = errors.New(404, "RouteNotExit", "route not exit")
+	ErrRoleNotExit       = errors.New(404, "RoleNotExit", "role not exit")
 
 	ErrInvalidToken = errors.New(404, "InvalidToken", "invalid token")
 )
