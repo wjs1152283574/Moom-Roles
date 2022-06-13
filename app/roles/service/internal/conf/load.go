@@ -20,9 +20,9 @@ func LoadConf(conf config.Config) (err error) {
 		err = conf.Watch(key, func(key string, value config.Value) {
 			switch key {
 			case "super_user":
-				err = value.Scan(&SU) // conf.Scan(&UConf)
+				err = conf.Scan(&SU) // conf.Scan(&UConf)
 			case "global":
-				err = value.Scan(&GB) // conf.Scan(&UConf)
+				err = conf.Scan(&GB) // conf.Scan(&UConf)
 			default:
 				fmt.Println("load empty configs")
 			}
