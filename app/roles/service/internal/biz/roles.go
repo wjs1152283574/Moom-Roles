@@ -36,7 +36,7 @@ func (r *RolesUseCase) CreateSuperUser(ctx context.Context) (*v1.CreateSuperUser
 
 func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.LoginResponse, error) {
 	// 需要检验验证码
-	if conf.GB.Verify {
+	if conf.GB.Global.Verify {
 		if !tool.Verify(req.Key, req.Val) {
 			return &v1.LoginResponse{}, errors.ErrInvalidVerifyCode
 		}
@@ -51,12 +51,12 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 		return &v1.LoginResponse{}, errors.ErrInvalidPass
 	}
 	// 生成token
-	token, err := tool.NewJWT(conf.GB.TokenScreat).CreateToken(strconv.Itoa(int(user.ID)), conf.GB.Issuer, conf.GB.TokenTtl)
+	token, err := tool.NewJWT(conf.GB.Global.TokenScrect).CreateToken(strconv.Itoa(int(user.ID)), conf.GB.Global.Issuer, conf.GB.Global.TokenTtl)
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}
 	// 存入redis
-	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, conf.GB.TokenTtl)
+	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, conf.GB.Global.TokenTtl)
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}

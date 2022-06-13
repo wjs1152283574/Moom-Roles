@@ -1,8 +1,8 @@
 {
     "global":{
-        "verify":true,
+        "verify":false,
         "token_ttl": 3600,
-        "token_screat": "IT-MOOM",
+        "token_screct": "IT-MOOM",
         "issuer": "IT-MOOM"
     }
 }

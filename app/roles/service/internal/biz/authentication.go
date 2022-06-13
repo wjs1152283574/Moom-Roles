@@ -31,7 +31,7 @@ func (r *RolesUseCase) CheckPermission(ctx context.Context, req *v1.CheckPermiss
 }
 
 func (r *RolesUseCase) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckRouteRoleByTokenRequest) (*v1.CheckRouteRoleByTokenResponse, error) {
-	tokenCliam, err := tool.NewJWT(conf.GB.TokenScreat).ParseToken(req.Token)
+	tokenCliam, err := tool.NewJWT(conf.GB.Global.TokenScrect).ParseToken(req.Token)
 	if err != nil {
 		return &v1.CheckRouteRoleByTokenResponse{Result: false}, errors.ErrInvalidToken
 	}
@@ -57,7 +57,7 @@ func (r *RolesUseCase) CheckRouteRoleByID(ctx context.Context, req *v1.CheckRout
 }
 
 func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.CheckRoutePermissionByTokenRequest) (*v1.CheckRoutePermissionByTokenResponse, error) {
-	tokenCliam, err := tool.NewJWT(conf.GB.TokenScreat).ParseToken(req.Token)
+	tokenCliam, err := tool.NewJWT(conf.GB.Global.TokenScrect).ParseToken(req.Token)
 	if err != nil {
 		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, errors.ErrInvalidToken
 	}

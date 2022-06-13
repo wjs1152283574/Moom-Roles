@@ -41,6 +41,6 @@ func LoadConf(conf config.Config) (err error) {
 	if err != nil {
 		panic(err)
 	}
-
+	fmt.Println(GB, SU)
 	return
 }

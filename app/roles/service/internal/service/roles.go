@@ -16,7 +16,7 @@ func (r *RolesService) CreateSuperUser(ctx context.Context, req *v1.CreateSuperU
 
 // GetCaptcha 获取图片验证码
 func (r *RolesService) GetCaptcha(ctx context.Context, req *v1.GetCaptchaRequest) (*v1.GetCaptchaResponse, error) {
-	if !conf.GB.Verify {
+	if !conf.GB.Global.Verify {
 		return &v1.GetCaptchaResponse{}, errors.ErrNoNeedCaptcha
 	}
 
