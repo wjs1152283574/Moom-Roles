@@ -51,35 +51,35 @@ type RolesHTTPServer interface {
 
 func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r := s.Route("/")
-	r.GET("/v1/auth/role/superuser/create", _Roles_CreateSuperUser0_HTTP_Handler(srv))
-	r.GET("/v1/role/captcha", _Roles_GetCaptcha0_HTTP_Handler(srv))
-	r.POST("/v1/role/login", _Roles_Login0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/create", _Roles_CreateAdminUser0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/list", _Roles_AdminUserList0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/details", _Roles_AdminUserInfos0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/update", _Roles_AdminUserEdit0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/setroles", _Roles_SetRoles0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/unsetroles", _Roles_SetRolesDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/setpermissions", _Roles_SetPermission0_HTTP_Handler(srv))
-	r.POST("/v1/role/user/unsetpermissions", _Roles_SetPermissionDelete0_HTTP_Handler(srv))
-	r.DELETE("/v1/role/user/delete", _Roles_AdminUserDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/create", _Roles_RoleCreate0_HTTP_Handler(srv))
-	r.POST("/v1/role/list", _Roles_RoleList0_HTTP_Handler(srv))
-	r.POST("/v1/role/delete", _Roles_RoleDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/update", _Roles_RoleEdit0_HTTP_Handler(srv))
-	r.POST("/v1/role/permission/create", _Roles_PermissionCreate0_HTTP_Handler(srv))
-	r.POST("/v1/role/permission/list", _Roles_PermissionList0_HTTP_Handler(srv))
-	r.POST("/v1/role/permission/delete", _Roles_PermissionDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/permission/update", _Roles_PermissionEdit0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/create", _Roles_RouteCreate0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/list", _Roles_RouteList0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/details", _Roles_RouteDetails0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/edit", _Roles_RouteEdit0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/delete", _Roles_RouteDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/setrole", _Roles_RouteRole0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/unsetrole", _Roles_RouteRoleDelete0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/setpermission", _Roles_RoutePermission0_HTTP_Handler(srv))
-	r.POST("/v1/role/route/unsetpermission", _Roles_RoutePermissionDelete0_HTTP_Handler(srv))
+	r.GET("/superuser/create", _Roles_CreateSuperUser0_HTTP_Handler(srv))
+	r.GET("/captcha", _Roles_GetCaptcha0_HTTP_Handler(srv))
+	r.POST("/login", _Roles_Login0_HTTP_Handler(srv))
+	r.POST("/user/create", _Roles_CreateAdminUser0_HTTP_Handler(srv))
+	r.POST("/user/list", _Roles_AdminUserList0_HTTP_Handler(srv))
+	r.POST("/user/details", _Roles_AdminUserInfos0_HTTP_Handler(srv))
+	r.POST("/user/update", _Roles_AdminUserEdit0_HTTP_Handler(srv))
+	r.POST("/user/roles", _Roles_SetRoles0_HTTP_Handler(srv))
+	r.POST("/user/unroles", _Roles_SetRolesDelete0_HTTP_Handler(srv))
+	r.POST("/user/permissions", _Roles_SetPermission0_HTTP_Handler(srv))
+	r.POST("/user/unpermissions", _Roles_SetPermissionDelete0_HTTP_Handler(srv))
+	r.DELETE("/user/delete", _Roles_AdminUserDelete0_HTTP_Handler(srv))
+	r.POST("/role/create", _Roles_RoleCreate0_HTTP_Handler(srv))
+	r.POST("/role/list", _Roles_RoleList0_HTTP_Handler(srv))
+	r.POST("/role/delete", _Roles_RoleDelete0_HTTP_Handler(srv))
+	r.POST("/role/update", _Roles_RoleEdit0_HTTP_Handler(srv))
+	r.POST("/permission/create", _Roles_PermissionCreate0_HTTP_Handler(srv))
+	r.POST("/permission/list", _Roles_PermissionList0_HTTP_Handler(srv))
+	r.POST("/permission/delete", _Roles_PermissionDelete0_HTTP_Handler(srv))
+	r.POST("/permission/update", _Roles_PermissionEdit0_HTTP_Handler(srv))
+	r.POST("/route/create", _Roles_RouteCreate0_HTTP_Handler(srv))
+	r.POST("/route/list", _Roles_RouteList0_HTTP_Handler(srv))
+	r.POST("/route/details", _Roles_RouteDetails0_HTTP_Handler(srv))
+	r.POST("/route/edit", _Roles_RouteEdit0_HTTP_Handler(srv))
+	r.POST("/route/delete", _Roles_RouteDelete0_HTTP_Handler(srv))
+	r.POST("/route/role", _Roles_RouteRole0_HTTP_Handler(srv))
+	r.POST("/route/unrole", _Roles_RouteRoleDelete0_HTTP_Handler(srv))
+	r.POST("/route/permission", _Roles_RoutePermission0_HTTP_Handler(srv))
+	r.POST("/route/unpermission", _Roles_RoutePermissionDelete0_HTTP_Handler(srv))
 }
 
 func _Roles_CreateSuperUser0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
@@ -675,7 +675,7 @@ func NewRolesHTTPClient(client *http.Client) RolesHTTPClient {
 
 func (c *RolesHTTPClientImpl) AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...http.CallOption) (*AdminUserDeleteResponse, error) {
 	var out AdminUserDeleteResponse
-	pattern := "/v1/role/user/delete"
+	pattern := "/user/delete"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -688,7 +688,7 @@ func (c *RolesHTTPClientImpl) AdminUserDelete(ctx context.Context, in *AdminUser
 
 func (c *RolesHTTPClientImpl) AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...http.CallOption) (*AdminUserEditResponse, error) {
 	var out AdminUserEditResponse
-	pattern := "/v1/role/user/update"
+	pattern := "/user/update"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserEdit"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -701,7 +701,7 @@ func (c *RolesHTTPClientImpl) AdminUserEdit(ctx context.Context, in *AdminUserEd
 
 func (c *RolesHTTPClientImpl) AdminUserInfos(ctx context.Context, in *AdminUserInfosRequest, opts ...http.CallOption) (*AdminUserInfosResponse, error) {
 	var out AdminUserInfosResponse
-	pattern := "/v1/role/user/details"
+	pattern := "/user/details"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserInfos"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -714,7 +714,7 @@ func (c *RolesHTTPClientImpl) AdminUserInfos(ctx context.Context, in *AdminUserI
 
 func (c *RolesHTTPClientImpl) AdminUserList(ctx context.Context, in *AdminUserListRequest, opts ...http.CallOption) (*AdminUserListResponse, error) {
 	var out AdminUserListResponse
-	pattern := "/v1/role/user/list"
+	pattern := "/user/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserList"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -727,7 +727,7 @@ func (c *RolesHTTPClientImpl) AdminUserList(ctx context.Context, in *AdminUserLi
 
 func (c *RolesHTTPClientImpl) CreateAdminUser(ctx context.Context, in *CreateAdminUserRequest, opts ...http.CallOption) (*CreateAdminUserResponse, error) {
 	var out CreateAdminUserResponse
-	pattern := "/v1/role/user/create"
+	pattern := "/user/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/CreateAdminUser"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -740,7 +740,7 @@ func (c *RolesHTTPClientImpl) CreateAdminUser(ctx context.Context, in *CreateAdm
 
 func (c *RolesHTTPClientImpl) CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...http.CallOption) (*CreateSuperUserResponse, error) {
 	var out CreateSuperUserResponse
-	pattern := "/v1/auth/role/superuser/create"
+	pattern := "/superuser/create"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/CreateSuperUser"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -753,7 +753,7 @@ func (c *RolesHTTPClientImpl) CreateSuperUser(ctx context.Context, in *CreateSup
 
 func (c *RolesHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...http.CallOption) (*GetCaptchaResponse, error) {
 	var out GetCaptchaResponse
-	pattern := "/v1/role/captcha"
+	pattern := "/captcha"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/GetCaptcha"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -766,7 +766,7 @@ func (c *RolesHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaRequ
 
 func (c *RolesHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts ...http.CallOption) (*LoginResponse, error) {
 	var out LoginResponse
-	pattern := "/v1/role/login"
+	pattern := "/login"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/Login"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -779,7 +779,7 @@ func (c *RolesHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts 
 
 func (c *RolesHTTPClientImpl) PermissionCreate(ctx context.Context, in *PermissionCreateRequest, opts ...http.CallOption) (*PermissionCreateResponse, error) {
 	var out PermissionCreateResponse
-	pattern := "/v1/role/permission/create"
+	pattern := "/permission/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/PermissionCreate"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -792,7 +792,7 @@ func (c *RolesHTTPClientImpl) PermissionCreate(ctx context.Context, in *Permissi
 
 func (c *RolesHTTPClientImpl) PermissionDelete(ctx context.Context, in *PermissionDeleteRequest, opts ...http.CallOption) (*PermissionDeleteResponse, error) {
 	var out PermissionDeleteResponse
-	pattern := "/v1/role/permission/delete"
+	pattern := "/permission/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/PermissionDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -805,7 +805,7 @@ func (c *RolesHTTPClientImpl) PermissionDelete(ctx context.Context, in *Permissi
 
 func (c *RolesHTTPClientImpl) PermissionEdit(ctx context.Context, in *PermissionEditRequest, opts ...http.CallOption) (*PermissionEditResponse, error) {
 	var out PermissionEditResponse
-	pattern := "/v1/role/permission/update"
+	pattern := "/permission/update"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/PermissionEdit"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -818,7 +818,7 @@ func (c *RolesHTTPClientImpl) PermissionEdit(ctx context.Context, in *Permission
 
 func (c *RolesHTTPClientImpl) PermissionList(ctx context.Context, in *PermissionListRequest, opts ...http.CallOption) (*PermissionListResponse, error) {
 	var out PermissionListResponse
-	pattern := "/v1/role/permission/list"
+	pattern := "/permission/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/PermissionList"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -831,7 +831,7 @@ func (c *RolesHTTPClientImpl) PermissionList(ctx context.Context, in *Permission
 
 func (c *RolesHTTPClientImpl) RoleCreate(ctx context.Context, in *RoleCreateRequest, opts ...http.CallOption) (*RoleCreateResponse, error) {
 	var out RoleCreateResponse
-	pattern := "/v1/role/create"
+	pattern := "/role/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoleCreate"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -844,7 +844,7 @@ func (c *RolesHTTPClientImpl) RoleCreate(ctx context.Context, in *RoleCreateRequ
 
 func (c *RolesHTTPClientImpl) RoleDelete(ctx context.Context, in *RoleDeleteRequest, opts ...http.CallOption) (*RoleDeleteResponse, error) {
 	var out RoleDeleteResponse
-	pattern := "/v1/role/delete"
+	pattern := "/role/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoleDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -857,7 +857,7 @@ func (c *RolesHTTPClientImpl) RoleDelete(ctx context.Context, in *RoleDeleteRequ
 
 func (c *RolesHTTPClientImpl) RoleEdit(ctx context.Context, in *RoleEditRequest, opts ...http.CallOption) (*RoleEditResponse, error) {
 	var out RoleEditResponse
-	pattern := "/v1/role/update"
+	pattern := "/role/update"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoleEdit"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -870,7 +870,7 @@ func (c *RolesHTTPClientImpl) RoleEdit(ctx context.Context, in *RoleEditRequest,
 
 func (c *RolesHTTPClientImpl) RoleList(ctx context.Context, in *RoleListRequest, opts ...http.CallOption) (*RoleListResponse, error) {
 	var out RoleListResponse
-	pattern := "/v1/role/list"
+	pattern := "/role/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoleList"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -883,7 +883,7 @@ func (c *RolesHTTPClientImpl) RoleList(ctx context.Context, in *RoleListRequest,
 
 func (c *RolesHTTPClientImpl) RouteCreate(ctx context.Context, in *RouteCreateRequest, opts ...http.CallOption) (*RouteCreateResponse, error) {
 	var out RouteCreateResponse
-	pattern := "/v1/role/route/create"
+	pattern := "/route/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteCreate"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -896,7 +896,7 @@ func (c *RolesHTTPClientImpl) RouteCreate(ctx context.Context, in *RouteCreateRe
 
 func (c *RolesHTTPClientImpl) RouteDelete(ctx context.Context, in *RouteDeleteRequest, opts ...http.CallOption) (*RouteDeleteResponse, error) {
 	var out RouteDeleteResponse
-	pattern := "/v1/role/route/delete"
+	pattern := "/route/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -909,7 +909,7 @@ func (c *RolesHTTPClientImpl) RouteDelete(ctx context.Context, in *RouteDeleteRe
 
 func (c *RolesHTTPClientImpl) RouteDetails(ctx context.Context, in *RouteDetailsRequest, opts ...http.CallOption) (*RouteDetailsResponse, error) {
 	var out RouteDetailsResponse
-	pattern := "/v1/role/route/details"
+	pattern := "/route/details"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteDetails"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -922,7 +922,7 @@ func (c *RolesHTTPClientImpl) RouteDetails(ctx context.Context, in *RouteDetails
 
 func (c *RolesHTTPClientImpl) RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...http.CallOption) (*RouteEditResponse, error) {
 	var out RouteEditResponse
-	pattern := "/v1/role/route/edit"
+	pattern := "/route/edit"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteEdit"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -935,7 +935,7 @@ func (c *RolesHTTPClientImpl) RouteEdit(ctx context.Context, in *RouteEditReques
 
 func (c *RolesHTTPClientImpl) RouteList(ctx context.Context, in *RouteListRequest, opts ...http.CallOption) (*RouteListResponse, error) {
 	var out RouteListResponse
-	pattern := "/v1/role/route/list"
+	pattern := "/route/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteList"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -948,7 +948,7 @@ func (c *RolesHTTPClientImpl) RouteList(ctx context.Context, in *RouteListReques
 
 func (c *RolesHTTPClientImpl) RoutePermission(ctx context.Context, in *RoutePermissionRequest, opts ...http.CallOption) (*RoutePermissionResponse, error) {
 	var out RoutePermissionResponse
-	pattern := "/v1/role/route/setpermission"
+	pattern := "/route/permission"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoutePermission"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -961,7 +961,7 @@ func (c *RolesHTTPClientImpl) RoutePermission(ctx context.Context, in *RoutePerm
 
 func (c *RolesHTTPClientImpl) RoutePermissionDelete(ctx context.Context, in *RoutePermissionDeleteRequest, opts ...http.CallOption) (*RoutePermissionDeleteResponse, error) {
 	var out RoutePermissionDeleteResponse
-	pattern := "/v1/role/route/unsetpermission"
+	pattern := "/route/unpermission"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RoutePermissionDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -974,7 +974,7 @@ func (c *RolesHTTPClientImpl) RoutePermissionDelete(ctx context.Context, in *Rou
 
 func (c *RolesHTTPClientImpl) RouteRole(ctx context.Context, in *RouteRoleRequest, opts ...http.CallOption) (*RouteRoleResponse, error) {
 	var out RouteRoleResponse
-	pattern := "/v1/role/route/setrole"
+	pattern := "/route/role"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteRole"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -987,7 +987,7 @@ func (c *RolesHTTPClientImpl) RouteRole(ctx context.Context, in *RouteRoleReques
 
 func (c *RolesHTTPClientImpl) RouteRoleDelete(ctx context.Context, in *RouteRoleDeleteRequest, opts ...http.CallOption) (*RouteRoleDeleteResponse, error) {
 	var out RouteRoleDeleteResponse
-	pattern := "/v1/role/route/unsetrole"
+	pattern := "/route/unrole"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/RouteRoleDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1000,7 +1000,7 @@ func (c *RolesHTTPClientImpl) RouteRoleDelete(ctx context.Context, in *RouteRole
 
 func (c *RolesHTTPClientImpl) SetPermission(ctx context.Context, in *SetPermissionRequest, opts ...http.CallOption) (*SetPermissionResponse, error) {
 	var out SetPermissionResponse
-	pattern := "/v1/role/user/setpermissions"
+	pattern := "/user/permissions"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/SetPermission"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1013,7 +1013,7 @@ func (c *RolesHTTPClientImpl) SetPermission(ctx context.Context, in *SetPermissi
 
 func (c *RolesHTTPClientImpl) SetPermissionDelete(ctx context.Context, in *SetPermissionDeleteRequest, opts ...http.CallOption) (*SetPermissionDeleteResponse, error) {
 	var out SetPermissionDeleteResponse
-	pattern := "/v1/role/user/unsetpermissions"
+	pattern := "/user/unpermissions"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/SetPermissionDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1026,7 +1026,7 @@ func (c *RolesHTTPClientImpl) SetPermissionDelete(ctx context.Context, in *SetPe
 
 func (c *RolesHTTPClientImpl) SetRoles(ctx context.Context, in *SetRolesRequest, opts ...http.CallOption) (*SetRolesResponse, error) {
 	var out SetRolesResponse
-	pattern := "/v1/role/user/setroles"
+	pattern := "/user/roles"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/SetRoles"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1039,7 +1039,7 @@ func (c *RolesHTTPClientImpl) SetRoles(ctx context.Context, in *SetRolesRequest,
 
 func (c *RolesHTTPClientImpl) SetRolesDelete(ctx context.Context, in *SetRolesDeleteRequest, opts ...http.CallOption) (*SetRolesDeleteResponse, error) {
 	var out SetRolesDeleteResponse
-	pattern := "/v1/role/user/unsetroles"
+	pattern := "/user/unroles"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/SetRolesDelete"))
 	opts = append(opts, http.PathTemplate(pattern))

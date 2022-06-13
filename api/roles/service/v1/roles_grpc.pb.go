@@ -28,7 +28,6 @@ type RolesClient interface {
 	GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaResponse, error)
 	// 后台登陆
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
-	// **********  超级管理员功能  ************
 	// 创建后台用户
 	CreateAdminUser(ctx context.Context, in *CreateAdminUserRequest, opts ...grpc.CallOption) (*CreateAdminUserResponse, error)
 	// 后台用户列表
@@ -81,7 +80,6 @@ type RolesClient interface {
 	RoutePermission(ctx context.Context, in *RoutePermissionRequest, opts ...grpc.CallOption) (*RoutePermissionResponse, error)
 	// 路由绑定权限-解除
 	RoutePermissionDelete(ctx context.Context, in *RoutePermissionDeleteRequest, opts ...grpc.CallOption) (*RoutePermissionDeleteResponse, error)
-	// *******  你的系统鉴权RPC接口  **********
 	// 验证用户角色
 	CheckRole(ctx context.Context, in *CheckRoleRequest, opts ...grpc.CallOption) (*CheckRoleResponse, error)
 	// 验证用户权限
@@ -429,7 +427,6 @@ type RolesServer interface {
 	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaResponse, error)
 	// 后台登陆
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
-	// **********  超级管理员功能  ************
 	// 创建后台用户
 	CreateAdminUser(context.Context, *CreateAdminUserRequest) (*CreateAdminUserResponse, error)
 	// 后台用户列表
@@ -482,7 +479,6 @@ type RolesServer interface {
 	RoutePermission(context.Context, *RoutePermissionRequest) (*RoutePermissionResponse, error)
 	// 路由绑定权限-解除
 	RoutePermissionDelete(context.Context, *RoutePermissionDeleteRequest) (*RoutePermissionDeleteResponse, error)
-	// *******  你的系统鉴权RPC接口  **********
 	// 验证用户角色
 	CheckRole(context.Context, *CheckRoleRequest) (*CheckRoleResponse, error)
 	// 验证用户权限
