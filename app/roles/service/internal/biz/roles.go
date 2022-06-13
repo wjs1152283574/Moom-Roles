@@ -28,7 +28,7 @@ func (r *RolesUseCase) CreateSuperUser(ctx context.Context) (*v1.CreateSuperUser
 	}
 	// 新建用户
 	if err := r.repo.CreateUser(ctx, data); err != nil {
-		return &v1.CreateSuperUserResponse{}, errors.ErrSystemBusy
+		return &v1.CreateSuperUserResponse{}, err
 	}
 
 	return &v1.CreateSuperUserResponse{}, nil
@@ -81,7 +81,7 @@ func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminU
 	}
 	// 新建用户
 	if err := r.repo.CreateUser(ctx, data); err != nil {
-		return &v1.CreateAdminUserResponse{}, errors.ErrSystemBusy
+		return &v1.CreateAdminUserResponse{}, err
 	}
 
 	return &v1.CreateAdminUserResponse{}, nil

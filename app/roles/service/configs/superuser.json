@@ -2,7 +2,7 @@
     "super_user":[
         {
             "name":"admin",
-            "pass":"admin"
+            "pass":"admin123456"
         }
     ]
 }

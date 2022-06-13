@@ -241,8 +241,8 @@ func (r *UserRepo) PermissionCreate(ctx context.Context, creator int64, name, co
 	per.Code = code
 	per.Name = name
 	per.Commom = model.Commom{CreatorID: creator, CreatedTime: time.Now().Unix()}
-	if err := r.data.db.Create(&per); err != nil {
-		return errors.ErrSystemBusy
+	if err := r.data.db.Create(&per).Error; err != nil {
+		return errors.ErrMuiltiRecord
 	}
 
 	return nil

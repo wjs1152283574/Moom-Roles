@@ -4,4 +4,5 @@ package server
 var NotneedAuth = []string{
 	"/superuser/create",
 	"/captcha",
+	"/login",
 }

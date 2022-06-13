@@ -62,18 +62,21 @@ func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 		if tr, ok := transport.FromServerContext(ctx); ok {
 			ht, _ := tr.(*http.Transport)
-			reply, err = handler(ctx, req)
 			if !tool.InSlice(NotneedAuth, ht.Request().URL.Path) {
-				tokenStr := strings.Split(ht.RequestHeader().Get("Authrication"), " ")
+				tokenStr := strings.Split(ht.RequestHeader().Get("Authorization"), " ")
 				if len(tokenStr) > 1 { // 存在token，解析
-					tcliam, errs := tool.NewJWT("").ParseToken(tokenStr[1])
-					if errs == nil {
-						etxs := context.WithValue(ctx, "userid", tcliam.Subject)
-						reply, err = handler(etxs, req)
-						return
+					tcliam, errs := tool.NewJWT(conf.GB.Global.TokenScrect).ParseToken(tokenStr[1])
+					if errs != nil {
+						return nil, errors.ErrAuthFail
 					}
+					etxs := context.WithValue(ctx, "userid", tcliam.Subject)
+					reply, err = handler(etxs, req)
+				} else {
+					return nil, errors.ErrAuthFail
 				}
-				return nil, errors.ErrAuthFail
+
+			} else {
+				reply, err = handler(ctx, req)
 			}
 		}
 
