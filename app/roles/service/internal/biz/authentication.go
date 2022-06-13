@@ -55,3 +55,21 @@ func (r *RolesUseCase) CheckRouteRoleByID(ctx context.Context, req *v1.CheckRout
 
 	return &v1.CheckRouteRoleByIDResponse{Result: true}, nil
 }
+
+func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.CheckRoutePermissionByTokenRequest) (*v1.CheckRoutePermissionByTokenResponse, error) {
+	tokenCliam, err := tool.NewJWT(conf.GB.TokenScreat).ParseToken(req.Token)
+	if err != nil {
+		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, errors.ErrInvalidToken
+	}
+
+	uid, err := strconv.Atoi(tokenCliam.Subject)
+	if err != nil {
+		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, errors.ErrInvalidToken
+	}
+
+	if err := r.repo.CheckPermission(ctx, int64(uid), req.Code); err != nil {
+		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, err
+	}
+
+	return &v1.CheckRoutePermissionByTokenResponse{Result: true}, nil
+}
