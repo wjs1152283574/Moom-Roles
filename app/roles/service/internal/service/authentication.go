@@ -22,3 +22,11 @@ func (r *RolesService) CheckPermission(ctx context.Context, req *v1.CheckPermiss
 
 	return r.uc.CheckPermission(ctx, req)
 }
+
+func (r *RolesService) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckRouteRoleByTokenRequest) (*v1.CheckRouteRoleByTokenResponse, error) {
+	if req.Token == "" || req.Code == "" {
+		return &v1.CheckRouteRoleByTokenResponse{}, errors.ErrSystemBusy
+	}
+
+	return r.uc.CheckRouteRoleByToken(ctx, req)
+}
