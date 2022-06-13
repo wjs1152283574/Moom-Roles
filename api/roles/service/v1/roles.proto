@@ -649,7 +649,7 @@ message PermissionListResponse {
 
 message PermissionDeleteRequest {
     // 权限ID
-    int64 id = 1;
+    repeated int64 id = 1;
 }
 message PermissionDeleteResponse {
 

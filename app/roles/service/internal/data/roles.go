@@ -274,11 +274,14 @@ func (r *UserRepo) PermissionList(ctx context.Context, page, limit int64, name, 
 	return pers, total, nil
 }
 
-func (r *UserRepo) PermissionDelete(ctx context.Context, id int64) error {
+func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
-		err := tx.Exec("delete from permissions where id = ?", id).Error
-		if err != nil {
-			return errors.ErrSystemBusy
+		for _, id := range ids {
+			err := tx.Exec("delete from permissions where id = ?", id).Error
+			if err != nil {
+				return errors.ErrSystemBusy
+			}
+
 		}
 		return nil
 	})
