@@ -89,7 +89,7 @@ initdb:
 .PHONY: run
 # run
 run:
-	cd app/${app}/service && make run
+	cd app/roles/service && make run
 
 
 .PHONY: wire
