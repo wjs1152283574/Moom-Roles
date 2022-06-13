@@ -30,3 +30,11 @@ func (r *RolesService) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckR
 
 	return r.uc.CheckRouteRoleByToken(ctx, req)
 }
+
+func (r *RolesService) CheckRouteRoleByID(ctx context.Context, req *v1.CheckRouteRoleByIDRequest) (*v1.CheckRouteRoleByIDResponse, error) {
+	if req.Id <= 0 || req.Code == "" {
+		return &v1.CheckRouteRoleByIDResponse{}, errors.ErrSystemBusy
+	}
+
+	return r.uc.CheckRouteRoleByID(ctx, req)
+}

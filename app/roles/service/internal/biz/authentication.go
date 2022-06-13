@@ -47,3 +47,11 @@ func (r *RolesUseCase) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckR
 
 	return &v1.CheckRouteRoleByTokenResponse{Result: true}, nil
 }
+
+func (r *RolesUseCase) CheckRouteRoleByID(ctx context.Context, req *v1.CheckRouteRoleByIDRequest) (*v1.CheckRouteRoleByIDResponse, error) {
+	if err := r.repo.CheckRole(ctx, req.Id, req.Code); err != nil {
+		return &v1.CheckRouteRoleByIDResponse{Result: false}, err
+	}
+
+	return &v1.CheckRouteRoleByIDResponse{Result: true}, nil
+}
