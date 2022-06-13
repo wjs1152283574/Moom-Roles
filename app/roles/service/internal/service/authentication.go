@@ -46,3 +46,11 @@ func (r *RolesService) CheckRoutePermissionByToken(ctx context.Context, req *v1.
 
 	return r.uc.CheckRoutePermissionByToken(ctx, req)
 }
+
+func (r *RolesService) CheckRoutePermissionByID(ctx context.Context, req *v1.CheckRoutePermissionByIDRequest) (*v1.CheckRoutePermissionByIDResponse, error) {
+	if req.Id <= 0 || req.Code == "" {
+		return &v1.CheckRoutePermissionByIDResponse{}, errors.ErrInvalidParams
+	}
+
+	return r.uc.CheckRoutePermissionByID(ctx, req)
+}

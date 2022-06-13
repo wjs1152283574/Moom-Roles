@@ -73,3 +73,11 @@ func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.
 
 	return &v1.CheckRoutePermissionByTokenResponse{Result: true}, nil
 }
+
+func (r *RolesUseCase) CheckRoutePermissionByID(ctx context.Context, req *v1.CheckRoutePermissionByIDRequest) (*v1.CheckRoutePermissionByIDResponse, error) {
+	if err := r.repo.CheckPermission(ctx, req.Id, req.Code); err != nil {
+		return &v1.CheckRoutePermissionByIDResponse{Result: false}, err
+	}
+
+	return &v1.CheckRoutePermissionByIDResponse{Result: true}, nil
+}
