@@ -472,12 +472,14 @@ func (r *UserRepo) RouteDetails(ctx context.Context, routeID int32) (route model
 		return
 	}
 
-	if err = r.data.db.Exec("SELECT * FROM roles WHERE id in (SELECT route_roles.role FROM route_roles WHERE route_roles.route = ?)", routeID).Scan(&role).Error; err != nil {
+	routeRoleSql := r.data.db.Model(&model.RouteRole{}).Where("route = ?", routeID).Select("id")
+	if err = r.data.db.Model(&model.Role{}).Where("id in ( ? )", routeRoleSql).Scan(&role).Error; err != nil {
 		err = errors.ErrSystemBusy(err)
 		return
 	}
 
-	if err = r.data.db.Exec("SELECT * FROM permissions WHERE id in (SELECT route_permissions.permission FROM route_permissions WHERE route_permissions.route = ?)", routeID).Scan(&permission).Error; err != nil {
+	routePermisionSql := r.data.db.Model(&model.RoutePermission{}).Where("route = ?", routeID).Select("id")
+	if err = r.data.db.Model(&model.Permission{}).Where("id in ( ? )", routePermisionSql).Scan(&permission).Error; err != nil {
 		err = errors.ErrSystemBusy(err)
 		return
 	}
