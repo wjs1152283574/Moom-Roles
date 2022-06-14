@@ -41,7 +41,7 @@
     },
     "/login": {
       "post": {
-        "summary": "后台登陆",
+        "summary": "用户-后台登陆",
         "operationId": "Roles_Login",
         "responses": {
           "200": {
@@ -74,7 +74,7 @@
     },
     "/permission/create": {
       "post": {
-        "summary": "创建权限",
+        "summary": "权限-创建权限",
         "operationId": "Roles_PermissionCreate",
         "responses": {
           "200": {
@@ -107,7 +107,7 @@
     },
     "/permission/delete": {
       "post": {
-        "summary": "权限删除",
+        "summary": "权限-权限删除",
         "operationId": "Roles_PermissionDelete",
         "responses": {
           "200": {
@@ -140,7 +140,7 @@
     },
     "/permission/list": {
       "post": {
-        "summary": "权限列表",
+        "summary": "权限-权限列表",
         "operationId": "Roles_PermissionList",
         "responses": {
           "200": {
@@ -173,7 +173,7 @@
     },
     "/permission/update": {
       "post": {
-        "summary": "更新权限",
+        "summary": "权限-更新权限",
         "operationId": "Roles_PermissionEdit",
         "responses": {
           "200": {
@@ -206,7 +206,7 @@
     },
     "/role/create": {
       "post": {
-        "summary": "创建角色",
+        "summary": "角色-创建角色",
         "operationId": "Roles_RoleCreate",
         "responses": {
           "200": {
@@ -239,7 +239,7 @@
     },
     "/role/delete": {
       "post": {
-        "summary": "删除角色",
+        "summary": "角色-删除角色",
         "operationId": "Roles_RoleDelete",
         "responses": {
           "200": {
@@ -272,7 +272,7 @@
     },
     "/role/list": {
       "post": {
-        "summary": "角色列表",
+        "summary": "角色-角色列表",
         "operationId": "Roles_RoleList",
         "responses": {
           "200": {
@@ -305,7 +305,7 @@
     },
     "/role/update": {
       "post": {
-        "summary": "编辑角色",
+        "summary": "角色-编辑角色",
         "operationId": "Roles_RoleEdit",
         "responses": {
           "200": {
@@ -338,7 +338,7 @@
     },
     "/route/create": {
       "post": {
-        "summary": "创建路由",
+        "summary": "路由-创建路由",
         "operationId": "Roles_RouteCreate",
         "responses": {
           "200": {
@@ -371,7 +371,7 @@
     },
     "/route/delete": {
       "post": {
-        "summary": "路由删除",
+        "summary": "路由-路由删除",
         "operationId": "Roles_RouteDelete",
         "responses": {
           "200": {
@@ -404,7 +404,7 @@
     },
     "/route/details": {
       "post": {
-        "summary": "路由详情",
+        "summary": "路由-路由详情",
         "operationId": "Roles_RouteDetails",
         "responses": {
           "200": {
@@ -437,7 +437,7 @@
     },
     "/route/edit": {
       "post": {
-        "summary": "路由编辑",
+        "summary": "路由-路由编辑",
         "operationId": "Roles_RouteEdit",
         "responses": {
           "200": {
@@ -470,7 +470,7 @@
     },
     "/route/list": {
       "post": {
-        "summary": "路由列表",
+        "summary": "路由-路由列表",
         "operationId": "Roles_RouteList",
         "responses": {
           "200": {
@@ -503,7 +503,7 @@
     },
     "/route/permission": {
       "post": {
-        "summary": "路由绑定权限",
+        "summary": "路由-路由绑定权限",
         "operationId": "Roles_RoutePermission",
         "responses": {
           "200": {
@@ -536,7 +536,7 @@
     },
     "/route/role": {
       "post": {
-        "summary": "路由绑定角色",
+        "summary": "路由-路由绑定角色",
         "operationId": "Roles_RouteRole",
         "responses": {
           "200": {
@@ -569,7 +569,7 @@
     },
     "/route/unpermission": {
       "post": {
-        "summary": "路由绑定权限-解除",
+        "summary": "路由-路由绑定权限-解除",
         "operationId": "Roles_RoutePermissionDelete",
         "responses": {
           "200": {
@@ -602,7 +602,7 @@
     },
     "/route/unrole": {
       "post": {
-        "summary": "路由绑定角色-解除",
+        "summary": "路由-路由绑定角色-解除",
         "operationId": "Roles_RouteRoleDelete",
         "responses": {
           "200": {
@@ -635,7 +635,7 @@
     },
     "/superuser/create": {
       "get": {
-        "summary": "生成超级用户",
+        "summary": "用户-生成超级用户",
         "operationId": "Roles_CreateSuperUser",
         "responses": {
           "200": {
@@ -658,7 +658,7 @@
     },
     "/user/create": {
       "post": {
-        "summary": "创建后台用户",
+        "summary": "用户-创建后台用户",
         "operationId": "Roles_CreateAdminUser",
         "responses": {
           "200": {
@@ -691,7 +691,7 @@
     },
     "/user/delete": {
       "delete": {
-        "summary": "删除后台用户",
+        "summary": "用户-删除后台用户",
         "operationId": "Roles_AdminUserDelete",
         "responses": {
           "200": {
@@ -724,7 +724,7 @@
     },
     "/user/details": {
       "post": {
-        "summary": "后台用户详细",
+        "summary": "用户-后台用户详细",
         "operationId": "Roles_AdminUserInfos",
         "responses": {
           "200": {
@@ -757,7 +757,7 @@
     },
     "/user/list": {
       "post": {
-        "summary": "后台用户列表",
+        "summary": "用户-后台用户列表",
         "operationId": "Roles_AdminUserList",
         "responses": {
           "200": {
@@ -790,7 +790,7 @@
     },
     "/user/permissions": {
       "post": {
-        "summary": "用户分配权限",
+        "summary": "用户-用户分配权限",
         "operationId": "Roles_SetPermission",
         "responses": {
           "200": {
@@ -823,7 +823,7 @@
     },
     "/user/roles": {
       "post": {
-        "summary": "用户分配角色",
+        "summary": "用户-用户分配角色",
         "operationId": "Roles_SetRoles",
         "responses": {
           "200": {
@@ -856,7 +856,7 @@
     },
     "/user/unpermissions": {
       "post": {
-        "summary": "用户分配权限-解除",
+        "summary": "用户-用户分配权限-解除",
         "operationId": "Roles_SetPermissionDelete",
         "responses": {
           "200": {
@@ -889,7 +889,7 @@
     },
     "/user/unroles": {
       "post": {
-        "summary": "用户分配角色-解除",
+        "summary": "用户-用户分配角色-解除",
         "operationId": "Roles_SetRolesDelete",
         "responses": {
           "200": {
@@ -922,7 +922,7 @@
     },
     "/user/update": {
       "post": {
-        "summary": "编辑后台用户基本信息(用户名/密码/头像)",
+        "summary": "用户-编辑后台用户基本信息",
         "operationId": "Roles_AdminUserEdit",
         "responses": {
           "200": {

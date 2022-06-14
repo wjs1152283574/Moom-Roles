@@ -22,63 +22,63 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RolesClient interface {
-	// 生成超级用户
+	// 用户-生成超级用户
 	CreateSuperUser(ctx context.Context, in *CreateSuperUserRequest, opts ...grpc.CallOption) (*CreateSuperUserResponse, error)
 	// 获取图片验证码
 	GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaResponse, error)
-	// 后台登陆
+	// 用户-后台登陆
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
-	// 创建后台用户
+	// 用户-创建后台用户
 	CreateAdminUser(ctx context.Context, in *CreateAdminUserRequest, opts ...grpc.CallOption) (*CreateAdminUserResponse, error)
-	// 后台用户列表
+	// 用户-后台用户列表
 	AdminUserList(ctx context.Context, in *AdminUserListRequest, opts ...grpc.CallOption) (*AdminUserListResponse, error)
-	// 后台用户详细
+	// 用户-后台用户详细
 	AdminUserInfos(ctx context.Context, in *AdminUserInfosRequest, opts ...grpc.CallOption) (*AdminUserInfosResponse, error)
-	// 编辑后台用户基本信息(用户名/密码/头像)
+	// 用户-编辑后台用户基本信息
 	AdminUserEdit(ctx context.Context, in *AdminUserEditRequest, opts ...grpc.CallOption) (*AdminUserEditResponse, error)
-	// 用户分配角色
+	// 用户-用户分配角色
 	SetRoles(ctx context.Context, in *SetRolesRequest, opts ...grpc.CallOption) (*SetRolesResponse, error)
-	// 用户分配角色-解除
+	// 用户-用户分配角色-解除
 	SetRolesDelete(ctx context.Context, in *SetRolesDeleteRequest, opts ...grpc.CallOption) (*SetRolesDeleteResponse, error)
-	// 用户分配权限
+	// 用户-用户分配权限
 	SetPermission(ctx context.Context, in *SetPermissionRequest, opts ...grpc.CallOption) (*SetPermissionResponse, error)
-	// 用户分配权限-解除
+	// 用户-用户分配权限-解除
 	SetPermissionDelete(ctx context.Context, in *SetPermissionDeleteRequest, opts ...grpc.CallOption) (*SetPermissionDeleteResponse, error)
-	// 删除后台用户
+	// 用户-删除后台用户
 	AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...grpc.CallOption) (*AdminUserDeleteResponse, error)
-	// 创建角色
+	// 角色-创建角色
 	RoleCreate(ctx context.Context, in *RoleCreateRequest, opts ...grpc.CallOption) (*RoleCreateResponse, error)
-	// 角色列表
+	// 角色-角色列表
 	RoleList(ctx context.Context, in *RoleListRequest, opts ...grpc.CallOption) (*RoleListResponse, error)
-	// 删除角色
+	// 角色-删除角色
 	RoleDelete(ctx context.Context, in *RoleDeleteRequest, opts ...grpc.CallOption) (*RoleDeleteResponse, error)
-	// 编辑角色
+	// 角色-编辑角色
 	RoleEdit(ctx context.Context, in *RoleEditRequest, opts ...grpc.CallOption) (*RoleEditResponse, error)
-	// 创建权限
+	// 权限-创建权限
 	PermissionCreate(ctx context.Context, in *PermissionCreateRequest, opts ...grpc.CallOption) (*PermissionCreateResponse, error)
-	// 权限列表
+	// 权限-权限列表
 	PermissionList(ctx context.Context, in *PermissionListRequest, opts ...grpc.CallOption) (*PermissionListResponse, error)
-	// 权限删除
+	// 权限-权限删除
 	PermissionDelete(ctx context.Context, in *PermissionDeleteRequest, opts ...grpc.CallOption) (*PermissionDeleteResponse, error)
-	// 更新权限
+	// 权限-更新权限
 	PermissionEdit(ctx context.Context, in *PermissionEditRequest, opts ...grpc.CallOption) (*PermissionEditResponse, error)
-	// 创建路由
+	// 路由-创建路由
 	RouteCreate(ctx context.Context, in *RouteCreateRequest, opts ...grpc.CallOption) (*RouteCreateResponse, error)
-	// 路由列表
+	// 路由-路由列表
 	RouteList(ctx context.Context, in *RouteListRequest, opts ...grpc.CallOption) (*RouteListResponse, error)
-	// 路由详情
+	// 路由-路由详情
 	RouteDetails(ctx context.Context, in *RouteDetailsRequest, opts ...grpc.CallOption) (*RouteDetailsResponse, error)
-	// 路由编辑
+	// 路由-路由编辑
 	RouteEdit(ctx context.Context, in *RouteEditRequest, opts ...grpc.CallOption) (*RouteEditResponse, error)
-	// 路由删除
+	// 路由-路由删除
 	RouteDelete(ctx context.Context, in *RouteDeleteRequest, opts ...grpc.CallOption) (*RouteDeleteResponse, error)
-	// 路由绑定角色
+	// 路由-路由绑定角色
 	RouteRole(ctx context.Context, in *RouteRoleRequest, opts ...grpc.CallOption) (*RouteRoleResponse, error)
-	// 路由绑定角色-解除
+	// 路由-路由绑定角色-解除
 	RouteRoleDelete(ctx context.Context, in *RouteRoleDeleteRequest, opts ...grpc.CallOption) (*RouteRoleDeleteResponse, error)
-	// 路由绑定权限
+	// 路由-路由绑定权限
 	RoutePermission(ctx context.Context, in *RoutePermissionRequest, opts ...grpc.CallOption) (*RoutePermissionResponse, error)
-	// 路由绑定权限-解除
+	// 路由-路由绑定权限-解除
 	RoutePermissionDelete(ctx context.Context, in *RoutePermissionDeleteRequest, opts ...grpc.CallOption) (*RoutePermissionDeleteResponse, error)
 	// 验证用户角色
 	CheckRole(ctx context.Context, in *CheckRoleRequest, opts ...grpc.CallOption) (*CheckRoleResponse, error)
@@ -421,63 +421,63 @@ func (c *rolesClient) CheckRoutePermissionByID(ctx context.Context, in *CheckRou
 // All implementations must embed UnimplementedRolesServer
 // for forward compatibility
 type RolesServer interface {
-	// 生成超级用户
+	// 用户-生成超级用户
 	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
 	// 获取图片验证码
 	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaResponse, error)
-	// 后台登陆
+	// 用户-后台登陆
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
-	// 创建后台用户
+	// 用户-创建后台用户
 	CreateAdminUser(context.Context, *CreateAdminUserRequest) (*CreateAdminUserResponse, error)
-	// 后台用户列表
+	// 用户-后台用户列表
 	AdminUserList(context.Context, *AdminUserListRequest) (*AdminUserListResponse, error)
-	// 后台用户详细
+	// 用户-后台用户详细
 	AdminUserInfos(context.Context, *AdminUserInfosRequest) (*AdminUserInfosResponse, error)
-	// 编辑后台用户基本信息(用户名/密码/头像)
+	// 用户-编辑后台用户基本信息
 	AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error)
-	// 用户分配角色
+	// 用户-用户分配角色
 	SetRoles(context.Context, *SetRolesRequest) (*SetRolesResponse, error)
-	// 用户分配角色-解除
+	// 用户-用户分配角色-解除
 	SetRolesDelete(context.Context, *SetRolesDeleteRequest) (*SetRolesDeleteResponse, error)
-	// 用户分配权限
+	// 用户-用户分配权限
 	SetPermission(context.Context, *SetPermissionRequest) (*SetPermissionResponse, error)
-	// 用户分配权限-解除
+	// 用户-用户分配权限-解除
 	SetPermissionDelete(context.Context, *SetPermissionDeleteRequest) (*SetPermissionDeleteResponse, error)
-	// 删除后台用户
+	// 用户-删除后台用户
 	AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error)
-	// 创建角色
+	// 角色-创建角色
 	RoleCreate(context.Context, *RoleCreateRequest) (*RoleCreateResponse, error)
-	// 角色列表
+	// 角色-角色列表
 	RoleList(context.Context, *RoleListRequest) (*RoleListResponse, error)
-	// 删除角色
+	// 角色-删除角色
 	RoleDelete(context.Context, *RoleDeleteRequest) (*RoleDeleteResponse, error)
-	// 编辑角色
+	// 角色-编辑角色
 	RoleEdit(context.Context, *RoleEditRequest) (*RoleEditResponse, error)
-	// 创建权限
+	// 权限-创建权限
 	PermissionCreate(context.Context, *PermissionCreateRequest) (*PermissionCreateResponse, error)
-	// 权限列表
+	// 权限-权限列表
 	PermissionList(context.Context, *PermissionListRequest) (*PermissionListResponse, error)
-	// 权限删除
+	// 权限-权限删除
 	PermissionDelete(context.Context, *PermissionDeleteRequest) (*PermissionDeleteResponse, error)
-	// 更新权限
+	// 权限-更新权限
 	PermissionEdit(context.Context, *PermissionEditRequest) (*PermissionEditResponse, error)
-	// 创建路由
+	// 路由-创建路由
 	RouteCreate(context.Context, *RouteCreateRequest) (*RouteCreateResponse, error)
-	// 路由列表
+	// 路由-路由列表
 	RouteList(context.Context, *RouteListRequest) (*RouteListResponse, error)
-	// 路由详情
+	// 路由-路由详情
 	RouteDetails(context.Context, *RouteDetailsRequest) (*RouteDetailsResponse, error)
-	// 路由编辑
+	// 路由-路由编辑
 	RouteEdit(context.Context, *RouteEditRequest) (*RouteEditResponse, error)
-	// 路由删除
+	// 路由-路由删除
 	RouteDelete(context.Context, *RouteDeleteRequest) (*RouteDeleteResponse, error)
-	// 路由绑定角色
+	// 路由-路由绑定角色
 	RouteRole(context.Context, *RouteRoleRequest) (*RouteRoleResponse, error)
-	// 路由绑定角色-解除
+	// 路由-路由绑定角色-解除
 	RouteRoleDelete(context.Context, *RouteRoleDeleteRequest) (*RouteRoleDeleteResponse, error)
-	// 路由绑定权限
+	// 路由-路由绑定权限
 	RoutePermission(context.Context, *RoutePermissionRequest) (*RoutePermissionResponse, error)
-	// 路由绑定权限-解除
+	// 路由-路由绑定权限-解除
 	RoutePermissionDelete(context.Context, *RoutePermissionDeleteRequest) (*RoutePermissionDeleteResponse, error)
 	// 验证用户角色
 	CheckRole(context.Context, *CheckRoleRequest) (*CheckRoleResponse, error)

@@ -8,7 +8,7 @@ option java_multiple_files = true;
 option java_package = "api.roles.service.v1";
 
 service Roles {
-    // 生成超级用户
+    // 用户-生成超级用户
 	rpc CreateSuperUser (CreateSuperUserRequest) returns (CreateSuperUserResponse){
         option (google.api.http) = {
             get: "/superuser/create",
@@ -22,7 +22,7 @@ service Roles {
         };
     };
     
-    // 后台登陆
+    // 用户-后台登陆
     rpc Login (LoginRequest) returns (LoginResponse){
         option (google.api.http) = {
             post: "/login",
@@ -32,181 +32,181 @@ service Roles {
 
     // **********  超级管理员功能  ************ 
 
-    // 创建后台用户
+    // 用户-创建后台用户
     rpc CreateAdminUser (CreateAdminUserRequest) returns (CreateAdminUserResponse){
         option (google.api.http) = {
             post: "/user/create",
             body: "*"
         };
     };
-    // 后台用户列表
+    // 用户-后台用户列表
     rpc AdminUserList (AdminUserListRequest) returns (AdminUserListResponse){
         option (google.api.http) = {
             post: "/user/list",
             body: "*"
         };
     };
-    // 后台用户详细
+    // 用户-后台用户详细
     rpc AdminUserInfos (AdminUserInfosRequest) returns (AdminUserInfosResponse){
         option (google.api.http) = {
             post: "/user/details",
             body: "*"
         };
     };
-    // 编辑后台用户基本信息(用户名/密码/头像)
+    // 用户-编辑后台用户基本信息
     rpc AdminUserEdit (AdminUserEditRequest) returns (AdminUserEditResponse){
         option (google.api.http) = {
             post: "/user/update",
             body: "*"
         };
     };
-    // 用户分配角色
+    // 用户-用户分配角色
     rpc SetRoles (SetRolesRequest) returns (SetRolesResponse){
         option (google.api.http) = {
             post: "/user/roles",
             body: "*"
         };
     };
-    // 用户分配角色-解除
+    // 用户-用户分配角色-解除
     rpc SetRolesDelete (SetRolesDeleteRequest) returns (SetRolesDeleteResponse){
         option (google.api.http) = {
             post: "/user/unroles",
             body: "*"
         };
     };
-    // 用户分配权限
+    // 用户-用户分配权限
     rpc SetPermission (SetPermissionRequest) returns (SetPermissionResponse){
         option (google.api.http) = {
             post: "/user/permissions",
             body: "*"
         };
     };
-    // 用户分配权限-解除
+    // 用户-用户分配权限-解除
     rpc SetPermissionDelete (SetPermissionDeleteRequest) returns (SetPermissionDeleteResponse){
         option (google.api.http) = {
             post: "/user/unpermissions",
             body: "*"
         };
     };
-    // 删除后台用户
+    // 用户-删除后台用户
     rpc AdminUserDelete (AdminUserDeleteRequest) returns (AdminUserDeleteResponse){
         option (google.api.http) = {
             delete: "/user/delete"
         };
     };
-    // 创建角色
+    // 角色-创建角色
     rpc RoleCreate (RoleCreateRequest) returns (RoleCreateResponse){
         option (google.api.http) = {
             post: "/role/create",
             body: "*"
         };
     };
-    // 角色列表
+    // 角色-角色列表
     rpc RoleList (RoleListRequest) returns (RoleListResponse){
         option (google.api.http) = {
             post: "/role/list",
             body: "*"
         };
     };
-    // 删除角色
+    // 角色-删除角色
     rpc RoleDelete (RoleDeleteRequest) returns (RoleDeleteResponse){
         option (google.api.http) = {
             post: "/role/delete",
             body: "*"
         };
     };
-    // 编辑角色
+    // 角色-编辑角色
     rpc RoleEdit (RoleEditRequest) returns (RoleEditResponse){
         option (google.api.http) = {
             post: "/role/update",
             body: "*"
         };
     };
-    // 创建权限
+    // 权限-创建权限
     rpc PermissionCreate (PermissionCreateRequest) returns (PermissionCreateResponse){
         option (google.api.http) = {
             post: "/permission/create",
             body: "*"
         };
     };
-    // 权限列表
+    // 权限-权限列表
     rpc PermissionList (PermissionListRequest) returns (PermissionListResponse){
         option (google.api.http) = {
             post: "/permission/list",
             body: "*"
         };
     };
-    // 权限删除
+    // 权限-权限删除
     rpc PermissionDelete (PermissionDeleteRequest) returns (PermissionDeleteResponse){
         option (google.api.http) = {
             post: "/permission/delete",
             body: "*"
         };
     };
-    // 更新权限
+    // 权限-更新权限
     rpc PermissionEdit (PermissionEditRequest) returns (PermissionEditResponse){
         option (google.api.http) = {
             post: "/permission/update",
             body: "*"
         };
     };
-    // 创建路由
+    // 路由-创建路由
     rpc RouteCreate (RouteCreateRequest) returns (RouteCreateResponse){
         option (google.api.http) = {
             post: "/route/create",
             body: "*"
         };
     };
-    // 路由列表
+    // 路由-路由列表
     rpc RouteList (RouteListRequest) returns (RouteListResponse){
         option (google.api.http) = {
             post: "/route/list",
             body: "*"
         };
     };
-    // 路由详情
+    // 路由-路由详情
     rpc RouteDetails (RouteDetailsRequest) returns (RouteDetailsResponse){
         option (google.api.http) = {
             post: "/route/details",
             body: "*"
         };
     };
-    // 路由编辑
+    // 路由-路由编辑
     rpc RouteEdit (RouteEditRequest) returns (RouteEditResponse){
         option (google.api.http) = {
             post: "/route/edit",
             body: "*"
         };
     };
-    // 路由删除
+    // 路由-路由删除
     rpc RouteDelete (RouteDeleteRequest) returns (RouteDeleteResponse){
         option (google.api.http) = {
             post: "/route/delete",
             body: "*"
         };
     };
-    // 路由绑定角色
+    // 路由-路由绑定角色
     rpc RouteRole (RouteRoleRequest) returns (RouteRoleResponse){
         option (google.api.http) = {
             post: "/route/role",
             body: "*"
         };
     };
-    // 路由绑定角色-解除
+    // 路由-路由绑定角色-解除
     rpc RouteRoleDelete (RouteRoleDeleteRequest) returns (RouteRoleDeleteResponse){
         option (google.api.http) = {
             post: "/route/unrole",
             body: "*"
         };
     };
-    // 路由绑定权限
+    // 路由-路由绑定权限
     rpc RoutePermission (RoutePermissionRequest) returns (RoutePermissionResponse){
         option (google.api.http) = {
             post: "/route/permission",
             body: "*"
         };
     };
-    // 路由绑定权限-解除
+    // 路由-路由绑定权限-解除
     rpc RoutePermissionDelete (RoutePermissionDeleteRequest) returns (RoutePermissionDeleteResponse){
         option (google.api.http) = {
             post: "/route/unpermission",
