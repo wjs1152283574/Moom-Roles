@@ -237,7 +237,7 @@ func (r *RolesService) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) 
 }
 
 func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
-	if req.Id <= 0 {
+	if len(req.Id) <= 0 {
 		return &v1.RouteDeleteResponse{}, errors.ErrInvalidParams()
 	}
 

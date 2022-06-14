@@ -59,6 +59,10 @@ func ErrRouteNotExit(msg ...interface{}) *err.Error {
 	return errors.New(400, "RouteNotExit", fmt.Sprintf("%v", msg))
 }
 
+func ErrPermissionNotExit(msg ...interface{}) *err.Error {
+	return errors.New(400, "PermissionNotExit", fmt.Sprintf("%v", msg))
+}
+
 func ErrRoleNotExit(msg ...interface{}) *err.Error {
 	return errors.New(400, "RoleNotExit", fmt.Sprintf("%v", msg))
 }

@@ -299,7 +299,7 @@ message RouteRoleDeleteResponse {}
 
 message RouteDeleteRequest {
     // 路由ID 
-    int32 id = 1;
+    repeated int32 id = 1;
 }
 message RouteDeleteResponse {}
 

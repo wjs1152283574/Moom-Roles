@@ -1,5 +1,12 @@
 package model
 
+import (
+	"errors"
+
+	"github.com/it-moom/moom-roles/app/roles/service/internal/conf"
+	"gorm.io/gorm"
+)
+
 var (
 	UserTableName            = "users"
 	RoleTableName            = "roles"
@@ -23,6 +30,14 @@ type User struct {
 
 func (u *User) TableName() string {
 	return UserTableName
+}
+
+func (u *User) BeforeDelete(tx *gorm.DB) (err error) {
+	if u.Name == conf.SU.SuperUser[0].Name {
+		return errors.New("admin superUser not allowed to delete")
+	}
+
+	return
 }
 
 type Role struct {
