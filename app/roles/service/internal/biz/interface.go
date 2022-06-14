@@ -12,66 +12,66 @@ type RolesRepo interface {
 	// 检测用户是否存在
 	CheckUser(ctx context.Context, name string) (model.User, error)
 	// 存入redis ttl:second
-	RedisSet(ctx context.Context, key, val string, ttl int64) error
+	RedisSet(ctx context.Context, key, val string, ttl int32) error
 	// 获取用户列表
-	UserList(ctx context.Context, name, cname string, page, limit int64, typ, status []int64) ([]model.User, int64, error)
+	UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error)
 	// 获取用户基本信息
-	UserBaseInfos(ctx context.Context, uid int64) (model.User, error)
+	UserBaseInfos(ctx context.Context, uid int32) (model.User, error)
 	// 编辑用户基本信息
 	UserBaseEdit(ctx context.Context, user model.User) error
 	// 获取用户角色列表
-	UserRoleList(ctx context.Context, uid int64) ([]model.Role, error)
+	UserRoleList(ctx context.Context, uid int32) ([]model.Role, error)
 	// 获取用户权限列表
-	UserPermissionList(ctx context.Context, uid int64) ([]model.Permission, error)
+	UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error)
 	// 设置用户角色
-	SetRoles(ctx context.Context, uid, creator int64, rid []int64) error
+	SetRoles(ctx context.Context, uid, creator int32, rid []int32) error
 	// 设置用户角色--解除
-	SetRolesDelete(ctx context.Context, uid int64, role []int64) error
+	SetRolesDelete(ctx context.Context, uid int32, role []int32) error
 	// 设置用户权限
-	SetPermissions(ctx context.Context, uid, creator int64, pid []int64) error
+	SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error
 	// 设置用户权限--解除
-	SetPermissionDelete(ctx context.Context, uid int64, permission []int64) error
+	SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error
 	// 删除用户
-	UserDelete(ctx context.Context, uid int64) error
+	UserDelete(ctx context.Context, uid int32) error
 	// 创建角色
-	RoleCreate(ctx context.Context, creator int64, name, code string) error
+	RoleCreate(ctx context.Context, creator int32, name, code string) error
 	// 角色列表
-	RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error)
+	RoleList(ctx context.Context, page, limit int32, name, code string) ([]model.Role, int64, error)
 	// 删除角色
-	RoleDelete(ctx context.Context, id []int64) error
+	RoleDelete(ctx context.Context, id []int32) error
 	// 编辑角色
-	RoleEdit(ctx context.Context, id, creator int64, name, code string) error
+	RoleEdit(ctx context.Context, id, creator int32, name, code string) error
 	// 创建权限
-	PermissionCreate(ctx context.Context, creator int64, name, code string) error
+	PermissionCreate(ctx context.Context, creator int32, name, code string) error
 	// 权限列表
-	PermissionList(ctx context.Context, page, limit int64, name, code string) ([]model.Permission, int64, error)
+	PermissionList(ctx context.Context, page, limit int32, name, code string) ([]model.Permission, int64, error)
 	// 删除权限
-	PermissionDelete(ctx context.Context, id []int64) error
+	PermissionDelete(ctx context.Context, id []int32) error
 	// 编辑权限
-	PermissionEdit(ctx context.Context, id int64, name, code string) error
+	PermissionEdit(ctx context.Context, id int32, name, code string) error
 	// 创建路由
-	RouteCreate(ctx context.Context, uid, method int64, url string) error
+	RouteCreate(ctx context.Context, uid, method int32, url string) error
 	// 路由列表
-	RouteList(ctx context.Context, page, limit, method int64, url string) ([]model.Route, int64, error)
+	RouteList(ctx context.Context, page, limit, method int32, url string) ([]model.Route, int64, error)
 	// 路由编辑
-	RouteEdit(ctx context.Context, id, method int64, url string) error
+	RouteEdit(ctx context.Context, id, method int32, url string) error
 	// 删除路由
-	RouteDelete(ctx context.Context, id int64) error
+	RouteDelete(ctx context.Context, id int32) error
 	// 设置路由角色
-	RouteRole(ctx context.Context, uid, route int64, role []int64) error
+	RouteRole(ctx context.Context, uid, route int32, role []int32) error
 	// 解除路由角色
-	RouteRoleDelete(ctx context.Context, id int64, role []int64) error
+	RouteRoleDelete(ctx context.Context, id int32, role []int32) error
 	// 设置路由权限
-	RoutePermission(ctx context.Context, uid, route int64, permission []int64) error
+	RoutePermission(ctx context.Context, uid, route int32, permission []int32) error
 	// 解除路由权限
-	RoutePermissionDelete(ctx context.Context, id int64, permission []int64) error
+	RoutePermissionDelete(ctx context.Context, id int32, permission []int32) error
 	// 路由详细
-	RouteDetails(ctx context.Context, routeID int64) (route model.Route, role []model.Role, permission []model.Permission, err error)
+	RouteDetails(ctx context.Context, routeID int32) (route model.Route, role []model.Role, permission []model.Permission, err error)
 
 	Rpc
 }
 
 type Rpc interface {
-	CheckRole(ctx context.Context, uid int64, code string) error
-	CheckPermission(ctx context.Context, uid int64, code string) error
+	CheckRole(ctx context.Context, uid int32, code string) error
+	CheckPermission(ctx context.Context, uid int32, code string) error
 }

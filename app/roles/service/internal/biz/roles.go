@@ -56,7 +56,7 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 		return &v1.LoginResponse{}, err
 	}
 	// 存入redis
-	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, conf.GB.Global.TokenTtl)
+	err = r.repo.RedisSet(ctx, key.TokenKey(uint64(user.ID)), token, int32(conf.GB.Global.TokenTtl))
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}
@@ -96,56 +96,56 @@ func (r *RolesUseCase) AdminUserList(ctx context.Context, req *v1.AdminUserListR
 	var List []*v1.AdminUserListResponse_List
 	for _, v := range users {
 		List = append(List, &v1.AdminUserListResponse_List{
-			Id:     int64(v.ID),
-			Cid:    v.CreatorID,
+			Id:     int32(v.ID),
+			Cid:    int32(v.CreatorID),
 			Cname:  v.CreatorName,
-			Ctime:  v.CreatedTime,
+			Ctime:  int32(v.CreatedTime),
 			Name:   v.Name,
 			Pass:   v.Pass,
-			Type:   v.Type,
-			Status: v.Status,
+			Type:   int32(v.Type),
+			Status: int32(v.Status),
 			Icon:   v.Icon,
 		})
 	}
 
 	return &v1.AdminUserListResponse{
-		Total: total,
+		Total: int32(total),
 		List:  List,
 	}, nil
 }
 
 func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.AdminUserInfosResponse, error) {
-	user, err := r.repo.UserBaseInfos(ctx, uid)
+	user, err := r.repo.UserBaseInfos(ctx, int32(uid))
 	if err != nil {
 		return &v1.AdminUserInfosResponse{}, err
 	}
 
 	var Role []*v1.Role
-	roles, err := r.repo.UserRoleList(ctx, uid)
+	roles, err := r.repo.UserRoleList(ctx, int32(uid))
 	if err != nil {
 		return &v1.AdminUserInfosResponse{}, err
 	}
 	for _, v := range roles {
 		Role = append(Role, &v1.Role{
-			Id:   int64(v.ID),
+			Id:   int32(v.ID),
 			Code: v.Code,
 		})
 	}
 
 	var Per []*v1.Permissions
-	permissions, err := r.repo.UserPermissionList(ctx, uid)
+	permissions, err := r.repo.UserPermissionList(ctx, int32(uid))
 	if err != nil {
 		return &v1.AdminUserInfosResponse{}, err
 	}
 	for _, v := range permissions {
 		Per = append(Per, &v1.Permissions{
-			Id:   int64(v.ID),
+			Id:   int32(v.ID),
 			Code: v.Code,
 		})
 	}
 
 	return &v1.AdminUserInfosResponse{
-		Id:          int64(user.ID),
+		Id:          int32(user.ID),
 		Name:        user.Name,
 		Icon:        user.Icon,
 		Roles:       Role,
@@ -177,7 +177,7 @@ func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditR
 }
 
 func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, creator int64) (*v1.SetRolesResponse, error) {
-	if err := r.repo.SetRoles(ctx, req.Uid, creator, req.Rid); err != nil {
+	if err := r.repo.SetRoles(ctx, req.Uid, int32(creator), req.Rid); err != nil {
 		return &v1.SetRolesResponse{}, err
 	}
 
@@ -193,7 +193,7 @@ func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDelet
 }
 
 func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionRequest, creator int64) (*v1.SetPermissionResponse, error) {
-	if err := r.repo.SetRoles(ctx, req.Uid, creator, req.Pid); err != nil {
+	if err := r.repo.SetRoles(ctx, req.Uid, int32(creator), req.Pid); err != nil {
 		return &v1.SetPermissionResponse{}, err
 	}
 
@@ -213,7 +213,7 @@ func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 }
 
 func (r *RolesUseCase) RoleCreate(ctx context.Context, req *v1.RoleCreateRequest, creator int64) (*v1.RoleCreateResponse, error) {
-	if err := r.repo.RoleCreate(ctx, creator, req.Name, req.Code); err != nil {
+	if err := r.repo.RoleCreate(ctx, int32(creator), req.Name, req.Code); err != nil {
 		return &v1.RoleCreateResponse{}, err
 	}
 
@@ -229,19 +229,19 @@ func (r *RolesUseCase) RoleList(ctx context.Context, req *v1.RoleListRequest) (*
 	var List []*v1.RoleListResponse_RoleListItem
 	for _, v := range roles {
 		List = append(List, &v1.RoleListResponse_RoleListItem{
-			Id:    int64(v.ID),
+			Id:    int32(v.ID),
 			Name:  v.Name,
 			Code:  v.Code,
-			Cid:   v.CreatorID,
+			Cid:   int32(v.CreatorID),
 			Cname: v.CreatorName,
-			Ctime: v.CreatedTime,
-			Utime: v.UpdatedTime,
+			Ctime: int32(v.CreatedTime),
+			Utime: int32(v.UpdatedTime),
 		})
 	}
 
 	return &v1.RoleListResponse{
 		List:  List,
-		Total: total,
+		Total: int32(total),
 	}, nil
 }
 
@@ -254,7 +254,7 @@ func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest
 }
 
 func (r *RolesUseCase) RoleEdit(ctx context.Context, req *v1.RoleEditRequest, uid int64) (*v1.RoleEditResponse, error) {
-	if err := r.repo.RoleEdit(ctx, req.Id, uid, req.Name, req.Code); err != nil {
+	if err := r.repo.RoleEdit(ctx, req.Id, int32(uid), req.Name, req.Code); err != nil {
 		return &v1.RoleEditResponse{}, err
 	}
 
@@ -262,7 +262,7 @@ func (r *RolesUseCase) RoleEdit(ctx context.Context, req *v1.RoleEditRequest, ui
 }
 
 func (r *RolesUseCase) PermissionCreate(ctx context.Context, req *v1.PermissionCreateRequest, uid int64) (*v1.PermissionCreateResponse, error) {
-	if err := r.repo.PermissionCreate(ctx, uid, req.Name, req.Code); err != nil {
+	if err := r.repo.PermissionCreate(ctx, int32(uid), req.Name, req.Code); err != nil {
 		return &v1.PermissionCreateResponse{}, err
 	}
 
@@ -278,19 +278,19 @@ func (r *RolesUseCase) PermissionList(ctx context.Context, req *v1.PermissionLis
 	var List []*v1.PermissionListResponse_PermissionListItem
 	for _, v := range pers {
 		List = append(List, &v1.PermissionListResponse_PermissionListItem{
-			Id:    int64(v.ID),
+			Id:    int32(v.ID),
 			Name:  v.Name,
 			Code:  v.Code,
-			Ctime: v.CreatedTime,
+			Ctime: int32(v.CreatedTime),
 			Cname: v.CreatorName,
-			Cid:   v.CreatorID,
-			Utime: v.UpdatedTime,
+			Cid:   int32(v.CreatorID),
+			Utime: int32(v.UpdatedTime),
 		})
 	}
 
 	return &v1.PermissionListResponse{
 		List:  List,
-		Total: total,
+		Total: int32(total),
 	}, nil
 }
 
@@ -313,7 +313,7 @@ func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEdi
 }
 
 func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateRequest, uid int64) (*v1.RouteCreateResponse, error) {
-	err := r.repo.RouteCreate(ctx, uid, req.Method, req.Url)
+	err := r.repo.RouteCreate(ctx, int32(uid), req.Method, req.Url)
 	if err != nil {
 		return &v1.RouteCreateResponse{}, err
 	}
@@ -330,18 +330,18 @@ func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) 
 	var List []*v1.RouteListResponse_RouteListItem
 	for _, v := range list {
 		List = append(List, &v1.RouteListResponse_RouteListItem{
-			Id:     int64(v.ID),
+			Id:     int32(v.ID),
 			Url:    v.URL,
-			Method: v.Method,
-			Cid:    v.CreatorID,
-			Ctime:  v.CreatedTime,
+			Method: int32(v.Method),
+			Cid:    int32(v.CreatorID),
+			Ctime:  int32(v.CreatedTime),
 			Name:   v.CreatorName,
 		})
 	}
 
 	return &v1.RouteListResponse{
 		List:  List,
-		Total: total,
+		Total: int32(total),
 	}, nil
 }
 
@@ -364,7 +364,7 @@ func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteReque
 }
 
 func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, uid int64) (*v1.RouteRoleResponse, error) {
-	err := r.repo.RouteRole(ctx, uid, req.Route, req.Role)
+	err := r.repo.RouteRole(ctx, int32(uid), req.Route, req.Role)
 	if err != nil {
 		return &v1.RouteRoleResponse{}, err
 	}
@@ -382,7 +382,7 @@ func (r *RolesUseCase) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDel
 }
 
 func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest, uid int64) (*v1.RoutePermissionResponse, error) {
-	err := r.repo.RoutePermission(ctx, uid, req.Route, req.Permisson)
+	err := r.repo.RoutePermission(ctx, int32(uid), req.Route, req.Permisson)
 	if err != nil {
 		return &v1.RoutePermissionResponse{}, err
 	}
@@ -408,7 +408,7 @@ func (r *RolesUseCase) RouteDetails(ctx context.Context, req *v1.RouteDetailsReq
 	var Roles []*v1.RouteDetailsResponse_Roles
 	for _, v := range roles {
 		Roles = append(Roles, &v1.RouteDetailsResponse_Roles{
-			Id:   int64(v.ID),
+			Id:   int32(v.ID),
 			Name: v.Name,
 			Code: v.Code,
 		})
@@ -417,17 +417,17 @@ func (r *RolesUseCase) RouteDetails(ctx context.Context, req *v1.RouteDetailsReq
 	var Permission []*v1.RouteDetailsResponse_Permission
 	for _, v := range permisions {
 		Permission = append(Permission, &v1.RouteDetailsResponse_Permission{
-			Id:   int64(v.ID),
+			Id:   int32(v.ID),
 			Name: v.Name,
 			Code: v.Code,
 		})
 	}
 
 	return &v1.RouteDetailsResponse{
-		Id:         int64(route.ID),
+		Id:         int32(route.ID),
 		Url:        route.URL,
-		Method:     route.Method,
-		Ctime:      route.CreatedTime,
+		Method:     int32(route.Method),
+		Ctime:      int32(route.CreatedTime),
 		Roles:      Roles,
 		Permission: Permission,
 	}, nil

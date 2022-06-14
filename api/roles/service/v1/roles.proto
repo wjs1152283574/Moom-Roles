@@ -232,24 +232,24 @@ service Roles {
 
 message RouteDetailsRequest {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
 }
 message RouteDetailsResponse {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
     // URL 
     string url = 2;
     // 请求方法
-    int64 method = 3;
+    int32 method = 3;
     // 创建时间
-    int64 ctime = 4;
+    int32 ctime = 4;
     // 最近更新时间
-    int64 utime = 5;
+    int32 utime = 5;
     repeated Roles roles = 6;
     repeated Permission permission = 7;
     message Roles {
         // 角色ID
-        int64 id = 1;
+        int32 id = 1;
         // 角色名称
         string name = 2;
         // 角色代码
@@ -257,7 +257,7 @@ message RouteDetailsResponse {
     }
     message Permission {
         // 权限ID
-        int64 id = 1;
+        int32 id = 1;
         // 权限名称
         string name = 2;
         // 权限代码
@@ -267,59 +267,59 @@ message RouteDetailsResponse {
 
 message SetPermissionDeleteRequest {
     // 用户ID 
-    int64 id = 1;
+    int32 id = 1;
     // 权限ID列表
-    repeated int64 permission = 2;
+    repeated int32 permission = 2;
 }
 message SetPermissionDeleteResponse {}
 
 message SetRolesDeleteRequest {
      // 用户ID 
-     int64 id = 1;
+     int32 id = 1;
      // 角色ID列表
-     repeated int64 role = 2;
+     repeated int32 role = 2;
 }
 message SetRolesDeleteResponse {}
 
 message RoutePermissionDeleteRequest {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
     // 权限ID列表
-    repeated int64 permission = 2;
+    repeated int32 permission = 2;
 }
 message RoutePermissionDeleteResponse {}
 
 message RouteRoleDeleteRequest {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
     // 角色ID列表
-    repeated int64 route = 2;
+    repeated int32 route = 2;
 }
 message RouteRoleDeleteResponse {}
 
 message RouteDeleteRequest {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
 }
 message RouteDeleteResponse {}
 
 message RouteEditRequest {
     // 路由ID 
-    int64 id = 1;
+    int32 id = 1;
     // URL
     string url = 2;
     // 方法
-    int64 method = 3;
+    int32 method = 3;
 }
 message RouteEditResponse {}
 
 message RouteListRequest {
     // 页数
-    int64 page = 1;
+    int32 page = 1;
     // 每页数量
-    int64 limit = 2;
+    int32 limit = 2;
     // 创建者用户名 （模糊查询）
-    int64 method = 3;
+    int32 method = 3;
     // 路由（模糊查询）
     string url = 4;
 }
@@ -327,20 +327,20 @@ message RouteListRequest {
 message RouteListResponse {
     message RouteListItem {
         // ID 
-        int64 id = 1;
+        int32 id = 1;
         // URL
         string url = 2;
         // 方法
-        int64 method = 3;
+        int32 method = 3;
         // 创建者ID
-        int64 cid = 4;
+        int32 cid = 4;
         // 创建者用户名
         string name = 5;
         // 创建时间 
-        int64 ctime = 6;
+        int32 ctime = 6;
     }
     // 总数
-    int64 total = 1;
+    int32 total = 1;
     // 列表
     repeated RouteListItem list = 2;
 }
@@ -348,7 +348,7 @@ message RouteListResponse {
 
 message CheckRoutePermissionByIDRequest {
     // 管理员ID
-    int64 id = 1;
+    int32 id = 1;
     // 角色代码
     string code = 2;
 }
@@ -368,7 +368,7 @@ message CheckRoutePermissionByTokenResponse {
 
 message CheckRouteRoleByIDRequest {
     // 管理员ID
-    int64 id = 1;
+    int32 id = 1;
     // 角色代码
     string code = 2;
 }
@@ -388,9 +388,9 @@ message CheckRouteRoleByTokenResponse {
 
 message RoutePermissionRequest {
      // 路由ID
-    int64 route = 1; 
+    int32 route = 1; 
     // 权限ID列表
-    repeated int64 permisson = 2;
+    repeated int32 permisson = 2;
 }
 message RoutePermissionResponse {
 
@@ -398,9 +398,9 @@ message RoutePermissionResponse {
 
 message RouteRoleRequest {
     // 路由ID
-    int64 route = 1;
+    int32 route = 1;
     // 角色ID列表
-    repeated int64 role = 2;
+    repeated int32 role = 2;
 }
 message RouteRoleResponse {
 
@@ -410,7 +410,7 @@ message RouteCreateRequest {
     // URL 
     string url = 1;
     // 对应路由方法：1-get 2-post 3-put 4-delete ...
-    int64 method = 2;
+    int32 method = 2;
 }
 message RouteCreateResponse {
 
@@ -430,41 +430,41 @@ message CreateAdminUserResponse {
 
 message AdminUserListRequest {
     // 页数
-    int64 page = 1;
+    int32 page = 1;
     // 每页数量
-    int64 limit = 2;
+    int32 limit = 2;
     // 创建者用户名 （模糊查询）
     string cname = 3;
     // 用户名（模糊查询）
     string name = 4;
     // 类型 1-普通管理员 2-超级管理员
-    repeated int64 type = 5;
+    repeated int32 type = 5;
     // 状态 1-正常 2-冻结
-    repeated int64 status = 6;
+    repeated int32 status = 6;
 }
 message AdminUserListResponse {
     message List {
         // ID
-        int64 id = 1;
+        int32 id = 1;
         // 创建者ID
-        int64 cid = 2;
+        int32 cid = 2;
         // 创建者用户名
         string cname = 3;
         // 创建时间（秒级时间戳）
-        int64 ctime = 4;
+        int32 ctime = 4;
         // 用户名
         string name = 5;
         // 加密密码
         string pass = 6;
         // 类型 1-普通管理员 2-超级管理员
-        int64 type = 7;
+        int32 type = 7;
         // 状态 1-正常 2-冻结
-        int64 status = 8;
+        int32 status = 8;
         // 头像
         string icon = 9;
     }
     // 总数
-    int64 total = 1;
+    int32 total = 1;
     // 列表
     repeated List list = 2;
 }
@@ -475,20 +475,20 @@ message AdminUserInfosRequest {
 
 message Permissions {
     // ID 
-    int64 id = 1;
+    int32 id = 1;
     // 代码
     string code = 2;
 }
 message Role {
     // ID 
-    int64 id = 1;
+    int32 id = 1;
     // 代码
     string code = 2;
 }
 
 message AdminUserInfosResponse {
     // ID 
-    int64 id = 1;
+    int32 id = 1;
     // 用户名
     string name = 2;
     // 头像
@@ -507,7 +507,7 @@ message AdminUserEditRequest {
     // 头像
     string icon = 3;
     // 用户ID
-    int64 uid = 4;
+    int32 uid = 4;
 }
 message AdminUserEditResponse {
 
@@ -515,7 +515,7 @@ message AdminUserEditResponse {
 
 message AdminUserDeleteRequest {
     // 用户ID
-    int64 id = 1;
+    int32 id = 1;
 }
 message AdminUserDeleteResponse {
 
@@ -523,9 +523,9 @@ message AdminUserDeleteResponse {
 
 message SetRolesRequest {
     // 用户ID
-    int64 uid = 1;
+    int32 uid = 1;
     // 角色ID 列表
-    repeated int64 rid = 2;
+    repeated int32 rid = 2;
 }
 message SetRolesResponse {
 
@@ -533,9 +533,9 @@ message SetRolesResponse {
 
 message SetPermissionRequest {
     // 用户ID
-    int64 uid = 1;
+    int32 uid = 1;
     // 权限ID 列表
-    repeated int64 pid = 2;
+    repeated int32 pid = 2;
 }
 message SetPermissionResponse {
 
@@ -553,9 +553,9 @@ message RoleCreateResponse {
 
 message RoleListRequest {
     // 页数
-    int64 page = 1;
+    int32 page = 1;
     // 每页数量
-    int64 limit = 2;
+    int32 limit = 2;
     // 名称 （模糊查询）
     string name = 3;
     // 代码 （模糊查询）
@@ -564,29 +564,29 @@ message RoleListRequest {
 message RoleListResponse {
     message RoleListItem {
         // ID
-        int64 id = 1;
+        int32 id = 1;
         // 名称 
         string name = 2;
         // 代码 
         string code = 3;
         // 创建者ID
-        int64 cid = 4;
+        int32 cid = 4;
         // 创建者名称
         string cname = 5;
         // 创建时间
-        int64 ctime = 6;
+        int32 ctime = 6;
         // 更新时间
-        int64 utime = 7;
+        int32 utime = 7;
     }
     // 列表
     repeated RoleListItem list = 1;
     // 总数
-    int64 total = 2;
+    int32 total = 2;
 }
 
 message RoleDeleteRequest {
     // 角色ID
-    repeated int64 id = 1;
+    repeated int32 id = 1;
 }
 message RoleDeleteResponse {
 
@@ -594,7 +594,7 @@ message RoleDeleteResponse {
 
 message RoleEditRequest {
     // 角色ID
-    int64 id = 1;
+    int32 id = 1;
     // 角色名称
     string name = 2;
     // 角色代码
@@ -616,9 +616,9 @@ message PermissionCreateResponse {
 
 message PermissionListRequest {
     // 页数
-    int64 page = 1;
+    int32 page = 1;
     // 每页数量
-    int64 limit = 2;
+    int32 limit = 2;
     // 名称 （模糊查询）
     string name = 3;
     // 代码 （模糊查询）
@@ -627,29 +627,29 @@ message PermissionListRequest {
 message PermissionListResponse {
     message PermissionListItem {
         // ID
-        int64 id = 1;
+        int32 id = 1;
         // 名称 
         string name = 2;
         // 代码 
         string code = 3;
         // 创建者ID
-        int64 cid = 4;
+        int32 cid = 4;
         // 创建者名称
         string cname = 5;
         // 创建时间
-        int64 ctime = 6;
+        int32 ctime = 6;
         // 更新时间
-        int64 utime = 7;
+        int32 utime = 7;
     }
     // 列表
     repeated PermissionListItem list = 1;
     // 总数
-    int64 total = 2;
+    int32 total = 2;
 }
 
 message PermissionDeleteRequest {
     // 权限ID
-    repeated int64 id = 1;
+    repeated int32 id = 1;
 }
 message PermissionDeleteResponse {
 
@@ -657,7 +657,7 @@ message PermissionDeleteResponse {
 
 message PermissionEditRequest {
     // 角色ID
-    int64 id = 1;
+    int32 id = 1;
     // 角色名称
     string name = 2;
     // 角色代码
@@ -669,7 +669,7 @@ message PermissionEditResponse {
 
 message CheckRoleRequest {
     // 管理员ID
-    int64 id = 1;
+    int32 id = 1;
     // 角色代码（调用者使用更有语意化的字符串来表示而非数值）
     string code = 2;
 }
@@ -679,7 +679,7 @@ message CheckRoleResponse {
 
 message CheckPermissionRequest {
     // 管理员ID
-    int64 id = 1;
+    int32 id = 1;
     // 权限代码
     string code = 2;
 }

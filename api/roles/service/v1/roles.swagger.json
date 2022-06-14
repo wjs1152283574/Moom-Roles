@@ -713,8 +713,8 @@
             "description": "用户ID.",
             "in": "query",
             "required": false,
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -959,13 +959,13 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "cid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建者ID"
         },
         "cname": {
@@ -973,8 +973,8 @@
           "title": "创建者用户名"
         },
         "ctime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建时间（秒级时间戳）"
         },
         "name": {
@@ -986,13 +986,13 @@
           "title": "加密密码"
         },
         "type": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "类型 1-普通管理员 2-超级管理员"
         },
         "status": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "状态 1-正常 2-冻结"
         },
         "icon": {
@@ -1005,8 +1005,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "name": {
@@ -1018,8 +1018,8 @@
           "title": "代码"
         },
         "cid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建者ID"
         },
         "cname": {
@@ -1027,13 +1027,13 @@
           "title": "创建者名称"
         },
         "ctime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建时间"
         },
         "utime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "更新时间"
         }
       }
@@ -1042,8 +1042,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "name": {
@@ -1055,8 +1055,8 @@
           "title": "代码"
         },
         "cid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建者ID"
         },
         "cname": {
@@ -1064,13 +1064,13 @@
           "title": "创建者名称"
         },
         "ctime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建时间"
         },
         "utime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "更新时间"
         }
       }
@@ -1079,8 +1079,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "权限ID"
         },
         "name": {
@@ -1097,8 +1097,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "角色ID"
         },
         "name": {
@@ -1115,8 +1115,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "url": {
@@ -1124,13 +1124,13 @@
           "title": "URL"
         },
         "method": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "方法"
         },
         "cid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建者ID"
         },
         "name": {
@@ -1138,8 +1138,8 @@
           "title": "创建者用户名"
         },
         "ctime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建时间"
         }
       }
@@ -1190,8 +1190,8 @@
           "title": "头像"
         },
         "uid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "用户ID"
         }
       }
@@ -1206,8 +1206,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "name": {
@@ -1238,13 +1238,13 @@
       "type": "object",
       "properties": {
         "page": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "页数"
         },
         "limit": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "每页数量"
         },
         "cname": {
@@ -1258,16 +1258,16 @@
         "type": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "类型 1-普通管理员 2-超级管理员"
         },
         "status": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "状态 1-正常 2-冻结"
         }
@@ -1277,8 +1277,8 @@
       "type": "object",
       "properties": {
         "total": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "总数"
         },
         "list": {
@@ -1426,8 +1426,8 @@
         "id": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "权限ID"
         }
@@ -1440,8 +1440,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "角色ID"
         },
         "name": {
@@ -1461,13 +1461,13 @@
       "type": "object",
       "properties": {
         "page": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "页数"
         },
         "limit": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "每页数量"
         },
         "name": {
@@ -1491,8 +1491,8 @@
           "title": "列表"
         },
         "total": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "总数"
         }
       }
@@ -1501,8 +1501,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "code": {
@@ -1515,8 +1515,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "ID"
         },
         "code": {
@@ -1547,8 +1547,8 @@
         "id": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "角色ID"
         }
@@ -1561,8 +1561,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "角色ID"
         },
         "name": {
@@ -1582,13 +1582,13 @@
       "type": "object",
       "properties": {
         "page": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "页数"
         },
         "limit": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "每页数量"
         },
         "name": {
@@ -1612,8 +1612,8 @@
           "title": "列表"
         },
         "total": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "总数"
         }
       }
@@ -1626,8 +1626,8 @@
           "title": "URL"
         },
         "method": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "description": "对应路由方法：1-get 2-post 3-put 4-delete ..."
         }
       }
@@ -1639,8 +1639,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         }
       }
@@ -1652,8 +1652,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         }
       }
@@ -1662,8 +1662,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "url": {
@@ -1671,18 +1671,18 @@
           "title": "URL"
         },
         "method": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "请求方法"
         },
         "ctime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建时间"
         },
         "utime": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "最近更新时间"
         },
         "roles": {
@@ -1703,8 +1703,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "url": {
@@ -1712,8 +1712,8 @@
           "title": "URL"
         },
         "method": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "方法"
         }
       }
@@ -1725,18 +1725,18 @@
       "type": "object",
       "properties": {
         "page": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "页数"
         },
         "limit": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "每页数量"
         },
         "method": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "创建者用户名 （模糊查询）"
         },
         "url": {
@@ -1749,8 +1749,8 @@
       "type": "object",
       "properties": {
         "total": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "总数"
         },
         "list": {
@@ -1766,15 +1766,15 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "permission": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "权限ID列表"
         }
@@ -1787,15 +1787,15 @@
       "type": "object",
       "properties": {
         "route": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "permisson": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "权限ID列表"
         }
@@ -1808,15 +1808,15 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "route": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "角色ID列表"
         }
@@ -1829,15 +1829,15 @@
       "type": "object",
       "properties": {
         "route": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "路由ID"
         },
         "role": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "角色ID列表"
         }
@@ -1850,15 +1850,15 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "用户ID"
         },
         "permission": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "权限ID列表"
         }
@@ -1871,15 +1871,15 @@
       "type": "object",
       "properties": {
         "uid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "用户ID"
         },
         "pid": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "权限ID 列表"
         }
@@ -1892,15 +1892,15 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "用户ID"
         },
         "role": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "角色ID列表"
         }
@@ -1913,15 +1913,15 @@
       "type": "object",
       "properties": {
         "uid": {
-          "type": "string",
-          "format": "int64",
+          "type": "integer",
+          "format": "int32",
           "title": "用户ID"
         },
         "rid": {
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "int64"
+            "type": "integer",
+            "format": "int32"
           },
           "title": "角色ID 列表"
         }

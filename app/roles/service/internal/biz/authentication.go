@@ -41,7 +41,7 @@ func (r *RolesUseCase) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckR
 		return &v1.CheckRouteRoleByTokenResponse{Result: false}, errors.ErrInvalidToken
 	}
 
-	if err := r.repo.CheckRole(ctx, int64(uid), req.Code); err != nil {
+	if err := r.repo.CheckRole(ctx, int32(uid), req.Code); err != nil {
 		return &v1.CheckRouteRoleByTokenResponse{Result: false}, err
 	}
 
@@ -67,7 +67,7 @@ func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.
 		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, errors.ErrInvalidToken
 	}
 
-	if err := r.repo.CheckPermission(ctx, int64(uid), req.Code); err != nil {
+	if err := r.repo.CheckPermission(ctx, int32(uid), req.Code); err != nil {
 		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, err
 	}
 

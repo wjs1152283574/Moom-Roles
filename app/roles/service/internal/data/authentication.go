@@ -7,7 +7,7 @@ import (
 	"github.com/it-moom/moom-roles/pkg/errors"
 )
 
-func (r *UserRepo) CheckRole(ctx context.Context, uid int64, code string) error {
+func (r *UserRepo) CheckRole(ctx context.Context, uid int32, code string) error {
 	var role model.Role
 	if err := r.data.db.Table(model.RoleTableName).Where("code = ?", code).First(&role).Error; err != nil {
 		return errors.ErrRoleNotExit
@@ -21,7 +21,7 @@ func (r *UserRepo) CheckRole(ctx context.Context, uid int64, code string) error 
 	return nil
 }
 
-func (r *UserRepo) CheckPermission(ctx context.Context, uid int64, code string) error {
+func (r *UserRepo) CheckPermission(ctx context.Context, uid int32, code string) error {
 	var permission model.Permission
 	if err := r.data.db.Table(model.PermissionTableName).Where("code = ?", code).First(&permission).Error; err != nil {
 		return errors.ErrRoleNotExit

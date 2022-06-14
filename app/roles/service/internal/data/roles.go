@@ -33,7 +33,7 @@ func (r *UserRepo) CheckUser(ctx context.Context, name string) (model.User, erro
 	return user, nil
 }
 
-func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int64) error {
+func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int32) error {
 	if err := r.data.rd.Set(ctx, key, val, time.Duration(ttl)).Err(); err != nil {
 		return errors.ErrSystemBusy
 	}
@@ -41,7 +41,7 @@ func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int64) err
 	return nil
 }
 
-func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int64, typ, status []int64) ([]model.User, int64, error) {
+func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error) {
 	var users []model.User
 	var total int64
 	tx := r.data.db.Table(model.UserTableName)
@@ -75,7 +75,7 @@ func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit
 }
 
 // 获取用户基本信息
-func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int64) (model.User, error) {
+func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int32) (model.User, error) {
 	var user model.User
 	user.ID = uint(uid)
 	err := r.data.db.First(&user).Error
@@ -87,7 +87,7 @@ func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int64) (model.User, er
 }
 
 // 获取用户角色列表
-func (r *UserRepo) UserRoleList(ctx context.Context, uid int64) ([]model.Role, error) {
+func (r *UserRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, error) {
 	var role []model.Role
 	err := r.data.db.Exec("SELECT * FROM roles WHERE id in (SELECT r_id FROM user_roles WHERE uid=?)", uid).Scan(&role).Error
 	if err != nil {
@@ -98,7 +98,7 @@ func (r *UserRepo) UserRoleList(ctx context.Context, uid int64) ([]model.Role, e
 }
 
 // 获取用户权限列表
-func (r *UserRepo) UserPermissionList(ctx context.Context, uid int64) ([]model.Permission, error) {
+func (r *UserRepo) UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error) {
 	var permissions []model.Permission
 	err := r.data.db.Exec("SELECT * FROM permissions WHERE id in (SELECT p_id FROM user_permissions WHERE uid=?)", uid).Scan(&permissions).Error
 	if err != nil {
@@ -119,13 +119,13 @@ func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 }
 
 // 设置用户角色
-func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int64, rid []int64) error {
+func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range rid {
 			var userRole model.UserRole
 			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
-			userRole.CreatorID = creator
+			userRole.CreatorID = int64(creator)
 			userRole.Role = uint(v)
 			if err := tx.Create(&userRole).Error; err != nil {
 				return errors.ErrSystemBusy
@@ -136,13 +136,13 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int64, rid []int64
 	})
 }
 
-func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int64, pid []int64) error {
+func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range pid {
 			var userRole model.UserPermission
 			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
-			userRole.CreatorID = creator
+			userRole.CreatorID = int64(creator)
 			userRole.Permission = uint(v)
 			if err := tx.Create(&userRole).Error; err != nil {
 				return errors.ErrSystemBusy
@@ -153,7 +153,7 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int64, pid [
 	})
 }
 
-func (r *UserRepo) UserDelete(ctx context.Context, uid int64) error {
+func (r *UserRepo) UserDelete(ctx context.Context, uid int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		err := tx.Exec("delete from users where id = ?", uid).Error
 		if err != nil {
@@ -164,11 +164,11 @@ func (r *UserRepo) UserDelete(ctx context.Context, uid int64) error {
 	})
 }
 
-func (r *UserRepo) RoleCreate(ctx context.Context, creator int64, name, code string) error {
+func (r *UserRepo) RoleCreate(ctx context.Context, creator int32, name, code string) error {
 	var role model.Role
 	role.Name = name
 	role.Code = code
-	role.Commom = model.Commom{CreatorID: creator, CreatedTime: time.Now().Unix()}
+	role.Commom = model.Commom{CreatorID: int64(creator), CreatedTime: time.Now().Unix()}
 	if err := r.data.db.Table(model.RoleTableName).Create(&role).Error; err != nil {
 		return errors.ErrSystemBusy
 	}
@@ -176,7 +176,7 @@ func (r *UserRepo) RoleCreate(ctx context.Context, creator int64, name, code str
 	return nil
 }
 
-func (r *UserRepo) RoleList(ctx context.Context, page, limit int64, name, code string) ([]model.Role, int64, error) {
+func (r *UserRepo) RoleList(ctx context.Context, page, limit int32, name, code string) ([]model.Role, int64, error) {
 	var roles []model.Role
 	var total int64
 	tx := r.data.db.Table(model.RoleTableName)
@@ -201,7 +201,7 @@ func (r *UserRepo) RoleList(ctx context.Context, page, limit int64, name, code s
 	return roles, total, nil
 }
 
-func (r *UserRepo) RoleDelete(ctx context.Context, ids []int64) error {
+func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
 			err := tx.Exec("delete from users where id = ?", id).Error
@@ -213,7 +213,7 @@ func (r *UserRepo) RoleDelete(ctx context.Context, ids []int64) error {
 	})
 }
 
-func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int64, name, code string) error {
+func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var role model.Role
 		err := tx.Clauses(clause.Locking{
@@ -238,11 +238,11 @@ func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int64, name, code s
 	})
 }
 
-func (r *UserRepo) PermissionCreate(ctx context.Context, creator int64, name, code string) error {
+func (r *UserRepo) PermissionCreate(ctx context.Context, creator int32, name, code string) error {
 	var per model.Permission
 	per.Code = code
 	per.Name = name
-	per.Commom = model.Commom{CreatorID: creator, CreatedTime: time.Now().Unix()}
+	per.Commom = model.Commom{CreatorID: int64(creator), CreatedTime: time.Now().Unix()}
 	if err := r.data.db.Create(&per).Error; err != nil {
 		return errors.ErrMuiltiRecord
 	}
@@ -250,7 +250,7 @@ func (r *UserRepo) PermissionCreate(ctx context.Context, creator int64, name, co
 	return nil
 }
 
-func (r *UserRepo) PermissionList(ctx context.Context, page, limit int64, name, code string) ([]model.Permission, int64, error) {
+func (r *UserRepo) PermissionList(ctx context.Context, page, limit int32, name, code string) ([]model.Permission, int64, error) {
 	var pers []model.Permission
 	var total int64
 	tx := r.data.db.Table(model.PermissionTableName)
@@ -276,7 +276,7 @@ func (r *UserRepo) PermissionList(ctx context.Context, page, limit int64, name, 
 	return pers, total, nil
 }
 
-func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int64) error {
+func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
 			err := tx.Exec("delete from permissions where id = ?", id).Error
@@ -289,7 +289,7 @@ func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int64) error {
 	})
 }
 
-func (r *UserRepo) PermissionEdit(ctx context.Context, id int64, name, code string) error {
+func (r *UserRepo) PermissionEdit(ctx context.Context, id int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var per model.Permission
 		if err := tx.Clauses(clause.Locking{
@@ -314,11 +314,11 @@ func (r *UserRepo) PermissionEdit(ctx context.Context, id int64, name, code stri
 	})
 }
 
-func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url string) error {
+func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int32, url string) error {
 	var route model.Route
 	route.URL = url
-	route.Method = method
-	route.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+	route.Method = int64(method)
+	route.Commom = model.Commom{CreatorID: int64(uid), CreatedTime: time.Now().Unix()}
 	if err := r.data.db.Create(&route).Error; err != nil {
 		return errors.ErrSystemBusy
 	}
@@ -326,7 +326,7 @@ func (r *UserRepo) RouteCreate(ctx context.Context, uid, method int64, url strin
 	return nil
 }
 
-func (r *UserRepo) RouteList(ctx context.Context, page, limit, method int64, url string) ([]model.Route, int64, error) {
+func (r *UserRepo) RouteList(ctx context.Context, page, limit, method int32, url string) ([]model.Route, int64, error) {
 	var list []model.Route
 	var total int64
 	tx := r.data.db.Table(model.RouteTablename)
@@ -350,7 +350,7 @@ func (r *UserRepo) RouteList(ctx context.Context, page, limit, method int64, url
 	return list, total, nil
 }
 
-func (r *UserRepo) RouteEdit(ctx context.Context, id, method int64, url string) error {
+func (r *UserRepo) RouteEdit(ctx context.Context, id, method int32, url string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var route model.Route
 		if err := tx.Clauses(clause.Locking{
@@ -364,7 +364,7 @@ func (r *UserRepo) RouteEdit(ctx context.Context, id, method int64, url string) 
 		}
 
 		if method > 0 {
-			route.Method = method
+			route.Method = int64(method)
 		}
 
 		if err := tx.Updates(&route).Error; err != nil {
@@ -375,7 +375,7 @@ func (r *UserRepo) RouteEdit(ctx context.Context, id, method int64, url string) 
 	})
 }
 
-func (r *UserRepo) RouteDelete(ctx context.Context, id int64) error {
+func (r *UserRepo) RouteDelete(ctx context.Context, id int32) error {
 	if err := r.data.db.Exec("delete from routes where id = ?", id).Error; err != nil {
 		return errors.ErrSystemBusy
 	}
@@ -383,7 +383,7 @@ func (r *UserRepo) RouteDelete(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64) error {
+func (r *UserRepo) RouteRole(ctx context.Context, uid, route int32, role []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
 			var routeRole model.RouteRole
@@ -393,8 +393,8 @@ func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64
 			}
 
 			routeRole.Role = uint(v)
-			routeRole.Route = route
-			routeRole.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+			routeRole.Route = int64(route)
+			routeRole.Commom = model.Commom{CreatorID: int64(uid), CreatedTime: time.Now().Unix()}
 			if err := r.data.db.Create(&routeRole).Error; err != nil {
 				return errors.ErrSystemBusy
 			}
@@ -403,7 +403,7 @@ func (r *UserRepo) RouteRole(ctx context.Context, uid, route int64, role []int64
 	})
 }
 
-func (r *UserRepo) RouteRoleDelete(ctx context.Context, id int64, role []int64) error {
+func (r *UserRepo) RouteRoleDelete(ctx context.Context, id int32, role []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
 			if err := tx.Exec("delete from ? where route = ? and role = ?", model.RouteRoleTablename, id, v).Error; err != nil {
@@ -414,7 +414,7 @@ func (r *UserRepo) RouteRoleDelete(ctx context.Context, id int64, role []int64) 
 	})
 }
 
-func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permission []int64) error {
+func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int32, permission []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
 			var routePer model.RoutePermission
@@ -424,8 +424,8 @@ func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permis
 			}
 
 			routePer.Permission = uint(v)
-			routePer.Route = route
-			routePer.Commom = model.Commom{CreatorID: uid, CreatedTime: time.Now().Unix()}
+			routePer.Route = int64(route)
+			routePer.Commom = model.Commom{CreatorID: int64(uid), CreatedTime: time.Now().Unix()}
 			if err := r.data.db.Create(&routePer).Error; err != nil {
 				return errors.ErrSystemBusy
 			}
@@ -435,7 +435,7 @@ func (r *UserRepo) RoutePermission(ctx context.Context, uid, route int64, permis
 	})
 }
 
-func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int64, permission []int64) error {
+func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int32, permission []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
 			if err := tx.Exec("delete from ? where route = ? and role = ?", model.RoutePermissionTablename, id, v).Error; err != nil {
@@ -446,7 +446,7 @@ func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int64, permissi
 	})
 }
 
-func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int64, role []int64) error {
+func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
 			if err := tx.Exec("delete from ? where user = ? and role = ?", model.UserRoleTablename, uid, v).Error; err != nil {
@@ -457,7 +457,7 @@ func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int64, role []int64) 
 	})
 }
 
-func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int64, permission []int64) error {
+func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
 			if err := tx.Exec("delete from ? where user = ? and permisson = ?", model.UserRoleTablename, uid, v).Error; err != nil {
@@ -468,7 +468,7 @@ func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int64, permissio
 	})
 }
 
-func (r *UserRepo) RouteDetails(ctx context.Context, routeID int64) (route model.Route, role []model.Role, permission []model.Permission, err error) {
+func (r *UserRepo) RouteDetails(ctx context.Context, routeID int32) (route model.Route, role []model.Role, permission []model.Permission, err error) {
 	if err = r.data.db.Table(model.RouteTablename).Where("id = ?", routeID).First(&route).Error; err != nil {
 		err = errors.ErrRouteNotExit
 		return
