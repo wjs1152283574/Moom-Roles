@@ -216,9 +216,7 @@ func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
 func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var role model.Role
-		err := tx.Clauses(clause.Locking{
-			Strength: "UPDATE",
-		}).Where("id = ?", id).First(&role).Error
+		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where("id = ?", id).First(&role).Error
 		if err != nil {
 			return errors.ErrSystemBusy(err)
 		}
@@ -230,7 +228,7 @@ func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int32, name, code s
 			role.Code = code
 		}
 		role.UpdatedTime = time.Now().Unix()
-		if err := tx.Updates(&role); err != nil {
+		if err := tx.Updates(&role).Error; err != nil {
 			return errors.ErrSystemBusy(err)
 		}
 
