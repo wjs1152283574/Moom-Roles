@@ -586,7 +586,7 @@ message RoleListResponse {
 
 message RoleDeleteRequest {
     // 角色ID
-    int64 id = 1;
+    repeated int64 id = 1;
 }
 message RoleDeleteResponse {
 

@@ -153,11 +153,11 @@ func (r *RolesService) RoleList(ctx context.Context, req *v1.RoleListRequest) (*
 		req.Limit = 20
 	}
 
-	return &v1.RoleListResponse{}, nil
+	return r.uc.RoleList(ctx, req)
 }
 
 func (r *RolesService) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest) (*v1.RoleDeleteResponse, error) {
-	if req.Id <= 0 {
+	if len(req.Id) <= 0 {
 		return &v1.RoleDeleteResponse{}, errors.ErrInvalidParams
 	}
 

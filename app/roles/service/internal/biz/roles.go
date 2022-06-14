@@ -246,7 +246,7 @@ func (r *RolesUseCase) RoleList(ctx context.Context, req *v1.RoleListRequest) (*
 }
 
 func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest, uid int64) (*v1.RoleDeleteResponse, error) {
-	if err := r.repo.RoleDelete(ctx, req.Id, uid); err != nil {
+	if err := r.repo.RoleDelete(ctx, req.Id); err != nil {
 		return &v1.RoleDeleteResponse{}, err
 	}
 
