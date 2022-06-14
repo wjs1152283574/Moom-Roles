@@ -38,7 +38,7 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 	// 需要检验验证码
 	if conf.GB.Global.Verify {
 		if !tool.Verify(req.Key, req.Val) {
-			return &v1.LoginResponse{}, errors.ErrInvalidVerifyCode
+			return &v1.LoginResponse{}, errors.ErrInvalidVerifyCode()
 		}
 	}
 	// 检验用户合法性
@@ -48,7 +48,7 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 	}
 	// 检验用户密码
 	if tool.Base64Md5(req.Pass) != user.Pass {
-		return &v1.LoginResponse{}, errors.ErrInvalidPass
+		return &v1.LoginResponse{}, errors.ErrInvalidPass()
 	}
 	// 生成token
 	token, err := tool.NewJWT(conf.GB.Global.TokenScrect).CreateToken(strconv.Itoa(int(user.ID)), conf.GB.Global.Issuer, conf.GB.Global.TokenTtl)

@@ -47,13 +47,13 @@ func (j *JWT) ParseToken(tokenString string) (*jwt.StandardClaims, error) {
 
 	// token有误
 	if err != nil {
-		return nil, errors.ErrInvalidToken
+		return nil, errors.ErrInvalidToken()
 	}
 	// token校验成功
 	if claims, ok := token.Claims.(*jwt.StandardClaims); ok && token.Valid {
 		return claims, nil
 	}
-	return nil, errors.ErrInvalidToken
+	return nil, errors.ErrInvalidToken()
 }
 
 // RefreshToken 刷新token
@@ -64,7 +64,7 @@ func (j *JWT) RefreshToken(tokenString, screct string) (string, error) {
 
 	// token无效
 	if err != nil {
-		return "", errors.ErrInvalidToken
+		return "", errors.ErrInvalidToken()
 	}
 
 	// 重新生成token

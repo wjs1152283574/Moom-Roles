@@ -67,12 +67,12 @@ func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 				if len(tokenStr) > 1 { // 存在token，解析
 					tcliam, errs := tool.NewJWT(conf.GB.Global.TokenScrect).ParseToken(tokenStr[1])
 					if errs != nil {
-						return nil, errors.ErrAuthFail
+						return nil, errors.ErrAuthFail()
 					}
 					etxs := context.WithValue(ctx, "userid", tcliam.Subject)
 					reply, err = handler(etxs, req)
 				} else {
-					return nil, errors.ErrAuthFail
+					return nil, errors.ErrAuthFail()
 				}
 
 			} else {
