@@ -89,7 +89,8 @@ func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int32) (model.User, er
 // 获取用户角色列表
 func (r *UserRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, error) {
 	var role []model.Role
-	err := r.data.db.Exec("SELECT * FROM roles WHERE id in (SELECT r_id FROM user_roles WHERE uid=?)", uid).Scan(&role).Error
+	userRoleSql := r.data.db.Model(&model.UserRole{}).Where("user = ?", uid).Select("`role`")
+	err := r.data.db.Model(&model.Role{}).Where("id in ( ? )", userRoleSql).Scan(&role).Error
 	if err != nil {
 		return role, errors.ErrSystemBusy(err)
 	}
@@ -100,7 +101,8 @@ func (r *UserRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, e
 // 获取用户权限列表
 func (r *UserRepo) UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error) {
 	var permissions []model.Permission
-	err := r.data.db.Exec("SELECT * FROM permissions WHERE id in (SELECT p_id FROM user_permissions WHERE uid=?)", uid).Scan(&permissions).Error
+	userPermissionSql := r.data.db.Model(&model.UserPermission{}).Where("user = ?", uid).Select("`permission`")
+	err := r.data.db.Model(&model.Permission{}).Where("id in ( ? )", userPermissionSql).Scan(&permissions).Error
 	if err != nil {
 		return permissions, errors.ErrSystemBusy(err)
 	}
@@ -122,6 +124,11 @@ func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range rid {
+			var r model.Role
+			if err := tx.Model(&model.Role{}).Where("id = ?", v).First(&r); err != nil {
+				return errors.ErrRoleNotExit(err)
+			}
+
 			var userRole model.UserRole
 			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
@@ -139,6 +146,11 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32
 func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range pid {
+			var r model.Permission
+			if err := tx.Model(&model.Permission{}).Where("id = ?", v).First(&r); err != nil {
+				return errors.ErrPermissionNotExit(err)
+			}
+
 			var userRole model.UserPermission
 			userRole.User = uint(uid)
 			userRole.CreatedTime = time.Now().Unix()
@@ -155,7 +167,10 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid [
 
 func (r *UserRepo) UserDelete(ctx context.Context, uid int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
-		err := tx.Unscoped().Where("id = ?", uid).Delete(&model.User{}).Error
+		var user model.User
+		user.ID = uint(uid)
+		tx.First(&user)
+		err := tx.Unscoped().Where("id = ?", uid).Delete(&user).Error
 		if err != nil {
 			return errors.ErrSystemBusy(err)
 		}
@@ -461,6 +476,11 @@ func (r *UserRepo) RoutePermissionDelete(ctx context.Context, id int32, permissi
 func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
+			var r model.Role
+			if err := tx.Model(&model.Role{}).Where("id = ?", v).First(&r).Error; err != nil {
+				return errors.ErrRoleNotExit(err)
+			}
+
 			if err := tx.Unscoped().Where("user = ? and `role` = ?", uid, v).Delete(&model.UserRole{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}
@@ -472,6 +492,11 @@ func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) 
 func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
+			var r model.Permission
+			if err := tx.Model(&model.Permission{}).Where("id = ?", v).First(&r).Error; err != nil {
+				return errors.ErrPermissionNotExit(err)
+			}
+
 			if err := tx.Unscoped().Where("user = ? and permisson = ?", uid, v).Delete(&model.UserPermission{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}

@@ -133,7 +133,7 @@ func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 		return &v1.AdminUserDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return &v1.AdminUserDeleteResponse{}, nil
+	return r.uc.AdminUserDelete(ctx, req)
 }
 
 func (r *RolesService) RoleCreate(ctx context.Context, req *v1.RoleCreateRequest) (*v1.RoleCreateResponse, error) {

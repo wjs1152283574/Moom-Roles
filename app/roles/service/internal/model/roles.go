@@ -21,11 +21,12 @@ var (
 
 type User struct {
 	Commom
-	Name   string `gorm:"type:varchar(50);NOT NULL;UNIQUE;COMMENT:用户名"`
-	Pass   string `gorm:"type:varchar(200);NOT NULL;COMMENT:登陆密码"`
-	Type   int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-普通管理员 2-超级管理员"`
-	Status int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-正常 2-冻结"`
-	Icon   string `gorm:"type:varchar(500);COMMENT:头像"`
+	Name     string `gorm:"type:varchar(50);NOT NULL;UNIQUE;COMMENT:用户名"`
+	Pass     string `gorm:"type:varchar(200);NOT NULL;COMMENT:登陆密码"`
+	Type     int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-普通管理员 2-超级管理员"`
+	Status   int64  `gorm:"type:int(11);NOT NULL;DEFAULT 1;COMMENT:1-正常 2-冻结"`
+	Icon     string `gorm:"type:varchar(500);COMMENT:头像"`
+	ReadOnly bool   `gorm:"COMMENT:超管为只读用户不可修改"`
 }
 
 func (u *User) TableName() string {
@@ -35,6 +36,14 @@ func (u *User) TableName() string {
 func (u *User) BeforeDelete(tx *gorm.DB) (err error) {
 	if u.Name == conf.SU.SuperUser[0].Name {
 		return errors.New("admin superUser not allowed to delete")
+	}
+
+	return
+}
+
+func (u *User) BeforeUpdate(tx *gorm.DB) (err error) {
+	if u.ReadOnly {
+		return errors.New("admin superUser not allowed to update")
 	}
 
 	return

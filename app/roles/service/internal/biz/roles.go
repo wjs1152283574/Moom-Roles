@@ -18,11 +18,12 @@ func (r *RolesUseCase) CreateSuperUser(ctx context.Context) (*v1.CreateSuperUser
 	var data []model.User
 	for _, v := range conf.SU.SuperUser {
 		data = append(data, model.User{
-			Name:   v.Name,
-			Pass:   tool.Base64Md5(v.Pass),
-			Type:   2,
-			Status: 1,
-			Commom: model.Commom{CreatedTime: time.Now().Unix()},
+			Name:     v.Name,
+			Pass:     tool.Base64Md5(v.Pass),
+			Type:     2,
+			Status:   1,
+			ReadOnly: true,
+			Commom:   model.Commom{CreatedTime: time.Now().Unix()},
 		})
 
 	}
@@ -69,16 +70,15 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminUserRequest, uid int64) (*v1.CreateAdminUserResponse, error) {
 	// 组装用户数据
 	var data []model.User
-	for _, v := range conf.SU.SuperUser {
-		data = append(data, model.User{
-			Name:   v.Name,
-			Pass:   tool.Base64Md5(v.Pass),
-			Type:   1,
-			Status: 1,
-			Commom: model.Commom{CreatedTime: time.Now().Unix(), CreatorID: uid},
-		})
+	data = append(data, model.User{
+		Name:   req.Name,
+		Pass:   tool.Base64Md5(req.Pass),
+		Icon:   req.Icon,
+		Type:   1,
+		Status: 1,
+		Commom: model.Commom{CreatedTime: time.Now().Unix(), CreatorID: uid},
+	})
 
-	}
 	// 新建用户
 	if err := r.repo.CreateUser(ctx, data); err != nil {
 		return &v1.CreateAdminUserResponse{}, err
@@ -201,6 +201,10 @@ func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionR
 }
 
 func (r *RolesUseCase) SetPermissionDelete(ctx context.Context, req *v1.SetPermissionDeleteRequest) (*v1.SetPermissionDeleteResponse, error) {
+	if err := r.repo.SetPermissionDelete(ctx, req.Id, req.Permission); err != nil {
+		return &v1.SetPermissionDeleteResponse{}, err
+	}
+
 	return &v1.SetPermissionDeleteResponse{}, nil
 }
 
