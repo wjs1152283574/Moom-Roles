@@ -7,6 +7,14 @@ import (
 )
 
 type RolesRepo interface {
+	Authentication
+	User
+	Role
+	Permission
+	Route
+}
+
+type User interface {
 	// 批量新建用户
 	CreateUser(ctx context.Context, data []model.User) error
 	// 检测用户是否存在
@@ -23,6 +31,10 @@ type RolesRepo interface {
 	UserRoleList(ctx context.Context, uid int32) ([]model.Role, error)
 	// 获取用户权限列表
 	UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error)
+	// 删除用户
+	UserDelete(ctx context.Context, uid int32) error
+	// 验证是否超级用户
+	IsSuperUser(ctx context.Context, uid int64) (result bool)
 	// 设置用户角色
 	SetRoles(ctx context.Context, uid, creator int32, rid []int32) error
 	// 设置用户角色--解除
@@ -31,8 +43,9 @@ type RolesRepo interface {
 	SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error
 	// 设置用户权限--解除
 	SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error
-	// 删除用户
-	UserDelete(ctx context.Context, uid int32) error
+}
+
+type Role interface {
 	// 创建角色
 	RoleCreate(ctx context.Context, creator int32, name, code string) error
 	// 角色列表
@@ -41,6 +54,9 @@ type RolesRepo interface {
 	RoleDelete(ctx context.Context, id []int32) error
 	// 编辑角色
 	RoleEdit(ctx context.Context, id, creator int32, name, code string) error
+}
+
+type Permission interface {
 	// 创建权限
 	PermissionCreate(ctx context.Context, creator int32, name, code string) error
 	// 权限列表
@@ -49,6 +65,9 @@ type RolesRepo interface {
 	PermissionDelete(ctx context.Context, id []int32) error
 	// 编辑权限
 	PermissionEdit(ctx context.Context, id int32, name, code string) error
+}
+
+type Route interface {
 	// 创建路由
 	RouteCreate(ctx context.Context, uid, method int32, url string) error
 	// 路由列表
@@ -67,11 +86,9 @@ type RolesRepo interface {
 	RoutePermissionDelete(ctx context.Context, id int32, permission []int32) error
 	// 路由详细
 	RouteDetails(ctx context.Context, routeID int32) (route model.Route, role []model.Role, permission []model.Permission, err error)
-
-	Rpc
 }
 
-type Rpc interface {
+type Authentication interface {
 	CheckRole(ctx context.Context, uid int32, code string) error
 	CheckPermission(ctx context.Context, uid int32, code string) error
 }

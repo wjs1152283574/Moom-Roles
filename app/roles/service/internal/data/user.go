@@ -31,14 +31,6 @@ func (r *UserRepo) CheckUser(ctx context.Context, name string) (model.User, erro
 	return user, nil
 }
 
-func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int32) error {
-	if err := r.data.rd.Set(ctx, key, val, time.Duration(ttl)).Err(); err != nil {
-		return errors.ErrSystemBusy(err)
-	}
-
-	return nil
-}
-
 func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error) {
 	var users []model.User
 	var total int64
@@ -207,4 +199,17 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid [
 
 		return nil
 	})
+}
+
+func (r *UserRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
+	var user model.User
+	if err := r.data.db.Where("id = ?", uid).First(&user).Error; err != nil {
+		return
+	}
+
+	if user.Type == 2 {
+		return true
+	}
+
+	return
 }
