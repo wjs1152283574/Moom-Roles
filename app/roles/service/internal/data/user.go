@@ -31,6 +31,15 @@ func (r *UserRepo) CheckUser(ctx context.Context, name string) (model.User, erro
 	return user, nil
 }
 
+func (r *UserRepo) CheckUserByID(ctx context.Context, uid int64) (model.User, error) {
+	var user model.User
+	if err := r.data.db.Table(model.UserTableName).Where("id = ?", uid).First(&user).Error; err != nil {
+		return user, errors.ErrUserNotExit(err)
+	}
+
+	return user, nil
+}
+
 func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error) {
 	var users []model.User
 	var total int64

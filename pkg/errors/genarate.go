@@ -11,6 +11,10 @@ func ErrAuthFail(msg ...interface{}) *err.Error {
 	return err.New(401, "AuthFail", fmt.Sprintf("%v", msg))
 }
 
+func ErrUserLockUp(msg ...interface{}) *err.Error {
+	return err.New(401, "UserLockUp", fmt.Sprintf("%v", msg))
+}
+
 func ErrInvalidParams(msg ...interface{}) *err.Error {
 	return errors.New(400, "InvalidParams", fmt.Sprintf("%v", msg))
 }

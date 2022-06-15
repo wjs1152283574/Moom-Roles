@@ -11,6 +11,15 @@ import (
 )
 
 func (r *RolesUseCase) CheckRole(ctx context.Context, req *v1.CheckRoleRequest) (*v1.CheckRoleResponse, error) {
+	user, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.CheckRoleResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckRoleResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckRole(ctx, req.Id, req.Code); err != nil {
 		return &v1.CheckRoleResponse{Result: false}, err
 	}
@@ -21,6 +30,15 @@ func (r *RolesUseCase) CheckRole(ctx context.Context, req *v1.CheckRoleRequest) 
 }
 
 func (r *RolesUseCase) CheckPermission(ctx context.Context, req *v1.CheckPermissionRequest) (*v1.CheckPermissionResponse, error) {
+	user, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.CheckPermissionResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckPermissionResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckPermission(ctx, req.Id, req.Code); err != nil {
 		return &v1.CheckPermissionResponse{Result: false}, err
 	}
@@ -41,6 +59,15 @@ func (r *RolesUseCase) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckR
 		return &v1.CheckRouteRoleByTokenResponse{Result: false}, errors.ErrInvalidToken()
 	}
 
+	user, err := r.repo.CheckUserByID(ctx, int64(uid))
+	if err != nil {
+		return &v1.CheckRouteRoleByTokenResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckRouteRoleByTokenResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckRole(ctx, int32(uid), req.Code); err != nil {
 		return &v1.CheckRouteRoleByTokenResponse{Result: false}, err
 	}
@@ -49,6 +76,15 @@ func (r *RolesUseCase) CheckRouteRoleByToken(ctx context.Context, req *v1.CheckR
 }
 
 func (r *RolesUseCase) CheckRouteRoleByID(ctx context.Context, req *v1.CheckRouteRoleByIDRequest) (*v1.CheckRouteRoleByIDResponse, error) {
+	user, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.CheckRouteRoleByIDResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckRouteRoleByIDResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckRole(ctx, req.Id, req.Code); err != nil {
 		return &v1.CheckRouteRoleByIDResponse{Result: false}, err
 	}
@@ -67,6 +103,15 @@ func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.
 		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, errors.ErrInvalidToken()
 	}
 
+	user, err := r.repo.CheckUserByID(ctx, int64(uid))
+	if err != nil {
+		return &v1.CheckRoutePermissionByTokenResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckRoutePermissionByTokenResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckPermission(ctx, int32(uid), req.Code); err != nil {
 		return &v1.CheckRoutePermissionByTokenResponse{Result: false}, err
 	}
@@ -75,6 +120,15 @@ func (r *RolesUseCase) CheckRoutePermissionByToken(ctx context.Context, req *v1.
 }
 
 func (r *RolesUseCase) CheckRoutePermissionByID(ctx context.Context, req *v1.CheckRoutePermissionByIDRequest) (*v1.CheckRoutePermissionByIDResponse, error) {
+	user, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.CheckRoutePermissionByIDResponse{}, err
+	}
+
+	if user.Status == 2 {
+		return &v1.CheckRoutePermissionByIDResponse{}, errors.ErrUserLockUp()
+	}
+
 	if err := r.repo.CheckPermission(ctx, req.Id, req.Code); err != nil {
 		return &v1.CheckRoutePermissionByIDResponse{Result: false}, err
 	}

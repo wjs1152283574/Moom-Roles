@@ -47,6 +47,10 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 	if err != nil {
 		return &v1.LoginResponse{}, err
 	}
+	// 检测用户状态
+	if user.Status == 2 {
+		return &v1.LoginResponse{}, errors.ErrUserLockUp()
+	}
 	// 检验用户密码
 	if tool.Base64Md5(req.Pass) != user.Pass {
 		return &v1.LoginResponse{}, errors.ErrInvalidPass()
