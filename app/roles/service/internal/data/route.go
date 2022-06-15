@@ -78,6 +78,13 @@ func (r *UserRepo) RouteDelete(ctx context.Context, ids []int32) error {
 			if err := tx.Unscoped().Where("id = ?", id).Delete(&model.Route{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}
+			// 删除关联表数据
+			if err := tx.Unscoped().Where("route = ?", id).Delete(&model.RouteRole{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
+			if err := tx.Unscoped().Where("route = ?", id).Delete(&model.RoutePermission{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
 		}
 
 		return nil

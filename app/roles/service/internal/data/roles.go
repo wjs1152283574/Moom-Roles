@@ -51,8 +51,14 @@ func (r *UserRepo) RoleList(ctx context.Context, page, limit int32, name, code s
 func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
-			err := tx.Unscoped().Where("id = ?", id).Delete(&model.Role{}).Error
-			if err != nil {
+			if err := tx.Unscoped().Where("id = ?", id).Delete(&model.Role{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
+			// 删除关联表数据
+			if err := tx.Unscoped().Where("`role` = ?", id).Delete(&model.UserRole{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
+			if err := tx.Unscoped().Where("`role` = ?", id).Delete(&model.RouteRole{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}
 		}

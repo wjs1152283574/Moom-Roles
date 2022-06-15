@@ -130,6 +130,14 @@ func (r *UserRepo) UserDelete(ctx context.Context, uid int32) error {
 			return errors.ErrSystemBusy(err)
 		}
 
+		// 同时清空关联表数据
+		if err := tx.Unscoped().Where("user = ?", uid).Delete(&model.UserRole{}).Error; err != nil {
+			return errors.ErrSystemBusy(err)
+		}
+		if err := tx.Unscoped().Where("user = ?", uid).Delete(&model.UserPermission{}).Error; err != nil {
+			return errors.ErrSystemBusy(err)
+		}
+
 		return nil
 	})
 }

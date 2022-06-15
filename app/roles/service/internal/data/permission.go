@@ -52,11 +52,16 @@ func (r *UserRepo) PermissionList(ctx context.Context, page, limit int32, name, 
 func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
-			err := tx.Unscoped().Where("id = ?", id).Delete(&model.Permission{}).Error
-			if err != nil {
+			if err := tx.Unscoped().Where("id = ?", id).Delete(&model.Permission{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}
-
+			// 删除关联表数据
+			if err := tx.Unscoped().Where("`permission` = ?", id).Delete(&model.UserPermission{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
+			if err := tx.Unscoped().Where("`permission` = ?", id).Delete(&model.RoutePermission{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
 		}
 		return nil
 	})
