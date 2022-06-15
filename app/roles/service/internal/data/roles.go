@@ -60,7 +60,7 @@ func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
 	})
 }
 
-func (r *UserRepo) RoleEdit(ctx context.Context, id, creator int32, name, code string) error {
+func (r *UserRepo) RoleEdit(ctx context.Context, id int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var role model.Role
 		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where("id = ?", id).First(&role).Error

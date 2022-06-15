@@ -32,7 +32,7 @@ func (r *RolesService) PermissionDelete(ctx context.Context, req *v1.PermissionD
 		return &v1.PermissionDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.PermissionDelete(ctx, req)
+	return r.uc.PermissionDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest) (*v1.PermissionEditResponse, error) {
@@ -40,5 +40,5 @@ func (r *RolesService) PermissionEdit(ctx context.Context, req *v1.PermissionEdi
 		return &v1.PermissionEditResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.PermissionEdit(ctx, req)
+	return r.uc.PermissionEdit(ctx, req, r.GetUserID(ctx))
 }

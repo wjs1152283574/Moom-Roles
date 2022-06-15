@@ -4,9 +4,15 @@ import (
 	"context"
 
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
+	"github.com/it-moom/moom-roles/pkg/errors"
 )
 
 func (r *RolesUseCase) PermissionCreate(ctx context.Context, req *v1.PermissionCreateRequest, uid int64) (*v1.PermissionCreateResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.PermissionCreate(ctx, int32(uid), req.Name, req.Code); err != nil {
 		return &v1.PermissionCreateResponse{}, err
 	}
@@ -39,7 +45,12 @@ func (r *RolesUseCase) PermissionList(ctx context.Context, req *v1.PermissionLis
 	}, nil
 }
 
-func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionDeleteRequest) (*v1.PermissionDeleteResponse, error) {
+func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionDeleteRequest, uid int64) (*v1.PermissionDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.PermissionDelete(ctx, req.Id)
 	if err != nil {
 		return &v1.PermissionDeleteResponse{}, err
@@ -48,7 +59,12 @@ func (r *RolesUseCase) PermissionDelete(ctx context.Context, req *v1.PermissionD
 	return &v1.PermissionDeleteResponse{}, nil
 }
 
-func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest) (*v1.PermissionEditResponse, error) {
+func (r *RolesUseCase) PermissionEdit(ctx context.Context, req *v1.PermissionEditRequest, uid int64) (*v1.PermissionEditResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.PermissionEdit(ctx, req.Id, req.Name, req.Code)
 	if err != nil {
 		return &v1.PermissionEditResponse{}, err

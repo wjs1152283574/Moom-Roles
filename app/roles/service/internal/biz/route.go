@@ -4,9 +4,15 @@ import (
 	"context"
 
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
+	"github.com/it-moom/moom-roles/pkg/errors"
 )
 
 func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateRequest, uid int64) (*v1.RouteCreateResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RouteCreate(ctx, int32(uid), req.Method, req.Url)
 	if err != nil {
 		return &v1.RouteCreateResponse{}, err
@@ -39,7 +45,12 @@ func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) 
 	}, nil
 }
 
-func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) (*v1.RouteEditResponse, error) {
+func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest, uid int64) (*v1.RouteEditResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RouteEdit(ctx, req.Id, req.Method, req.Url)
 	if err != nil {
 		return &v1.RouteEditResponse{}, err
@@ -48,7 +59,12 @@ func (r *RolesUseCase) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) 
 	return &v1.RouteEditResponse{}, nil
 }
 
-func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
+func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest, uid int64) (*v1.RouteDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RouteDelete(ctx, req.Id)
 	if err != nil {
 		return &v1.RouteDeleteResponse{}, err
@@ -58,6 +74,11 @@ func (r *RolesUseCase) RouteDelete(ctx context.Context, req *v1.RouteDeleteReque
 }
 
 func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, uid int64) (*v1.RouteRoleResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RouteRole(ctx, int32(uid), req.Route, req.Role)
 	if err != nil {
 		return &v1.RouteRoleResponse{}, err
@@ -66,7 +87,12 @@ func (r *RolesUseCase) RouteRole(ctx context.Context, req *v1.RouteRoleRequest, 
 	return &v1.RouteRoleResponse{}, nil
 }
 
-func (r *RolesUseCase) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDeleteRequest) (*v1.RouteRoleDeleteResponse, error) {
+func (r *RolesUseCase) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDeleteRequest, uid int64) (*v1.RouteRoleDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RouteRoleDelete(ctx, req.Id, req.Route)
 	if err != nil {
 		return &v1.RouteRoleDeleteResponse{}, err
@@ -76,6 +102,11 @@ func (r *RolesUseCase) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDel
 }
 
 func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest, uid int64) (*v1.RoutePermissionResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RoutePermission(ctx, int32(uid), req.Route, req.Permisson)
 	if err != nil {
 		return &v1.RoutePermissionResponse{}, err
@@ -84,7 +115,12 @@ func (r *RolesUseCase) RoutePermission(ctx context.Context, req *v1.RoutePermiss
 	return &v1.RoutePermissionResponse{}, nil
 }
 
-func (r *RolesUseCase) RoutePermissionDelete(ctx context.Context, req *v1.RoutePermissionDeleteRequest) (*v1.RoutePermissionDeleteResponse, error) {
+func (r *RolesUseCase) RoutePermissionDelete(ctx context.Context, req *v1.RoutePermissionDeleteRequest, uid int64) (*v1.RoutePermissionDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	err := r.repo.RoutePermissionDelete(ctx, req.Id, req.Permission)
 	if err != nil {
 		return &v1.RoutePermissionDeleteResponse{}, err

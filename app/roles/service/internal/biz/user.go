@@ -68,6 +68,10 @@ func (r *RolesUseCase) Login(ctx context.Context, req *v1.LoginRequest) (*v1.Log
 }
 
 func (r *RolesUseCase) CreateAdminUser(ctx context.Context, req *v1.CreateAdminUserRequest, uid int64) (*v1.CreateAdminUserResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
 	// 组装用户数据
 	var data []model.User
 	data = append(data, model.User{
@@ -153,7 +157,11 @@ func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.Admin
 	}, nil
 }
 
-func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditRequest) (*v1.AdminUserEditResponse, error) {
+func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditRequest, uid int64) (*v1.AdminUserEditResponse, error) {
+	// 权限认证 (非超级用户&&不是修改自己的信息)
+	if !r.repo.IsSuperUser(ctx, uid) && req.Uid != int32(uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
 	user, err := r.repo.UserBaseInfos(ctx, req.Uid)
 	if err != nil {
 		return &v1.AdminUserEditResponse{}, err
@@ -177,6 +185,11 @@ func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditR
 }
 
 func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, creator int64) (*v1.SetRolesResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, creator) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.SetRoles(ctx, req.Uid, int32(creator), req.Rid); err != nil {
 		return &v1.SetRolesResponse{}, err
 	}
@@ -184,7 +197,12 @@ func (r *RolesUseCase) SetRoles(ctx context.Context, req *v1.SetRolesRequest, cr
 	return &v1.SetRolesResponse{}, nil
 }
 
-func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDeleteRequest) (*v1.SetRolesDeleteResponse, error) {
+func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDeleteRequest, creator int64) (*v1.SetRolesDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, creator) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.SetRolesDelete(ctx, req.Id, req.Role); err != nil {
 		return &v1.SetRolesDeleteResponse{}, err
 	}
@@ -193,6 +211,11 @@ func (r *RolesUseCase) SetRolesDelete(ctx context.Context, req *v1.SetRolesDelet
 }
 
 func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionRequest, creator int64) (*v1.SetPermissionResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, creator) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.SetRoles(ctx, req.Uid, int32(creator), req.Pid); err != nil {
 		return &v1.SetPermissionResponse{}, err
 	}
@@ -200,7 +223,12 @@ func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionR
 	return &v1.SetPermissionResponse{}, nil
 }
 
-func (r *RolesUseCase) SetPermissionDelete(ctx context.Context, req *v1.SetPermissionDeleteRequest) (*v1.SetPermissionDeleteResponse, error) {
+func (r *RolesUseCase) SetPermissionDelete(ctx context.Context, req *v1.SetPermissionDeleteRequest, uid int64) (*v1.SetPermissionDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.SetPermissionDelete(ctx, req.Id, req.Permission); err != nil {
 		return &v1.SetPermissionDeleteResponse{}, err
 	}
@@ -208,7 +236,12 @@ func (r *RolesUseCase) SetPermissionDelete(ctx context.Context, req *v1.SetPermi
 	return &v1.SetPermissionDeleteResponse{}, nil
 }
 
-func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {
+func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest, uid int64) (*v1.AdminUserDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.UserDelete(ctx, req.Id); err != nil {
 		return &v1.AdminUserDeleteResponse{}, err
 	}

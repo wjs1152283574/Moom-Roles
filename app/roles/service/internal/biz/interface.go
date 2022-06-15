@@ -53,7 +53,7 @@ type Role interface {
 	// 删除角色
 	RoleDelete(ctx context.Context, id []int32) error
 	// 编辑角色
-	RoleEdit(ctx context.Context, id, creator int32, name, code string) error
+	RoleEdit(ctx context.Context, id int32, name, code string) error
 }
 
 type Permission interface {

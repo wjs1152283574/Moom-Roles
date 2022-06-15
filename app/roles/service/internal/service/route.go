@@ -32,7 +32,7 @@ func (r *RolesService) RouteEdit(ctx context.Context, req *v1.RouteEditRequest) 
 		return &v1.RouteEditResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.RouteEdit(ctx, req)
+	return r.uc.RouteEdit(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteRequest) (*v1.RouteDeleteResponse, error) {
@@ -40,7 +40,7 @@ func (r *RolesService) RouteDelete(ctx context.Context, req *v1.RouteDeleteReque
 		return &v1.RouteDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.RouteDelete(ctx, req)
+	return r.uc.RouteDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RouteRole(ctx context.Context, req *v1.RouteRoleRequest) (*v1.RouteRoleResponse, error) {
@@ -56,7 +56,7 @@ func (r *RolesService) RouteRoleDelete(ctx context.Context, req *v1.RouteRoleDel
 		return &v1.RouteRoleDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.RouteRoleDelete(ctx, req)
+	return r.uc.RouteRoleDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RoutePermission(ctx context.Context, req *v1.RoutePermissionRequest) (*v1.RoutePermissionResponse, error) {
@@ -72,7 +72,7 @@ func (r *RolesService) RoutePermissionDelete(ctx context.Context, req *v1.RouteP
 		return &v1.RoutePermissionDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.RoutePermissionDelete(ctx, req)
+	return r.uc.RoutePermissionDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) RouteDetails(ctx context.Context, req *v1.RouteDetailsRequest) (*v1.RouteDetailsResponse, error) {

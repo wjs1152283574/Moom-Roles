@@ -77,7 +77,7 @@ func (r *RolesService) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditR
 		return &v1.AdminUserEditResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.AdminUserEdit(ctx, req)
+	return r.uc.AdminUserEdit(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) SetRoles(ctx context.Context, req *v1.SetRolesRequest) (*v1.SetRolesResponse, error) {
@@ -101,7 +101,7 @@ func (r *RolesService) SetRolesDelete(ctx context.Context, req *v1.SetRolesDelet
 		return &v1.SetRolesDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.SetRolesDelete(ctx, req)
+	return r.uc.SetRolesDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) SetPermission(ctx context.Context, req *v1.SetPermissionRequest) (*v1.SetPermissionResponse, error) {
@@ -125,7 +125,7 @@ func (r *RolesService) SetPermissionDelete(ctx context.Context, req *v1.SetPermi
 		return &v1.SetPermissionDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.SetPermissionDelete(ctx, req)
+	return r.uc.SetPermissionDelete(ctx, req, r.GetUserID(ctx))
 }
 
 func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {
@@ -133,5 +133,5 @@ func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 		return &v1.AdminUserDeleteResponse{}, errors.ErrInvalidParams()
 	}
 
-	return r.uc.AdminUserDelete(ctx, req)
+	return r.uc.AdminUserDelete(ctx, req, r.GetUserID(ctx))
 }

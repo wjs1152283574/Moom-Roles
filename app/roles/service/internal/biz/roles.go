@@ -4,9 +4,15 @@ import (
 	"context"
 
 	v1 "github.com/it-moom/moom-roles/api/roles/service/v1"
+	"github.com/it-moom/moom-roles/pkg/errors"
 )
 
 func (r *RolesUseCase) RoleCreate(ctx context.Context, req *v1.RoleCreateRequest, creator int64) (*v1.RoleCreateResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, creator) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.RoleCreate(ctx, int32(creator), req.Name, req.Code); err != nil {
 		return &v1.RoleCreateResponse{}, err
 	}
@@ -40,6 +46,11 @@ func (r *RolesUseCase) RoleList(ctx context.Context, req *v1.RoleListRequest) (*
 }
 
 func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest, uid int64) (*v1.RoleDeleteResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
 	if err := r.repo.RoleDelete(ctx, req.Id); err != nil {
 		return &v1.RoleDeleteResponse{}, err
 	}
@@ -48,7 +59,12 @@ func (r *RolesUseCase) RoleDelete(ctx context.Context, req *v1.RoleDeleteRequest
 }
 
 func (r *RolesUseCase) RoleEdit(ctx context.Context, req *v1.RoleEditRequest, uid int64) (*v1.RoleEditResponse, error) {
-	if err := r.repo.RoleEdit(ctx, req.Id, int32(uid), req.Name, req.Code); err != nil {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+
+	if err := r.repo.RoleEdit(ctx, req.Id, req.Name, req.Code); err != nil {
 		return &v1.RoleEditResponse{}, err
 	}
 
