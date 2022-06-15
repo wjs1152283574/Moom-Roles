@@ -34,7 +34,7 @@ type User interface {
 	// 获取用户权限列表
 	UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error)
 	// 删除用户
-	UserDelete(ctx context.Context, uid int32) error
+	UserDelete(ctx context.Context, uid []int32) error
 	// 验证是否超级用户
 	IsSuperUser(ctx context.Context, uid int64) (result bool)
 	// 设置用户角色

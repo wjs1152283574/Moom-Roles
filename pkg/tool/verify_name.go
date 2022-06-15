@@ -3,7 +3,7 @@ package tool
 import "regexp"
 
 func VerifyNameFormat(pass string) (res bool) {
-	if len(pass) <= 1 || len(pass) > 10 { // 长度 1 - 10
+	if len(pass) <= 1 || len(pass) > 18 { // 长度 1 - 18
 		return false
 	}
 	// 包含特殊字符

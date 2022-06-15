@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
@@ -47,7 +48,8 @@ func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit
 	tx := r.data.db.Table(model.UserTableName)
 
 	if name != "" {
-		tx.Where("name = ?", name)
+		keys := fmt.Sprintf("%%%s%%", name)
+		tx.Where("name like ?", keys)
 	}
 
 	if cname != "" {
@@ -120,22 +122,24 @@ func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 	return nil
 }
 
-func (r *UserRepo) UserDelete(ctx context.Context, uid int32) error {
+func (r *UserRepo) UserDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
-		var user model.User
-		user.ID = uint(uid)
-		tx.First(&user)
-		err := tx.Unscoped().Where("id = ?", uid).Delete(&user).Error
-		if err != nil {
-			return errors.ErrSystemBusy(err)
-		}
+		for _, id := range ids {
+			var user model.User
+			user.ID = uint(id)
+			tx.First(&user)
+			err := tx.Unscoped().Where("id = ?", id).Delete(&user).Error
+			if err != nil {
+				return errors.ErrSystemBusy(err)
+			}
 
-		// 同时清空关联表数据
-		if err := tx.Unscoped().Where("user = ?", uid).Delete(&model.UserRole{}).Error; err != nil {
-			return errors.ErrSystemBusy(err)
-		}
-		if err := tx.Unscoped().Where("user = ?", uid).Delete(&model.UserPermission{}).Error; err != nil {
-			return errors.ErrSystemBusy(err)
+			// 同时清空关联表数据
+			if err := tx.Unscoped().Where("user = ?", id).Delete(&model.UserRole{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
+			if err := tx.Unscoped().Where("user = ?", id).Delete(&model.UserPermission{}).Error; err != nil {
+				return errors.ErrSystemBusy(err)
+			}
 		}
 
 		return nil
@@ -166,7 +170,7 @@ func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int32, permissio
 				return errors.ErrPermissionNotExit(err)
 			}
 
-			if err := tx.Unscoped().Where("user = ? and permisson = ?", uid, v).Delete(&model.UserPermission{}).Error; err != nil {
+			if err := tx.Unscoped().Where("user = ? and permission = ?", uid, v).Delete(&model.UserPermission{}).Error; err != nil {
 				return errors.ErrSystemBusy(err)
 			}
 		}
@@ -179,7 +183,7 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range rid {
 			var r model.Role
-			if err := tx.Model(&model.Role{}).Where("id = ?", v).First(&r); err != nil {
+			if err := tx.Model(&model.Role{}).Where("id = ?", v).First(&r).Error; err != nil {
 				return errors.ErrRoleNotExit(err)
 			}
 
@@ -201,7 +205,7 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid [
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range pid {
 			var r model.Permission
-			if err := tx.Model(&model.Permission{}).Where("id = ?", v).First(&r); err != nil {
+			if err := tx.Model(&model.Permission{}).Where("id = ?", v).First(&r).Error; err != nil {
 				return errors.ErrPermissionNotExit(err)
 			}
 

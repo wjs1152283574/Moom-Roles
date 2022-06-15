@@ -64,7 +64,7 @@ func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r.POST("/user/unroles", _Roles_SetRolesDelete0_HTTP_Handler(srv))
 	r.POST("/user/permissions", _Roles_SetPermission0_HTTP_Handler(srv))
 	r.POST("/user/unpermissions", _Roles_SetPermissionDelete0_HTTP_Handler(srv))
-	r.DELETE("/user/delete", _Roles_AdminUserDelete0_HTTP_Handler(srv))
+	r.POST("/user/delete", _Roles_AdminUserDelete0_HTTP_Handler(srv))
 	r.POST("/user/lock", _Roles_AdminUserLock0_HTTP_Handler(srv))
 	r.POST("/user/unlock", _Roles_AdminUserUnLock0_HTTP_Handler(srv))
 	r.POST("/role/create", _Roles_RoleCreate0_HTTP_Handler(srv))
@@ -298,7 +298,7 @@ func _Roles_SetPermissionDelete0_HTTP_Handler(srv RolesHTTPServer) func(ctx http
 func _Roles_AdminUserDelete0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in AdminUserDeleteRequest
-		if err := ctx.BindQuery(&in); err != nil {
+		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, "/api.roles.service.v1.Roles/AdminUserDelete")
@@ -720,10 +720,10 @@ func NewRolesHTTPClient(client *http.Client) RolesHTTPClient {
 func (c *RolesHTTPClientImpl) AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...http.CallOption) (*AdminUserDeleteResponse, error) {
 	var out AdminUserDeleteResponse
 	pattern := "/user/delete"
-	path := binding.EncodeURL(pattern, in, true)
+	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserDelete"))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

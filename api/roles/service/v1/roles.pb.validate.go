@@ -4861,8 +4861,6 @@ func (m *AdminUserDeleteRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
-
 	if len(errors) > 0 {
 		return AdminUserDeleteRequestMultiError(errors)
 	}

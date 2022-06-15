@@ -129,7 +129,7 @@ func (r *RolesService) SetPermissionDelete(ctx context.Context, req *v1.SetPermi
 }
 
 func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDeleteRequest) (*v1.AdminUserDeleteResponse, error) {
-	if req.Id <= 0 {
+	if len(req.Id) <= 0 {
 		return &v1.AdminUserDeleteResponse{}, errors.ErrInvalidParams()
 	}
 

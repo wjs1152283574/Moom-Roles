@@ -690,7 +690,7 @@
       }
     },
     "/user/delete": {
-      "delete": {
+      "post": {
         "summary": "用户-删除后台用户",
         "operationId": "Roles_AdminUserDelete",
         "responses": {
@@ -709,12 +709,12 @@
         },
         "parameters": [
           {
-            "name": "id",
-            "description": "用户ID.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserDeleteRequest"
+            }
           }
         ],
         "tags": [
@@ -1234,6 +1234,19 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "v1AdminUserDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": "用户ID"
         }
       }
     },

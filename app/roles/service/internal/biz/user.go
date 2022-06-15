@@ -163,8 +163,8 @@ func (r *RolesUseCase) AdminUserInfos(ctx context.Context, uid int64) (*v1.Admin
 
 func (r *RolesUseCase) AdminUserEdit(ctx context.Context, req *v1.AdminUserEditRequest, uid int64) (*v1.AdminUserEditResponse, error) {
 	// 权限认证 (非超级用户&&不是修改自己的信息)
-	if !r.repo.IsSuperUser(ctx, uid) && req.Uid != int32(uid) {
-		errors.ErrPermissionDeni("only for super user")
+	if req.Uid != int32(uid) && !r.repo.IsSuperUser(ctx, uid) {
+		return &v1.AdminUserEditResponse{}, errors.ErrPermissionDeni("only for super user")
 	}
 	user, err := r.repo.UserBaseInfos(ctx, req.Uid)
 	if err != nil {
@@ -220,7 +220,7 @@ func (r *RolesUseCase) SetPermission(ctx context.Context, req *v1.SetPermissionR
 		errors.ErrPermissionDeni("only for super user")
 	}
 
-	if err := r.repo.SetRoles(ctx, req.Uid, int32(creator), req.Pid); err != nil {
+	if err := r.repo.SetPermissions(ctx, req.Uid, int32(creator), req.Pid); err != nil {
 		return &v1.SetPermissionResponse{}, err
 	}
 

@@ -91,7 +91,8 @@ service Roles {
     // 用户-删除后台用户
     rpc AdminUserDelete (AdminUserDeleteRequest) returns (AdminUserDeleteResponse){
         option (google.api.http) = {
-            delete: "/user/delete"
+            post: "/user/delete",
+            body: "*"
         };
     };
     // 用户-锁定后台用户
@@ -541,7 +542,7 @@ message AdminUserEditResponse {
 
 message AdminUserDeleteRequest {
     // 用户ID
-    int32 id = 1;
+    repeated int32 id = 1;
 }
 message AdminUserDeleteResponse {
 
