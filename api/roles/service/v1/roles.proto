@@ -94,6 +94,20 @@ service Roles {
             delete: "/user/delete"
         };
     };
+    // 用户-锁定后台用户
+    rpc AdminUserLock (AdminUserLockRequest) returns (AdminUserLockResponse){
+        option (google.api.http) = {
+            post: "/user/lock",
+            body: "*"
+        };
+    };
+    // 用户-解锁后台用户
+    rpc AdminUserUnLock (AdminUserUnLockRequest) returns (AdminUserUnLockResponse){
+        option (google.api.http) = {
+            post: "/user/unlock",
+            body: "*"
+        };
+    };
     // 角色-创建角色
     rpc RoleCreate (RoleCreateRequest) returns (RoleCreateResponse){
         option (google.api.http) = {
@@ -229,6 +243,18 @@ service Roles {
     // 验证路由可访问权限--id
     rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse);
 }
+
+message AdminUserUnLockRequest {
+    // 管理员ID
+    int32 id = 1;
+}
+message AdminUserUnLockResponse {}
+
+message AdminUserLockRequest {
+    // 管理员ID
+    int32 id = 1;
+}
+message AdminUserLockResponse {}
 
 message RouteDetailsRequest {
     // 路由ID 

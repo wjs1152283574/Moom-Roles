@@ -252,3 +252,37 @@ func (r *RolesUseCase) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 
 	return &v1.AdminUserDeleteResponse{}, nil
 }
+
+func (r *RolesUseCase) AdminUserLock(ctx context.Context, req *v1.AdminUserLockRequest, uid int64) (*v1.AdminUserLockResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+	_, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.AdminUserLockResponse{}, err
+	}
+
+	if err := r.repo.UpdateUserStatus(ctx, int64(req.Id), 2); err != nil {
+		return &v1.AdminUserLockResponse{}, err
+	}
+
+	return &v1.AdminUserLockResponse{}, nil
+}
+
+func (r *RolesUseCase) AdminUserUnLock(ctx context.Context, req *v1.AdminUserUnLockRequest, uid int64) (*v1.AdminUserUnLockResponse, error) {
+	// 权限认证
+	if !r.repo.IsSuperUser(ctx, uid) {
+		errors.ErrPermissionDeni("only for super user")
+	}
+	_, err := r.repo.CheckUserByID(ctx, int64(req.Id))
+	if err != nil {
+		return &v1.AdminUserUnLockResponse{}, err
+	}
+
+	if err := r.repo.UpdateUserStatus(ctx, int64(req.Id), 1); err != nil {
+		return &v1.AdminUserUnLockResponse{}, err
+	}
+
+	return &v1.AdminUserUnLockResponse{}, nil
+}

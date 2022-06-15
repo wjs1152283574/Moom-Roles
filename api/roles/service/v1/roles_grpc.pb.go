@@ -46,6 +46,10 @@ type RolesClient interface {
 	SetPermissionDelete(ctx context.Context, in *SetPermissionDeleteRequest, opts ...grpc.CallOption) (*SetPermissionDeleteResponse, error)
 	// 用户-删除后台用户
 	AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...grpc.CallOption) (*AdminUserDeleteResponse, error)
+	// 用户-锁定后台用户
+	AdminUserLock(ctx context.Context, in *AdminUserLockRequest, opts ...grpc.CallOption) (*AdminUserLockResponse, error)
+	// 用户-解锁后台用户
+	AdminUserUnLock(ctx context.Context, in *AdminUserUnLockRequest, opts ...grpc.CallOption) (*AdminUserUnLockResponse, error)
 	// 角色-创建角色
 	RoleCreate(ctx context.Context, in *RoleCreateRequest, opts ...grpc.CallOption) (*RoleCreateResponse, error)
 	// 角色-角色列表
@@ -204,6 +208,24 @@ func (c *rolesClient) SetPermissionDelete(ctx context.Context, in *SetPermission
 func (c *rolesClient) AdminUserDelete(ctx context.Context, in *AdminUserDeleteRequest, opts ...grpc.CallOption) (*AdminUserDeleteResponse, error) {
 	out := new(AdminUserDeleteResponse)
 	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/AdminUserDelete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) AdminUserLock(ctx context.Context, in *AdminUserLockRequest, opts ...grpc.CallOption) (*AdminUserLockResponse, error) {
+	out := new(AdminUserLockResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/AdminUserLock", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesClient) AdminUserUnLock(ctx context.Context, in *AdminUserUnLockRequest, opts ...grpc.CallOption) (*AdminUserUnLockResponse, error) {
+	out := new(AdminUserUnLockResponse)
+	err := c.cc.Invoke(ctx, "/api.roles.service.v1.Roles/AdminUserUnLock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -445,6 +467,10 @@ type RolesServer interface {
 	SetPermissionDelete(context.Context, *SetPermissionDeleteRequest) (*SetPermissionDeleteResponse, error)
 	// 用户-删除后台用户
 	AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error)
+	// 用户-锁定后台用户
+	AdminUserLock(context.Context, *AdminUserLockRequest) (*AdminUserLockResponse, error)
+	// 用户-解锁后台用户
+	AdminUserUnLock(context.Context, *AdminUserUnLockRequest) (*AdminUserUnLockResponse, error)
 	// 角色-创建角色
 	RoleCreate(context.Context, *RoleCreateRequest) (*RoleCreateResponse, error)
 	// 角色-角色列表
@@ -533,6 +559,12 @@ func (UnimplementedRolesServer) SetPermissionDelete(context.Context, *SetPermiss
 }
 func (UnimplementedRolesServer) AdminUserDelete(context.Context, *AdminUserDeleteRequest) (*AdminUserDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUserDelete not implemented")
+}
+func (UnimplementedRolesServer) AdminUserLock(context.Context, *AdminUserLockRequest) (*AdminUserLockResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminUserLock not implemented")
+}
+func (UnimplementedRolesServer) AdminUserUnLock(context.Context, *AdminUserUnLockRequest) (*AdminUserUnLockResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminUserUnLock not implemented")
 }
 func (UnimplementedRolesServer) RoleCreate(context.Context, *RoleCreateRequest) (*RoleCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RoleCreate not implemented")
@@ -828,6 +860,42 @@ func _Roles_AdminUserDelete_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RolesServer).AdminUserDelete(ctx, req.(*AdminUserDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_AdminUserLock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminUserLockRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).AdminUserLock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/AdminUserLock",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).AdminUserLock(ctx, req.(*AdminUserLockRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Roles_AdminUserUnLock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminUserUnLockRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesServer).AdminUserUnLock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.roles.service.v1.Roles/AdminUserUnLock",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesServer).AdminUserUnLock(ctx, req.(*AdminUserUnLockRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1300,6 +1368,14 @@ var Roles_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AdminUserDelete",
 			Handler:    _Roles_AdminUserDelete_Handler,
+		},
+		{
+			MethodName: "AdminUserLock",
+			Handler:    _Roles_AdminUserLock_Handler,
+		},
+		{
+			MethodName: "AdminUserUnLock",
+			Handler:    _Roles_AdminUserUnLock_Handler,
 		},
 		{
 			MethodName: "RoleCreate",

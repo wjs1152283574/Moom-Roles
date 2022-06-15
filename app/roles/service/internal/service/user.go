@@ -135,3 +135,19 @@ func (r *RolesService) AdminUserDelete(ctx context.Context, req *v1.AdminUserDel
 
 	return r.uc.AdminUserDelete(ctx, req, r.GetUserID(ctx))
 }
+
+func (r *RolesService) AdminUserLock(ctx context.Context, req *v1.AdminUserLockRequest) (*v1.AdminUserLockResponse, error) {
+	if req.Id <= 0 {
+		return &v1.AdminUserLockResponse{}, errors.ErrInvalidUID()
+	}
+
+	return r.uc.AdminUserLock(ctx, req, r.GetUserID(ctx))
+}
+
+func (r *RolesService) AdminUserUnLock(ctx context.Context, req *v1.AdminUserUnLockRequest) (*v1.AdminUserUnLockResponse, error) {
+	if req.Id <= 0 {
+		return &v1.AdminUserUnLockResponse{}, errors.ErrInvalidUID()
+	}
+
+	return r.uc.AdminUserUnLock(ctx, req, r.GetUserID(ctx))
+}

@@ -7,6 +7,7 @@ import (
 	"github.com/it-moom/moom-roles/app/roles/service/internal/model"
 	"github.com/it-moom/moom-roles/pkg/errors"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 func (r *UserRepo) CreateUser(ctx context.Context, data []model.User) error {
@@ -221,4 +222,24 @@ func (r *UserRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
 	}
 
 	return
+}
+
+// 更新用户状态:1-正常 2-冻结
+func (r *UserRepo) UpdateUserStatus(ctx context.Context, uid, status int64) error {
+	return r.data.db.Transaction(func(tx *gorm.DB) error {
+		var user model.User
+		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where("id = ?", uid).First(&user).Error
+		if err != nil {
+			return errors.ErrSystemBusy(err)
+		}
+
+		user.Status = status
+
+		err = tx.Updates(&user).Error
+		if err != nil {
+			return errors.ErrSystemBusy(err)
+		}
+
+		return nil
+	})
 }

@@ -45,6 +45,8 @@ type User interface {
 	SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error
 	// 设置用户权限--解除
 	SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error
+	// 更新用户状态
+	UpdateUserStatus(ctx context.Context, uid, status int64) error
 }
 
 type Role interface {

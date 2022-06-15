@@ -22,6 +22,8 @@ type RolesHTTPServer interface {
 	AdminUserEdit(context.Context, *AdminUserEditRequest) (*AdminUserEditResponse, error)
 	AdminUserInfos(context.Context, *AdminUserInfosRequest) (*AdminUserInfosResponse, error)
 	AdminUserList(context.Context, *AdminUserListRequest) (*AdminUserListResponse, error)
+	AdminUserLock(context.Context, *AdminUserLockRequest) (*AdminUserLockResponse, error)
+	AdminUserUnLock(context.Context, *AdminUserUnLockRequest) (*AdminUserUnLockResponse, error)
 	CreateAdminUser(context.Context, *CreateAdminUserRequest) (*CreateAdminUserResponse, error)
 	CreateSuperUser(context.Context, *CreateSuperUserRequest) (*CreateSuperUserResponse, error)
 	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaResponse, error)
@@ -63,6 +65,8 @@ func RegisterRolesHTTPServer(s *http.Server, srv RolesHTTPServer) {
 	r.POST("/user/permissions", _Roles_SetPermission0_HTTP_Handler(srv))
 	r.POST("/user/unpermissions", _Roles_SetPermissionDelete0_HTTP_Handler(srv))
 	r.DELETE("/user/delete", _Roles_AdminUserDelete0_HTTP_Handler(srv))
+	r.POST("/user/lock", _Roles_AdminUserLock0_HTTP_Handler(srv))
+	r.POST("/user/unlock", _Roles_AdminUserUnLock0_HTTP_Handler(srv))
 	r.POST("/role/create", _Roles_RoleCreate0_HTTP_Handler(srv))
 	r.POST("/role/list", _Roles_RoleList0_HTTP_Handler(srv))
 	r.POST("/role/delete", _Roles_RoleDelete0_HTTP_Handler(srv))
@@ -306,6 +310,44 @@ func _Roles_AdminUserDelete0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Con
 			return err
 		}
 		reply := out.(*AdminUserDeleteResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Roles_AdminUserLock0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in AdminUserLockRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.roles.service.v1.Roles/AdminUserLock")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.AdminUserLock(ctx, req.(*AdminUserLockRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*AdminUserLockResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Roles_AdminUserUnLock0_HTTP_Handler(srv RolesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in AdminUserUnLockRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.roles.service.v1.Roles/AdminUserUnLock")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.AdminUserUnLock(ctx, req.(*AdminUserUnLockRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*AdminUserUnLockResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -638,6 +680,8 @@ type RolesHTTPClient interface {
 	AdminUserEdit(ctx context.Context, req *AdminUserEditRequest, opts ...http.CallOption) (rsp *AdminUserEditResponse, err error)
 	AdminUserInfos(ctx context.Context, req *AdminUserInfosRequest, opts ...http.CallOption) (rsp *AdminUserInfosResponse, err error)
 	AdminUserList(ctx context.Context, req *AdminUserListRequest, opts ...http.CallOption) (rsp *AdminUserListResponse, err error)
+	AdminUserLock(ctx context.Context, req *AdminUserLockRequest, opts ...http.CallOption) (rsp *AdminUserLockResponse, err error)
+	AdminUserUnLock(ctx context.Context, req *AdminUserUnLockRequest, opts ...http.CallOption) (rsp *AdminUserUnLockResponse, err error)
 	CreateAdminUser(ctx context.Context, req *CreateAdminUserRequest, opts ...http.CallOption) (rsp *CreateAdminUserResponse, err error)
 	CreateSuperUser(ctx context.Context, req *CreateSuperUserRequest, opts ...http.CallOption) (rsp *CreateSuperUserResponse, err error)
 	GetCaptcha(ctx context.Context, req *GetCaptchaRequest, opts ...http.CallOption) (rsp *GetCaptchaResponse, err error)
@@ -717,6 +761,32 @@ func (c *RolesHTTPClientImpl) AdminUserList(ctx context.Context, in *AdminUserLi
 	pattern := "/user/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserList"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *RolesHTTPClientImpl) AdminUserLock(ctx context.Context, in *AdminUserLockRequest, opts ...http.CallOption) (*AdminUserLockResponse, error) {
+	var out AdminUserLockResponse
+	pattern := "/user/lock"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserLock"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *RolesHTTPClientImpl) AdminUserUnLock(ctx context.Context, in *AdminUserUnLockRequest, opts ...http.CallOption) (*AdminUserUnLockResponse, error) {
+	var out AdminUserUnLockResponse
+	pattern := "/user/unlock"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.roles.service.v1.Roles/AdminUserUnLock"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

@@ -35,6 +35,418 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on AdminUserUnLockRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AdminUserUnLockRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AdminUserUnLockRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AdminUserUnLockRequestMultiError, or nil if none found.
+func (m *AdminUserUnLockRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AdminUserUnLockRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return AdminUserUnLockRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdminUserUnLockRequestMultiError is an error wrapping multiple validation
+// errors returned by AdminUserUnLockRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AdminUserUnLockRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdminUserUnLockRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdminUserUnLockRequestMultiError) AllErrors() []error { return m }
+
+// AdminUserUnLockRequestValidationError is the validation error returned by
+// AdminUserUnLockRequest.Validate if the designated constraints aren't met.
+type AdminUserUnLockRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdminUserUnLockRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdminUserUnLockRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdminUserUnLockRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdminUserUnLockRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdminUserUnLockRequestValidationError) ErrorName() string {
+	return "AdminUserUnLockRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AdminUserUnLockRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdminUserUnLockRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdminUserUnLockRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdminUserUnLockRequestValidationError{}
+
+// Validate checks the field values on AdminUserUnLockResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AdminUserUnLockResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AdminUserUnLockResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AdminUserUnLockResponseMultiError, or nil if none found.
+func (m *AdminUserUnLockResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AdminUserUnLockResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return AdminUserUnLockResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdminUserUnLockResponseMultiError is an error wrapping multiple validation
+// errors returned by AdminUserUnLockResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AdminUserUnLockResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdminUserUnLockResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdminUserUnLockResponseMultiError) AllErrors() []error { return m }
+
+// AdminUserUnLockResponseValidationError is the validation error returned by
+// AdminUserUnLockResponse.Validate if the designated constraints aren't met.
+type AdminUserUnLockResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdminUserUnLockResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdminUserUnLockResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdminUserUnLockResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdminUserUnLockResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdminUserUnLockResponseValidationError) ErrorName() string {
+	return "AdminUserUnLockResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AdminUserUnLockResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdminUserUnLockResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdminUserUnLockResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdminUserUnLockResponseValidationError{}
+
+// Validate checks the field values on AdminUserLockRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AdminUserLockRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AdminUserLockRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AdminUserLockRequestMultiError, or nil if none found.
+func (m *AdminUserLockRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AdminUserLockRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return AdminUserLockRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdminUserLockRequestMultiError is an error wrapping multiple validation
+// errors returned by AdminUserLockRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AdminUserLockRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdminUserLockRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdminUserLockRequestMultiError) AllErrors() []error { return m }
+
+// AdminUserLockRequestValidationError is the validation error returned by
+// AdminUserLockRequest.Validate if the designated constraints aren't met.
+type AdminUserLockRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdminUserLockRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdminUserLockRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdminUserLockRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdminUserLockRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdminUserLockRequestValidationError) ErrorName() string {
+	return "AdminUserLockRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AdminUserLockRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdminUserLockRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdminUserLockRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdminUserLockRequestValidationError{}
+
+// Validate checks the field values on AdminUserLockResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AdminUserLockResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AdminUserLockResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AdminUserLockResponseMultiError, or nil if none found.
+func (m *AdminUserLockResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AdminUserLockResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return AdminUserLockResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdminUserLockResponseMultiError is an error wrapping multiple validation
+// errors returned by AdminUserLockResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AdminUserLockResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdminUserLockResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdminUserLockResponseMultiError) AllErrors() []error { return m }
+
+// AdminUserLockResponseValidationError is the validation error returned by
+// AdminUserLockResponse.Validate if the designated constraints aren't met.
+type AdminUserLockResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdminUserLockResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdminUserLockResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdminUserLockResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdminUserLockResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdminUserLockResponseValidationError) ErrorName() string {
+	return "AdminUserLockResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AdminUserLockResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdminUserLockResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdminUserLockResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdminUserLockResponseValidationError{}
+
 // Validate checks the field values on RouteDetailsRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

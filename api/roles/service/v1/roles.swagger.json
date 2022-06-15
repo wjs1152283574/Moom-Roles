@@ -788,6 +788,39 @@
         ]
       }
     },
+    "/user/lock": {
+      "post": {
+        "summary": "用户-锁定后台用户",
+        "operationId": "Roles_AdminUserLock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserLockResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserLockRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
     "/user/permissions": {
       "post": {
         "summary": "用户-用户分配权限",
@@ -846,6 +879,39 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1SetRolesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Roles"
+        ]
+      }
+    },
+    "/user/unlock": {
+      "post": {
+        "summary": "用户-解锁后台用户",
+        "operationId": "Roles_AdminUserUnLock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserUnLockResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUserUnLockRequest"
             }
           }
         ],
@@ -1289,6 +1355,32 @@
           "title": "列表"
         }
       }
+    },
+    "v1AdminUserLockRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "管理员ID"
+        }
+      }
+    },
+    "v1AdminUserLockResponse": {
+      "type": "object"
+    },
+    "v1AdminUserUnLockRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "管理员ID"
+        }
+      }
+    },
+    "v1AdminUserUnLockResponse": {
+      "type": "object"
     },
     "v1CheckPermissionResponse": {
       "type": "object",
