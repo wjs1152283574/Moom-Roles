@@ -229,7 +229,7 @@ func (r *UserRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
 		return
 	}
 
-	if user.Type == 2 {
+	if user.Type == 2 && user.Status == 1 {
 		return true
 	}
 
