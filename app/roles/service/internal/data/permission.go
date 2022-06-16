@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func (r *UserRepo) PermissionCreate(ctx context.Context, creator int32, name, code string) error {
+func (r *roleRepo) PermissionCreate(ctx context.Context, creator int32, name, code string) error {
 	var per model.Permission
 	per.Code = code
 	per.Name = name
@@ -23,7 +23,7 @@ func (r *UserRepo) PermissionCreate(ctx context.Context, creator int32, name, co
 	return nil
 }
 
-func (r *UserRepo) PermissionList(ctx context.Context, page, limit int32, name, code string) ([]model.Permission, int64, error) {
+func (r *roleRepo) PermissionList(ctx context.Context, page, limit int32, name, code string) ([]model.Permission, int64, error) {
 	var pers []model.Permission
 	var total int64
 	tx := r.data.db.Table(model.PermissionTableName)
@@ -49,7 +49,7 @@ func (r *UserRepo) PermissionList(ctx context.Context, page, limit int32, name, 
 	return pers, total, nil
 }
 
-func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int32) error {
+func (r *roleRepo) PermissionDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
 			if err := tx.Unscoped().Where("id = ?", id).Delete(&model.Permission{}).Error; err != nil {
@@ -67,7 +67,7 @@ func (r *UserRepo) PermissionDelete(ctx context.Context, ids []int32) error {
 	})
 }
 
-func (r *UserRepo) PermissionEdit(ctx context.Context, id int32, name, code string) error {
+func (r *roleRepo) PermissionEdit(ctx context.Context, id int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var per model.Permission
 		if err := tx.Clauses(clause.Locking{

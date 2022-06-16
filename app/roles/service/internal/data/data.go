@@ -8,9 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
-var _ biz.RolesRepo = (*UserRepo)(nil)
+var _ biz.RolesRepo = (*roleRepo)(nil)
 
-type UserRepo struct {
+type roleRepo struct {
 	data *Data
 	log  *log.Helper
 }
@@ -23,10 +23,10 @@ type Data struct {
 }
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDB, NewRd, NewUserRepo)
+var ProviderSet = wire.NewSet(NewData, NewDB, NewRd, NewroleRepo)
 
-func NewUserRepo(data *Data, logger log.Logger) biz.RolesRepo {
-	return &UserRepo{
+func NewroleRepo(data *Data, logger log.Logger) biz.RolesRepo {
+	return &roleRepo{
 		data: data,
 		log:  log.NewHelper(log.With(logger, "module", "data/user")),
 	}

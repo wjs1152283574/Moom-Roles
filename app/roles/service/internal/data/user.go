@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func (r *UserRepo) CreateUser(ctx context.Context, data []model.User) error {
+func (r *roleRepo) CreateUser(ctx context.Context, data []model.User) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range data {
 			err := tx.Create(&v).Error
@@ -24,7 +24,7 @@ func (r *UserRepo) CreateUser(ctx context.Context, data []model.User) error {
 	})
 }
 
-func (r *UserRepo) CheckUser(ctx context.Context, name string) (model.User, error) {
+func (r *roleRepo) CheckUser(ctx context.Context, name string) (model.User, error) {
 	var user model.User
 	if err := r.data.db.Table(model.UserTableName).Where("name = ?", name).First(&user).Error; err != nil {
 		return user, errors.ErrUserNotExit(err)
@@ -33,7 +33,7 @@ func (r *UserRepo) CheckUser(ctx context.Context, name string) (model.User, erro
 	return user, nil
 }
 
-func (r *UserRepo) CheckUserByID(ctx context.Context, uid int64) (model.User, error) {
+func (r *roleRepo) CheckUserByID(ctx context.Context, uid int64) (model.User, error) {
 	var user model.User
 	if err := r.data.db.Table(model.UserTableName).Where("id = ?", uid).First(&user).Error; err != nil {
 		return user, errors.ErrUserNotExit(err)
@@ -42,7 +42,7 @@ func (r *UserRepo) CheckUserByID(ctx context.Context, uid int64) (model.User, er
 	return user, nil
 }
 
-func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error) {
+func (r *roleRepo) UserList(ctx context.Context, name, cname string, page, limit int32, typ, status []int32) ([]model.User, int64, error) {
 	var users []model.User
 	var total int64
 	tx := r.data.db.Table(model.UserTableName)
@@ -77,7 +77,7 @@ func (r *UserRepo) UserList(ctx context.Context, name, cname string, page, limit
 }
 
 // 获取用户基本信息
-func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int32) (model.User, error) {
+func (r *roleRepo) UserBaseInfos(ctx context.Context, uid int32) (model.User, error) {
 	var user model.User
 	user.ID = uint(uid)
 	err := r.data.db.First(&user).Error
@@ -89,7 +89,7 @@ func (r *UserRepo) UserBaseInfos(ctx context.Context, uid int32) (model.User, er
 }
 
 // 获取用户角色列表
-func (r *UserRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, error) {
+func (r *roleRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, error) {
 	var role []model.Role
 	userRoleSql := r.data.db.Model(&model.UserRole{}).Where("user = ?", uid).Select("`role`")
 	err := r.data.db.Model(&model.Role{}).Where("id in ( ? )", userRoleSql).Scan(&role).Error
@@ -101,7 +101,7 @@ func (r *UserRepo) UserRoleList(ctx context.Context, uid int32) ([]model.Role, e
 }
 
 // 获取用户权限列表
-func (r *UserRepo) UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error) {
+func (r *roleRepo) UserPermissionList(ctx context.Context, uid int32) ([]model.Permission, error) {
 	var permissions []model.Permission
 	userPermissionSql := r.data.db.Model(&model.UserPermission{}).Where("user = ?", uid).Select("`permission`")
 	err := r.data.db.Model(&model.Permission{}).Where("id in ( ? )", userPermissionSql).Scan(&permissions).Error
@@ -113,7 +113,7 @@ func (r *UserRepo) UserPermissionList(ctx context.Context, uid int32) ([]model.P
 }
 
 // 编辑用户基本信息
-func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
+func (r *roleRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 	err := r.data.db.Updates(&user).Error
 	if err != nil {
 		return errors.ErrSystemBusy(err)
@@ -122,7 +122,7 @@ func (r *UserRepo) UserBaseEdit(ctx context.Context, user model.User) error {
 	return nil
 }
 
-func (r *UserRepo) UserDelete(ctx context.Context, ids []int32) error {
+func (r *roleRepo) UserDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
 			var user model.User
@@ -146,7 +146,7 @@ func (r *UserRepo) UserDelete(ctx context.Context, ids []int32) error {
 	})
 }
 
-func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) error {
+func (r *roleRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range role {
 			var r model.Role
@@ -162,7 +162,7 @@ func (r *UserRepo) SetRolesDelete(ctx context.Context, uid int32, role []int32) 
 	})
 }
 
-func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error {
+func (r *roleRepo) SetPermissionDelete(ctx context.Context, uid int32, permission []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range permission {
 			var r model.Permission
@@ -179,7 +179,7 @@ func (r *UserRepo) SetPermissionDelete(ctx context.Context, uid int32, permissio
 }
 
 // 设置用户角色
-func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32) error {
+func (r *roleRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range rid {
 			var r model.Role
@@ -201,7 +201,7 @@ func (r *UserRepo) SetRoles(ctx context.Context, uid, creator int32, rid []int32
 	})
 }
 
-func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error {
+func (r *roleRepo) SetPermissions(ctx context.Context, uid, creator int32, pid []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, v := range pid {
 			var r model.Permission
@@ -223,7 +223,7 @@ func (r *UserRepo) SetPermissions(ctx context.Context, uid, creator int32, pid [
 	})
 }
 
-func (r *UserRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
+func (r *roleRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
 	var user model.User
 	if err := r.data.db.Where("id = ?", uid).First(&user).Error; err != nil {
 		return
@@ -237,7 +237,7 @@ func (r *UserRepo) IsSuperUser(ctx context.Context, uid int64) (result bool) {
 }
 
 // 更新用户状态:1-正常 2-冻结
-func (r *UserRepo) UpdateUserStatus(ctx context.Context, uid, status int64) error {
+func (r *roleRepo) UpdateUserStatus(ctx context.Context, uid, status int64) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var user model.User
 		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where("id = ?", uid).First(&user).Error

@@ -25,7 +25,7 @@ func NewRd(conf *conf.Data, logger log.Logger) *redis.Client {
 	return redis.NewClient(&opts)
 }
 
-func (r *UserRepo) RedisSet(ctx context.Context, key, val string, ttl int32) error {
+func (r *roleRepo) RedisSet(ctx context.Context, key, val string, ttl int32) error {
 	if err := r.data.rd.Set(ctx, key, val, time.Duration(ttl)).Err(); err != nil {
 		return errors.ErrSystemBusy(err)
 	}

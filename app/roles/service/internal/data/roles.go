@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func (r *UserRepo) RoleCreate(ctx context.Context, creator int32, name, code string) error {
+func (r *roleRepo) RoleCreate(ctx context.Context, creator int32, name, code string) error {
 	var role model.Role
 	role.Name = name
 	role.Code = code
@@ -23,7 +23,7 @@ func (r *UserRepo) RoleCreate(ctx context.Context, creator int32, name, code str
 	return nil
 }
 
-func (r *UserRepo) RoleList(ctx context.Context, page, limit int32, name, code string) ([]model.Role, int64, error) {
+func (r *roleRepo) RoleList(ctx context.Context, page, limit int32, name, code string) ([]model.Role, int64, error) {
 	var roles []model.Role
 	var total int64
 	tx := r.data.db.Table(model.RoleTableName)
@@ -48,7 +48,7 @@ func (r *UserRepo) RoleList(ctx context.Context, page, limit int32, name, code s
 	return roles, total, nil
 }
 
-func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
+func (r *roleRepo) RoleDelete(ctx context.Context, ids []int32) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		for _, id := range ids {
 			if err := tx.Unscoped().Where("id = ?", id).Delete(&model.Role{}).Error; err != nil {
@@ -66,7 +66,7 @@ func (r *UserRepo) RoleDelete(ctx context.Context, ids []int32) error {
 	})
 }
 
-func (r *UserRepo) RoleEdit(ctx context.Context, id int32, name, code string) error {
+func (r *roleRepo) RoleEdit(ctx context.Context, id int32, name, code string) error {
 	return r.data.db.Transaction(func(tx *gorm.DB) error {
 		var role model.Role
 		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where("id = ?", id).First(&role).Error

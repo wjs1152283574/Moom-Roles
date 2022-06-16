@@ -95,7 +95,7 @@ run:
 .PHONY: wire
 # wire
 wire:
-	cd app/${app}/service/cmd/server && wire && cd .. && cd ..
+	cd app/roles/service/cmd/server && wire && cd .. && cd ..
 
 .PHONY: mod
 # mod
