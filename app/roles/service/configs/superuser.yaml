@@ -1,0 +1,5 @@
+super_user:
+    - name: "admin"
+      pass: "wjs123456"
+    - name: "admin2"
+      pass: "wjs123456"

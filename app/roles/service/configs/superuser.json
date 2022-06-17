@@ -1,8 +1,0 @@
-{
-    "super_user":[
-        {
-            "name":"admin",
-            "pass":"admin123456"
-        }
-    ]
-}
