@@ -240,16 +240,39 @@ service Roles {
     };
     // 验证用户权限
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse){
-        
+        option (google.api.http) = {
+            post: "/permission/check",
+            body: "*"
+        };
     };
     // 验证路由可访问角色--token
-    rpc CheckRouteRoleByToken (CheckRouteRoleByTokenRequest) returns (CheckRouteRoleByTokenResponse);
+    rpc CheckRouteRoleByToken (CheckRouteRoleByTokenRequest) returns (CheckRouteRoleByTokenResponse){
+        option (google.api.http) = {
+            post: "/role/check/token",
+            body: "*"
+        };
+    };
     // 验证路由可访问角色--id
-    rpc CheckRouteRoleByID (CheckRouteRoleByIDRequest) returns (CheckRouteRoleByIDResponse);
+    rpc CheckRouteRoleByID (CheckRouteRoleByIDRequest) returns (CheckRouteRoleByIDResponse){
+        option (google.api.http) = {
+            post: "/role/check/id",
+            body: "*"
+        };
+    };
     // 验证路由可访问权限--token
-    rpc CheckRoutePermissionByToken (CheckRoutePermissionByTokenRequest) returns (CheckRoutePermissionByTokenResponse);
+    rpc CheckRoutePermissionByToken (CheckRoutePermissionByTokenRequest) returns (CheckRoutePermissionByTokenResponse){
+        option (google.api.http) = {
+            post: "/permission/check/token",
+            body: "*"
+        };
+    };
     // 验证路由可访问权限--id
-    rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse);
+    rpc CheckRoutePermissionByID (CheckRoutePermissionByIDRequest) returns (CheckRoutePermissionByIDResponse){
+        option (google.api.http) = {
+            post: "/permission/check/id",
+            body: "*"
+        };
+    };
 }
 
 message AdminUserUnLockRequest {
