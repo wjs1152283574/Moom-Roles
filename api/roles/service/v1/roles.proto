@@ -232,9 +232,16 @@ service Roles {
     // *******  你的系统鉴权RPC接口  **********
     
     // 验证用户角色
-    rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse);
+    rpc CheckRole (CheckRoleRequest) returns (CheckRoleResponse){
+        option (google.api.http) = {
+            post: "/role/check",
+            body: "*"
+        };
+    };
     // 验证用户权限
-    rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse);
+    rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse){
+        
+    };
     // 验证路由可访问角色--token
     rpc CheckRouteRoleByToken (CheckRouteRoleByTokenRequest) returns (CheckRouteRoleByTokenResponse);
     // 验证路由可访问角色--id

@@ -6,9 +6,12 @@
     * `make run` // 运行服务
 * DIY打包
     * `make build` // 打包资源
-* 文档
+* API文档
     * `make api` // 生成api资源
     * `/api/roles/service/v1` 下生成 `roles.swagger.json` 可直接导入`ApiFox`等工具
+* 服务内使用
+    * `RPC` : `/api/roles/service/v1` 下可生成对应 `client`，默认支持`Golang Client`
+    * `HTTP` : 同时支持`http`协议请求鉴权接口，可在`app/roles/service/conf` 配置是否支持`HTTP`
 
 #### 目标
 * 目标：包装后台管理项目用户管理/权限管理/角色管理/路由与角色与权限关联管理等功能，开发管理后台只需关心自己系统本身业务即可。
