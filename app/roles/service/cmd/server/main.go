@@ -17,7 +17,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name = "casso.shop.service"
+	Name = "moom-roles.service"
 	// Version is the version of the compiled software.
 	Version = "v1"
 	// flagconf is the config flag.
