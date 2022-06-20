@@ -3,3 +3,4 @@ global:
     token_ttl: 3600
     token_screct: IT-MOOM
     issuer: IT-MOOM
+    http: true

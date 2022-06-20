@@ -6,3 +6,12 @@ var NotneedAuth = []string{
 	"/captcha",
 	"/login",
 }
+
+var HttpCheck = []string{
+	"/role/check",
+	"/permission/check",
+	"/role/check/token",
+	"/role/check/id",
+	"/permission/check/token",
+	"/permission/check/id",
+}

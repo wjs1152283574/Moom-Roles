@@ -62,6 +62,10 @@ func AuthMiddleware(handler middleware.Handler) middleware.Handler {
 	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 		if tr, ok := transport.FromServerContext(ctx); ok {
 			ht, _ := tr.(*http.Transport)
+			if !conf.GB.Global.Http && tool.InSlice(HttpCheck, ht.Request().URL.Path) {
+				return nil, errors.ErrNotAllow()
+			}
+
 			if !tool.InSlice(NotneedAuth, ht.Request().URL.Path) {
 				tokenStr := strings.Split(ht.RequestHeader().Get("Authorization"), " ")
 				if len(tokenStr) > 1 { // 存在token，解析

@@ -18,4 +18,5 @@ type Globals struct {
 	TokenTtl    int64  `json:"token_ttl"`    // token 有效时间 秒
 	TokenScrect string `json:"token_screct"` // 密钥
 	Issuer      string `json:"issuer"`       // 颁发机构
+	Http        bool   `json:"http"`         // 是否支持http接口鉴权
 }
