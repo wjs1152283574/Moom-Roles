@@ -22,13 +22,13 @@ func (r *RolesUseCase) RouteCreate(ctx context.Context, req *v1.RouteCreateReque
 }
 
 func (r *RolesUseCase) RouteList(ctx context.Context, req *v1.RouteListRequest) (*v1.RouteListResponse, error) {
-	list, total, err := r.repo.RouteList(ctx, req.Page, req.Limit, req.Method, req.Url)
+	routeList, total, err := r.repo.RouteList(ctx, req.Page, req.Limit, req.Method, req.Url)
 	if err != nil {
 		return &v1.RouteListResponse{}, err
 	}
 
 	var List []*v1.RouteListResponse_RouteListItem
-	for _, v := range list {
+	for _, v := range routeList {
 		List = append(List, &v1.RouteListResponse_RouteListItem{
 			Id:     int32(v.ID),
 			Url:    v.URL,
