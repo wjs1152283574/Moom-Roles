@@ -14,7 +14,7 @@ func (r *roleRepo) CheckRole(ctx context.Context, uid int32, code string) error 
 	}
 
 	var userRole model.UserRole
-	if err := r.data.db.Table(model.UserRoleTablename).Where("user = ? and role = ?", uid, role.ID).First(&userRole); err != nil {
+	if err := r.data.db.Table(model.UserRoleTablename).Where("user = ? and `role` = ?", uid, role.ID).First(&userRole); err != nil {
 		return errors.ErrPermissionDeni(err)
 	}
 
