@@ -11,7 +11,7 @@ import (
 )
 
 func NewDB(conf *conf.Data, logger log.Logger) *gorm.DB {
-	log := log.NewHelper(log.With(logger, "module", "user-service/data/gorm"))
+	log := log.NewHelper(log.With(logger, "module", "roles-service/data/gorm"))
 	db, err := gorm.Open(mysql.Open(conf.Database.Source), &gorm.Config{})
 
 	if err != nil {
