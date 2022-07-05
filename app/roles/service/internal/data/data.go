@@ -28,13 +28,13 @@ var ProviderSet = wire.NewSet(NewData, NewDB, NewRd, NewroleRepo)
 func NewroleRepo(data *Data, logger log.Logger) biz.RolesRepo {
 	return &roleRepo{
 		data: data,
-		log:  log.NewHelper(log.With(logger, "module", "data/user")),
+		log:  log.NewHelper(log.With(logger, "module", "data/roles")),
 	}
 }
 
 // NewData .
 func NewData(db *gorm.DB, rd *redis.Client, logger log.Logger) (*Data, func(), error) {
-	log := log.NewHelper(log.With(logger, "module", "user-service/data"))
+	log := log.NewHelper(log.With(logger, "module", "roles-service/data"))
 
 	d := &Data{
 		rd:  rd,
